@@ -1,1 +1,9 @@
-key: value
+LGBMClassifier:
+  subsample: 1.0
+  reg_lambda: 10
+  reg_alpha: 1
+  num_leaves: 50
+  n_estimators: 100
+  max_depth: 10
+  learning_rate: 0.05
+  colsample_bytree: 1.0

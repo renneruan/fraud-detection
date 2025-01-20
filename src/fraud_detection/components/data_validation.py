@@ -1,4 +1,3 @@
-import os
 from fraud_detection.entity.config_entity import DataValidationConfig
 import datetime
 import pandas as pd

@@ -4,8 +4,7 @@ from fraud_detection.entity.config_entity import (
     # DataIngestionConfig,
     DataTransformationConfig,
     DataValidationConfig,
-    # DataTransformationConfig,
-    # ModelTrainerConfig,
+    ModelTrainerConfig,
     # ModelEvaluationConfig,
 )
 
@@ -51,24 +50,33 @@ class ConfigurationManager:
 
         return data_transformation_config
 
-    # def get_model_trainer_config(self) -> ModelTrainerConfig:
-    #     config = self.config.model_trainer
-    #     params = self.params.ElasticNet
-    #     schema = self.schema.TARGET_COLUMN
+    def get_model_trainer_config(self) -> ModelTrainerConfig:
+        config = self.config.model_trainer
+        params = self.params.LGBMClassifier
+        schema = self.schema.TARGET_COLUMN
 
-    #     create_directories([config.root_dir])
+        create_directories([config.model_target_dir])
 
-    #     model_trainer_config = ModelTrainerConfig(
-    #         root_dir=config.root_dir,
-    #         train_data_path=config.train_data_path,
-    #         test_data_path=config.test_data_path,
-    #         model_name=config.model_name,
-    #         alpha=params.alpha,
-    #         l1_ratio=params.l1_ratio,
-    #         target_column=schema.name,
-    #     )
+        # {'subsample': 1.0, 'reg_lambda': 10, 'reg_alpha': 1, 'num_leaves': 50, 'n_estimators': 100, 'max_depth': 10, 'learning_rate': 0.05, 'colsample_bytree': 1.0
+        model_trainer_config = ModelTrainerConfig(
+            model_target_dir=config.model_target_dir,
+            train_x_data_path=config.train_x_data_path,
+            test_x_data_path=config.test_x_data_path,
+            train_y_data_path=config.train_y_data_path,
+            test_y_data_path=config.test_y_data_path,
+            model_name=config.model_name,
+            subsample=params.subsample,
+            reg_lambda=params.reg_lambda,
+            reg_alpha=params.reg_alpha,
+            num_leaves=params.num_leaves,
+            n_estimators=params.n_estimators,
+            max_depth=params.max_depth,
+            learning_rate=params.learning_rate,
+            colsample_bytree=params.colsample_bytree,
+            target_column=schema.fraude,
+        )
 
-    #     return model_trainer_config
+        return model_trainer_config
 
     # def get_model_evaluation_config(self) -> ModelEvaluationConfig:
     #     config = self.config.model_evaluation

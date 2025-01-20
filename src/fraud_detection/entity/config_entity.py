@@ -16,15 +16,23 @@ class DataTransformationConfig:
     transformed_data_path: Path
 
 
-# @dataclass(frozen=True)
-# class ModelTrainerConfig:
-#     root_dir: Path
-#     train_data_path: Path
-#     test_data_path: Path
-#     model_name: str
-#     alpha: float
-#     l1_ratio: float
-#     target_column: str
+@dataclass(frozen=True)
+class ModelTrainerConfig:
+    model_target_dir: Path
+    train_x_data_path: Path
+    test_x_data_path: Path
+    train_y_data_path: Path
+    test_y_data_path: Path
+    model_name: str
+    subsample: float
+    reg_lambda: float
+    reg_alpha: float
+    num_leaves: int
+    n_estimators: int
+    max_depth: int
+    learning_rate: float
+    colsample_bytree: float
+    target_column: str
 
 
 # @dataclass(frozen=True)

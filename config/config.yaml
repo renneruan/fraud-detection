@@ -14,11 +14,13 @@ data_transformation:
 
 
 
-# model_trainer:
-#   root_dir: artifacts/model_trainer
-#   train_data_path: artifacts/data_transformation/train.csv
-#   test_data_path: artifacts/data_transformation/test.csv
-#   model_name: model.joblib
+model_trainer:
+  model_target_dir: artifacts/model_output
+  train_x_data_path: artifacts/data_transformation/X_train_transformed.csv
+  test_x_data_path: artifacts/data_transformation/X_test_transformed.csv
+  train_y_data_path: artifacts/data_transformation/y_train.csv
+  test_y_data_path: artifacts/data_transformation/y_test.csv
+  model_name: model.joblib
 
 
 
