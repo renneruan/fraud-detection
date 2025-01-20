@@ -8,9 +8,9 @@ data_validation:
 
 
 
-# data_transformation:
-#   root_dir: artifacts/data_transformation
-#   data_path: artifacts/data_ingestion/winequality-red.csv
+data_transformation:
+  raw_data_path: artifacts/data_ingestion/dados.csv
+  transformed_data_path: artifacts/data_transformation
 
 
 

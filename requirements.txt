@@ -16,4 +16,5 @@ ensure==1.0.2
 # types-PyYAML
 # Flask
 # Flask-Cors
+pycountry_convert
 -e .

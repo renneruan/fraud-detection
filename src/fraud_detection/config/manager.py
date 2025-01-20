@@ -2,6 +2,7 @@ from fraud_detection.constants import *
 from fraud_detection.utils import read_yaml, create_directories
 from fraud_detection.entity.config_entity import (
     # DataIngestionConfig,
+    DataTransformationConfig,
     DataValidationConfig,
     # DataTransformationConfig,
     # ModelTrainerConfig,
@@ -38,17 +39,17 @@ class ConfigurationManager:
 
         return data_validation_config
 
-    # def get_data_transformation_config(self) -> DataTransformationConfig:
-    #     config = self.config.data_transformation
+    def get_data_transformation_config(self) -> DataTransformationConfig:
+        config = self.config.data_transformation
 
-    #     create_directories([config.root_dir])
+        create_directories([config.transformed_data_path])
 
-    #     data_transformation_config = DataTransformationConfig(
-    #         root_dir=config.root_dir,
-    #         data_path=config.data_path,
-    #     )
+        data_transformation_config = DataTransformationConfig(
+            transformed_data_path=config.transformed_data_path,
+            raw_data_path=config.raw_data_path,
+        )
 
-    #     return data_transformation_config
+        return data_transformation_config
 
     # def get_model_trainer_config(self) -> ModelTrainerConfig:
     #     config = self.config.model_trainer
