@@ -1,4 +1,4 @@
-FROM 3.11.11-slim-bullseye
+FROM python:3.11.11-slim-bullseye
 
 RUN apt update -y && apt install awscli -y
 WORKDIR /app
