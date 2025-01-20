@@ -1,11 +1,12 @@
+from dotenv import load_dotenv
+import os
 from fraud_detection.constants import *
 from fraud_detection.utils import read_yaml, create_directories
 from fraud_detection.entity.config_entity import (
-    # DataIngestionConfig,
     DataTransformationConfig,
     DataValidationConfig,
     ModelTrainerConfig,
-    # ModelEvaluationConfig,
+    ModelEvaluationConfig,
 )
 
 
@@ -78,21 +79,24 @@ class ConfigurationManager:
 
         return model_trainer_config
 
-    # def get_model_evaluation_config(self) -> ModelEvaluationConfig:
-    #     config = self.config.model_evaluation
-    #     params = self.params.ElasticNet
-    #     schema = self.schema.TARGET_COLUMN
+    def get_model_evaluation_config(self) -> ModelEvaluationConfig:
+        config = self.config.model_evaluation
+        params = self.params.LGBMClassifier
+        schema = self.schema.TARGET_COLUMN
 
-    #     create_directories([config.root_dir])
+        create_directories([config.model_results_dir])
 
-    #     model_evaluation_config = ModelEvaluationConfig(
-    #         root_dir=config.root_dir,
-    #         test_data_path=config.test_data_path,
-    #         model_path=config.model_path,
-    #         all_params=params,
-    #         metric_file_name=config.metric_file_name,
-    #         target_column=schema.name,
-    #         mlflow_uri="https://dagshub.com/entbappy/End-to-end-Machine-Learning-Project-with-MLflow.mlflow",
-    #     )
+        load_dotenv()
 
-    #     return model_evaluation_config
+        model_evaluation_config = ModelEvaluationConfig(
+            model_results_dir=config.model_results_dir,
+            test_x_data_path=config.test_x_data_path,
+            test_y_data_path=config.test_y_data_path,
+            model_path=config.model_path,
+            all_params=params,
+            metric_file_name=config.metric_file_name,
+            target_column=schema.fraude,
+            mlflow_uri=os.getenv("MLFLOW_TRACKING_URI"),
+        )
+
+        return model_evaluation_config

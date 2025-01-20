@@ -4,3 +4,4 @@ artifacts/
 *.pyo
 *.egg
 *.egg-info
+.env

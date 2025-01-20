@@ -7,14 +7,16 @@ lightgbm
 pycountry
 seaborn
 # notebook
-# mlflow==2.2.2
+mlflow==2.2.2
 python-box==6.0.2
 # pyYAML
 # tqdm
 ensure==1.0.2
-# joblib
+joblib
 # types-PyYAML
 # Flask
 # Flask-Cors
 pycountry_convert
+python-dotenv
+dotenv-cli
 -e .
