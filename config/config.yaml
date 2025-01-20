@@ -28,7 +28,7 @@ model_evaluation:
   model_results_dir: artifacts/model_evaluation
   test_x_data_path: artifacts/data_transformation/X_test_transformed.csv
   test_y_data_path: artifacts/data_transformation/y_test.csv
-  model_path: artifacts/model_trainer/model.joblib
+  model_path: artifacts/model_output/model.joblib
   metric_file_name: artifacts/model_evaluation/metrics.json
 
 

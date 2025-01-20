@@ -7,7 +7,7 @@ lightgbm
 pycountry
 seaborn
 # notebook
-mlflow==2.2.2
+mlflow
 python-box==6.0.2
 # pyYAML
 # tqdm
@@ -19,4 +19,5 @@ joblib
 pycountry_convert
 python-dotenv
 dotenv-cli
+pylint
 -e .
