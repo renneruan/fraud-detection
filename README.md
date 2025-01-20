@@ -1,5 +1,3 @@
-# Detecção de Fraudes em Compras de Cartão
-
 ![transacoes_fraudulentas](https://github.com/user-attachments/assets/504a34de-8554-4e29-a485-df07fe1cf2ee)
 
 ## Overview
