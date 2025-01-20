@@ -1,0 +1,24 @@
+COLUMNS:
+  score_1: int64  
+  score_2: float64
+  score_3: float64
+  score_4: float64
+  score_5: float64
+  score_6: float64
+  pais: object 
+  score_7: int64  
+  produto: object 
+  categoria_produto: object 
+  score_8: float64
+  score_9: float64
+  score_10: float64
+  entrega_doc_1: int64  
+  entrega_doc_2: object 
+  entrega_doc_3: object 
+  data_compra: object 
+  valor_compra: float64
+  score_fraude_modelo: int64 
+  fraude: int64 
+
+TARGET_COLUMN:
+  fraude: int64 
