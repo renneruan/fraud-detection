@@ -1,5 +1,6 @@
-# Detecção de Fraudes em compras de cartão de crédito
-Case de detecção de fraude em cartões, aplicando técnicas e práticas de Ciência de Dados, Machine Learning e MLOps
+# Detecção de Fraudes em Compras de Cartão
+
+![transacoes_fraudulentas](https://github.com/user-attachments/assets/504a34de-8554-4e29-a485-df07fe1cf2ee)
 
 ## Overview
 Este projeto tem como objetivo analisarmos como transações fraudulentas podem ser identificas em dados de compra de cartão de crédito. Iremos aplicar técnicas de análise estatística de dados, realizar a limpeza e pré-processamento e aplicá-los a um modelo de Machine Learning. O modelo treinado será comparado com o modelo base fornecido na amostra de dados, queremos verificar em como as métricas de negócio se alteram e se conseguimos mapear o perfil das transações fraudulentas.
