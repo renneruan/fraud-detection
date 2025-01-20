@@ -1,2 +1,6 @@
 data/
 artifacts/
+*.pyc
+*.pyo
+*.egg
+*.egg-info
