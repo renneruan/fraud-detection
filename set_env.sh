@@ -1,5 +1,9 @@
 #!/bin/bash
 
 set -a
-dotenv -f .env list
+
+if [ -f .env ]; then
+  export $(grep -v '^#' .env | xargs)
+fi
+
 set +a
