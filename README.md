@@ -189,6 +189,16 @@ Foi criado um pipeline de treinamento contendo as etapas de:
 
 Onde os códigos realizados em forma de rascunho nos notebooks foram repassados para os arquivos python (presentes na pasta `src/fraud-detection/components`) tornando a execução do treino do modelo muito mais fácil. O pipeline conta com uma estratégia de log, onde podemos verificar os erros e saídas de execução do treinamento.
 
+Temos uma descrição das pastas necessárias para a execução do pipeline:
+```
+src/fraud-detection/ -> Pasta geral do projeto de pipeline
+src/fraud-detection/pipeline/ -> Arquivos que conectam as configurações com os modulos do pipeline
+src/fraud-detection/components/ -> Armazenam os módulos principais do pipeline
+src/fraud-detection/constants/ -> Armazenam informações constantes a serem utilizadas nos módulos
+src/fraud-detection/entity/ -> Arquivos que designam a estrutura das configurações 
+src/fraud-detection/config/ -> Configurações a serem repassadas para os módulos 
+```
+
 Para a execução do pipeline de treinamento, após a instalação dos pacotes necessários, basta executarmos:
 
 ```
