@@ -1,15 +1,11 @@
 FROM python:3.11-slim
 
-RUN apt update -y && apt install awscli -y \
-    && rm -rf /var/lib/apt/lists/* \
-    && apt-get clean
-    
+RUN apt update -y && apt install awscli -y
 WORKDIR /app
 
 COPY . /app
 
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install -r requirements.txt
+RUN chmod +x set_env.sh && ./set_env.sh
 
-RUN pip cache purge
-    
 CMD ["python", "app.py"]
