@@ -6,15 +6,15 @@ Este projeto tem como objetivo analisarmos como transações fraudulentas podem 
 Além da criação das análises e treinamento de modelo utilizando notebooks Jupyter, modularizamos os códigos de pré processamento e treinamento, criando um pipeline para a validação dos dados, construção e avaliação do modelo, salvando o artefato final possibilitando o monitoramento e a aplicabilidade do classificador a um ambiente de produção. 
 
 Sumário:
-1. Entendimento do Negócio
-2. Considerações da Análise Estatística
-3. Pré-processamento realizado
-4. Avaliação do Modelo Criado
-5. Estrutura do Projeto e Tecnologias
-6. Pipeline de Treinamento
-7. Impacto nas métricas do negócio
-8. Conclusão e possibilidades de melhoria
-
+- [Overview](#overview)
+- [1. Entendimento do Negócio](#1-entendimento-do-negócio)
+- [2. Considerações da Análise Estatística](#2-considerações-da-análise-estatística)
+- [3. Pré-processamento realizado](#3-pré-processamento-realizado)
+- [4. Avaliação do modelo criado](#4-avaliação-do-modelo-criado)
+- [5. Estrutura do projeto e tecnologias](#5-estrutura-do-projeto-e-tecnologias)
+- [6. Pipeline de Treinamento](#6-pipeline-de-treinamento)
+- [7. Impacto nas métricas de negócio](#7-impacto-nas-métricas-de-negócio)
+- [8. Conclusão e possibilidades de melhoria](#8-conclusão-e-possibilidades-de-melhoria)
 ## 1. Entendimento do Negócio
 
 O uso crescente de cartões de crédito no Brasil em paralelo com a popularidade de lojas online e benefícios associados, trás muitas facilidades ao dia a dia do consumidor, porém trazendo riscos associados como por exemplo a exposição a tentativas de fraudes de cartão. Em 2023, ocorreram 3,7 milhões de tentativas de fraude, totalizando R$ 3,5 bilhões em prejuízos. Isso destaca a importância de melhorias em sistemas de detecção de fraudes, adicionando e refinando o uso de Inteligência Artificial e Machine Learning visando garantir maior segurança nas transações. Neste projeto iremos tomar o papel de um Cientista de Dados relativo a uma empresa financeira de cartões de crédito, a partir de uma amostra vamos analisar o perfil dos dados e verificar possíveis melhorias ao modelo de detecção atual.
@@ -207,7 +207,7 @@ python main.py
 
 O pipeline será executado, e os logs serão salvos na pasta `logs/`. Todas as saídas das etapas, como por exemplo dados transformados, modelo treinado e resultados de métricas serão salvos na pasta `artifacts/`. Por conterem informações sensíveis, elas não estarão presente neste repositório.
 
-## 7. Impacto das métricas de negócio
+## 7. Impacto nas métricas de negócio
 
 | Métrica                                | Modelo Novo       | Modelo Antigo      | Diferença          |
 |----------------------------------------|-------------------|--------------------|--------------------|
@@ -224,7 +224,7 @@ O pipeline será executado, e os logs serão salvos na pasta `logs/`. Todas as s
 
 Temos um ganho financeiro com a adoção do modelo utilizado, o qual assume um comportamento mais arriscado no que tange a permitir que mais transações sejam realizadas, ou seja, mais aprovações, reduzindo a taxa de declínio. O modelo é um promissor candidato para ser utilizado como o classificador de fraudes da empresa. Os dados utilizados para a criação do mesmo são de compras entre 08/03/2020 e 21/04/2020, referentes a aproximadamente 1 mês.
 
-## 8. Conclusão e melhorias
+## 8. Conclusão e possibilidades de melhoria
 
 Com o novo modelo, houve um aumento da receita gerada em R$ 6.754,69, com o comportamento se tornado mais arriscado ao reduzir o limiar de 72 para 65 porém resultando em maior precisão (+7,04%), mas uma redução na revocação (-19,54%).
 
