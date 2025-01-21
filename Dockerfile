@@ -1,11 +1,14 @@
-FROM python:3.11-alpine
+FROM python:3.11-slim
 
-RUN apt update -y && apt install awscli -y
+RUN apt update -y && apt install awscli -y \
+    && rm -rf /var/lib/apt/lists/* \
+    && apt-get clean
+    
 WORKDIR /app
 
 COPY . /app
 
-RUN pip install -r requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
 
 RUN pip cache purge
     

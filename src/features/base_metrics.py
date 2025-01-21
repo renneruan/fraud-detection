@@ -136,7 +136,7 @@ class BaseMetrics:
         best_threshold = self.__check_best_threshold()
 
         approved_count = self.data.loc[
-            self.data["score_fraude_modelo"] < best_threshold
+            self.data[self.score_column] < best_threshold
         ].shape[0]
         approval_rate = (approved_count / self.data.shape[0]) * 100
         print(f"Taxa de aprovação total é de {approval_rate:.2f}%")
@@ -152,7 +152,7 @@ class BaseMetrics:
         best_threshold = self.__check_best_threshold()
 
         declined_count = self.data.loc[
-            self.data["score_fraude_modelo"] > best_threshold
+            self.data[self.score_column] > best_threshold
         ].shape[0]
         decline_rate = (declined_count / self.data.shape[0]) * 100
         print(f"Taxa de declínio total é de {decline_rate:.2f}%")
@@ -197,7 +197,7 @@ class BaseMetrics:
         fn = accepted_sales.loc[(self.data[self.fraud_column] == 1)].shape[0]
 
         precision = vp / (vp + fn) * 100
-        print(f"A precisão do modelo é de {precision:.2f}%")
+        print(f"A revocação do modelo é de {precision:.2f}%")
 
         return precision
 

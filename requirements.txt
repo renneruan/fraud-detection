@@ -6,16 +6,11 @@ xgboost
 lightgbm
 pycountry
 seaborn
-# notebook
+tabulate
 mlflow
 python-box==6.0.2
-# pyYAML
-# tqdm
 ensure==1.0.2
 joblib
-# types-PyYAML
-# Flask
-# Flask-Cors
 pycountry_convert
 python-dotenv
 dotenv-cli
