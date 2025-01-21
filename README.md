@@ -207,6 +207,8 @@ python main.py
 
 O pipeline será executado, e os logs serão salvos na pasta `logs/`. Todas as saídas das etapas, como por exemplo dados transformados, modelo treinado e resultados de métricas serão salvos na pasta `artifacts/`. Por conterem informações sensíveis, elas não estarão presente neste repositório.
 
+OBS: Os dados necessários devem estar presentes na pasta `artifacts/data_ingestion/`.
+
 ## 7. Impacto nas métricas de negócio
 
 | Métrica                                | Modelo Novo       | Modelo Antigo      | Diferença          |
