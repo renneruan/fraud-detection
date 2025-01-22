@@ -92,90 +92,84 @@ Vemos no gráfico a seguir como o novo modelo (curva azul) para os casos de frau
 
 Além os estudos em protótipo realizados no notebook, para este projeto os códigos foram repassados para módulos python visando a criação de um pipeline de treinamento e predição, de forma que o modelo pudesse ser aplicado em ambiente de produção. Esta informação é necessária para visualizarmos melhor a estrutura de projetos, mas será melhor explicada na seção 6 deste README.
 
-A estrutura do projeto foi organizada da seguinte forma:
+A seguir temos a estrutura dos arquivos do projeto, alguns arquivos como imagens e `__init__.py` foram ocultados para melhor visualização dos módulos principais.:
 ```
-├── .github/
-│ └── workflows/ 
+├── .github
+│ └── workflows
 │ | └── main.yaml  
-├── README.md 
-├── requirements.txt
-├── .env
-├── artifacts/
-├── assets/
-├── config/
+├── artifacts
+├── config
 │ ├── config.yaml 
 │ ├── params.yaml 
 │ └── schema.yaml 
-├── logs/
-│ └── running_logs.log 
-├── reports/
-│ └── figures/
-│ │ └── model_output.png 
-├── notebooks/ 
+├── logs
+├── reports
+│ └── figures
+├── notebooks 
 │ ├── 1-business-undestanding.ipynb 
 │ ├── 2-eda.ipynb 
 │ └── 3-modeling.ipynb 
-├── src/
-│ ├── init.py 
-│ ├── features/
-│ | ├── __init__.py 
-│ │ └── base_metrics.py 
-│ ├── fraud_detection/
-│ │ ├── components/
-│ | | ├── __init__.py 
+├── src
+│ ├── fraud_detection
+│ │ ├── components
 │ | | ├── data_transformation.py 
 │ | | ├── data_validation.py 
 │ | | ├── model_evaluation.py 
 │ │ | └── model_trainer.py 
-│ │ ├── config 
-│ | | ├── __init__.py 
+│ │ ├── config
 │ │ | └── manager.py 
 │ │ ├── constants
-│ │ | └── __init__.py 
 │ │ ├── entity
-│ | | ├── __init__.py 
 │ │ | └── config_entity.py 
 │ │ ├── pipeline
-│ | | ├── __init__.py 
 │ | | ├── prediction.py 
 │ | | ├── stage_01_data_validation.py 
 │ | | ├── stage_02_data_transformation.py 
 │ │ | ├── stage_03_model_trainer.py 
 │ │ | └── stage_04_model_evaluation.py 
 │ │ ├── utils
-│ │ | └── __init__.py 
-│ │ └── __init__.py 
-├── static/
-│ ├── style.css 
-├── templates/
-│ ├── index.html
+│ │ | ├── base_metrics.py 
+│ │ | └── commons.py
+├── static
+│ ├── css
+│ | └── style.css
+│ └── img
+├── templates
+│ └── index.html
+├── .env
 ├── app.py
 ├── Dockerfile
 ├── main.py
-├── setup.py
+├── README.md 
+├── requirements.txt
+├── set_env.sh
+└── setup.py
 ```
 
-Foi utilizado o gerenciador de pacotes anaconda, utilizando um ambiente virtual, foi utilizado Python 3.11.
+O projeto foi desenvolvido a partir do gerenciador de pacotes Conda, utilizando um ambiente virtual com Python 3.11, o ambiente pode ser criado e ativado com os seguintes comandos:
 
 ```
 conda create -n "fraud-detection" python=3.11 ipython
 
 conda activate fraud-detection
 ```
-Para a instalação dos pacotes utilizados:
+
+Para a instalação dos pacotes utilizados no pipeline:
 ```
 pip install -r requirements.txt
 ```
 
 O arquivo requirements contém as bibliotecas utilizadas como Scikit-learn, pandas, matplotlib e MLflow.
 
-Por fim para a utilização do MLflow, é necessário criar um arquivo `.env` na raiz do projeto contendo as chaves de acesso:
+Por fim para a utilização do MLflow em conjunto com o DagsHub é necessário possuirmos tokens de acesso, estes foram armazenados no arquivo `.env`, presente na raiz do projeto contendo as chaves de acesso:
 
 ```
 MLFLOW_TRACKING_URI=https://dagshub.com/{{ Usuário do Repositório }}/{{ Repositório }}.mlflow
 MLFLOW_TRACKING_USERNAME={{ Seu usuário }}
-MLFLOW_TRACKING_PASSWORD=
+MLFLOW_TRACKING_PASSWORD={{ Seu token }}
 ```
+
+Mais informações quanto a autenticação do MLfLow com o DagsHub: [MLflow Tracking](https://dagshub.com/DagsHub-Official/dagshub-docs/src/main/docs/integration_guide/mlflow_tracking.md)
 
 ## 6. Pipeline de Treinamento
 

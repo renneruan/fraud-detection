@@ -5,7 +5,7 @@ import mlflow
 import mlflow.sklearn
 import joblib
 from fraud_detection.entity.config_entity import ModelEvaluationConfig
-from fraud_detection.utils import save_json
+from fraud_detection.utils.commons import save_json
 from pathlib import Path
 
 

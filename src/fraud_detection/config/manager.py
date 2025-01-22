@@ -1,7 +1,7 @@
 from dotenv import load_dotenv
 import os
 from fraud_detection.constants import *
-from fraud_detection.utils import read_yaml, create_directories
+from fraud_detection.utils.commons import read_yaml, create_directories
 from fraud_detection.entity.config_entity import (
     DataTransformationConfig,
     DataValidationConfig,
