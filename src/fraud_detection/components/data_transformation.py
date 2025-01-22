@@ -1,81 +1,180 @@
+"""
+Este módulo realiza tarefas de transformação de dados para serem aplicados ao
+ modelo de detecção.
+
+Fornece funcionalidades para pré-processar e transformar os dados ao formato
+ adequado. Ele inclui diversos transformadores para lidar com a imputação de
+ valores ausentes, feature engineering e a divisão de conjuntos de dados.
+
+Classes:
+    CustomProcessor: Classe base customizada para criar processadores de
+                     transformação.
+    DropColumn: Remove colunas específicas do conjunto de dados.
+    DocumentsProcessor: Processa colunas de documentos, imputando valores
+                         vazios e convertendo binários em inteiros.
+    CountryProcessor: Transforma a coluna de país para continentes.
+    OneHotEncoderProcessor: Realiza codificação one-hot em colunas categóricas.
+    DateProcessor: Realiza engenharia de features para coluna de data, criando
+                    variáveis como hora e dia da semana.
+    ImputeValuesProcessor: Trata valores ausentes em colunas numéricas.
+    TransformColumns: Aplica transformações matemáticas (log, raiz cúbica).
+    DataTransformation: Encapsula todo o pipeline de transformação de dados,
+                         incluindo a divisão em treino e teste, aplicando
+                         transformações e salvando os dados transformados.
+
+Dependências:
+    - pandas
+    - numpy
+    - sklearn
+    - pycountry_convert
+    - fraud_detection.logger
+    - fraud_detection.entity.config_entity.DataTransformationConfig
+"""
+
 import os
 
 import pandas as pd
 import numpy as np
 from sklearn.pipeline import Pipeline
-from fraud_detection.entity.config_entity import DataTransformationConfig
 from sklearn.base import BaseEstimator, TransformerMixin
 from sklearn.compose import ColumnTransformer
 from sklearn.impute import SimpleImputer
-from fraud_detection import logger
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import TargetEncoder
+
+from fraud_detection import logger
+from fraud_detection.entity.config_entity import DataTransformationConfig
 
 import pycountry_convert as pc
 
 
 class CustomProcessor(BaseEstimator, TransformerMixin):
-    def __init__(self, cols=[]):
-        self.cols = cols
+    """
+    Classe para abstrair processadores base da biblioteca
+    scikit-learn, permite salvar colunas a qual o processador será aplicado.
 
-    def fit(self, X, y=None):
-        return self
+    Args:
+    - cols (list): Lista de colunas a serem processadas.
+    """
+
+    def __init__(self, cols=None):
+        self.cols = [] if cols is None else cols
+
+    # def fit(self):
+    #     return self
 
 
 class DropColumn(CustomProcessor):
+    """Processador para remoção de colunas"""
+
     def transform(self, X):
+        """
+        Remove colunas que foram repassadas na criação do processador
+
+        Args:
+        - X (pd.DataFrame): Conjunto de dados originais.
+
+        Returns:
+        - pd.DataFrame: Dados sem possuir colunas desejadas.
+        """
         return X.drop(self.cols, axis=1)
 
 
 class DocumentsProcessor(CustomProcessor):
-    def transform(self, X):
-        X_new = X.copy()
-        X_new[self.cols] = X_new[self.cols].fillna("N")
-        X_new[self.cols] = (X_new[self.cols] == "Y").astype(int)
+    """Processador direcionado para colunas de documentos"""
 
-        return X_new
+    def transform(self, X):
+        """
+        Trata as colunas de documento, preenchendo valores ausentes com o
+        valor padrão "N" e posteriormente converte os valores para binário.
+
+        Args:
+        - X (pd.DataFrame): Conjunto de dados originais.
+
+        Returns:
+        - pd.DataFrame: Dados com colunas de documentos processadas.
+        """
+
+        documents_cols = ["entrega_doc_1", "entrega_doc_2", "entrega_doc_3"]
+        X_copy = X.copy()
+        X_copy[documents_cols] = X_copy[documents_cols].fillna("N")
+
+        # astype irá converter o tipo da coluna para inteiro (0 ou 1)
+        X_copy[documents_cols] = (X_copy[documents_cols] == "Y").astype(int)
+
+        return X_copy
 
 
 class CountryProcessor(CustomProcessor):
-    def transform(self, X):
-        X_new = X.copy()
-        X_new["pais"] = X_new["pais"].fillna(X_new["pais"].mode()[0])
+    """Processador direcionado para coluna de país"""
 
-        X_new["continente"] = X_new["pais"].apply(
-            lambda x: pc.country_alpha2_to_continent_code(x)
+    def transform(self, X):
+        """
+        Realiza o feature engineering na coluna de informação de país.
+        Transformando a coluna em valores de continente.
+
+        Args:
+        - X (pd.DataFrame): Conjunto de dados originais.
+
+        Returns:
+        - pd.DataFrame: Dados com nova coluna de continente.
+        """
+
+        X_copy = X.copy()
+        # Insere valores ausentes baseado no valor mais frequente
+        X_copy["pais"] = X_copy["pais"].fillna(X_copy["pais"].mode()[0])
+
+        # Utiliza biblioteca pycountry_convert para transformar os códigos
+        # de países em continentes.
+        X_copy["continente"] = X_copy["pais"].apply(
+            pc.country_alpha2_to_continent_code
         )
 
-        X_new = X_new.drop("pais", axis=1)
+        # Remove a coluna de país para evitar duplicidade de informação
+        X_copy = X_copy.drop("pais", axis=1)
 
-        return X_new
+        return X_copy
+
+
+class DateProcessor(CustomProcessor):
+    """Processador direcionado para coluna de data"""
+
+    def transform(self, X):
+        """
+        Realiza o feature engineering para a coluna de data.
+        Cria features de hora da compra e dia da semana.
+
+        Args:
+        - X (pd.DataFrame): Conjunto de dados originais.
+
+        Returns:
+        - pd.DataFrame: Dados com novas colunas.
+        """
+        date_column = "data_compra"
+        X_copy = X.copy()
+        date = pd.to_datetime(X_copy[date_column])
+
+        X_copy["hora_compra"] = date.dt.hour
+        X_copy["dia_compra"] = date.dt.dayofweek
+
+        # Remove coluna de data para evitar informação duplicada
+        # A coluna de data removida também impede que o modelo deprecie
+        # para datas mais recentes sendo inseridas.
+        X_copy = X_copy.drop(date_column, axis=1)
+
+        return X_copy
 
 
 class OneHotEncoderProcessor(CustomProcessor):
     def transform(self, X):
-        X_encoded = pd.get_dummies(X, columns=self.cols, drop_first=True, dtype=int)
+        X_encoded = pd.get_dummies(
+            X, columns=self.cols, drop_first=True, dtype=int
+        )
         return X_encoded
 
 
-class DateProcessor(CustomProcessor):
-    def __init__(self, date_col, hour_col, day_col):
-        self.date_col = date_col
-        self.hour_col = hour_col
-        self.day_col = day_col
-
-    def transform(self, X):
-        X_new = X.copy()
-        date = pd.to_datetime(X_new[self.date_col])
-
-        X_new[self.hour_col] = date.dt.hour
-        X_new[self.day_col] = date.dt.dayofweek
-
-        X_new = X_new.drop(self.date_col, axis=1)
-
-        return X_new
-
-
 class ImputeValuesProcessor(BaseEstimator, TransformerMixin):
-    def __init__(self, discrete_cols=[], continuous_cols=[]):
+    def __init__(self, discrete_cols=None, continuous_cols=None):
         self.discrete_cols = discrete_cols
         self.continuous_cols = continuous_cols
         self.numerical_imputer = ColumnTransformer(
@@ -85,19 +184,25 @@ class ImputeValuesProcessor(BaseEstimator, TransformerMixin):
                     SimpleImputer(strategy="most_frequent"),
                     self.discrete_cols,
                 ),
-                ("continuous", SimpleImputer(strategy="mean"), self.continuous_cols),
+                (
+                    "continuous",
+                    SimpleImputer(strategy="mean"),
+                    self.continuous_cols,
+                ),
             ],
             remainder="passthrough",
         )
 
-    def fit(self, X, y=None):
+    def fit(self, X):
         self.numerical_imputer.fit(X)
         return self
 
     def transform(self, X):
 
         X_transformed = self.numerical_imputer.transform(X)
-        X_transformed = pd.DataFrame(X_transformed, columns=self._get_column_names(X))
+        X_transformed = pd.DataFrame(
+            X_transformed, columns=self._get_column_names(X)
+        )
         return X_transformed
 
     def _get_column_names(self, X):
@@ -114,8 +219,8 @@ class ImputeValuesProcessor(BaseEstimator, TransformerMixin):
         return transformed_columns
 
 
-class TransformColumns(CustomProcessor):
-    def __init__(self, log_cols=[], cbrt_col=None):
+class TransformColumns(BaseEstimator, TransformerMixin):
+    def __init__(self, log_cols=None, cbrt_col=None):
         self.log_cols = log_cols
         self.cbrt_col = cbrt_col
 
@@ -123,7 +228,9 @@ class TransformColumns(CustomProcessor):
         X_new = X.copy()
         for col in self.log_cols:
             X_new["log_" + col] = np.log1p(X_new[col].astype(float))
-        X_new["cbrt_" + self.cbrt_col] = np.cbrt(X_new[self.cbrt_col].astype(float))
+        X_new["cbrt_" + self.cbrt_col] = np.cbrt(
+            X_new[self.cbrt_col].astype(float)
+        )
 
         X_new = X_new.drop(self.log_cols + [self.cbrt_col], axis=1)
 
@@ -134,24 +241,24 @@ class DataTransformation:
     def __init__(self, config: DataTransformationConfig):
         self.config = config
 
-    def split_data(self):
+    def split_data(self, target_column):
         data = pd.read_csv(self.config.raw_data_path)
 
-        X = data.drop("fraude", axis=1)
-        y = data["fraude"]
+        X = data.drop(target_column, axis=1)
+        y = data[target_column]
 
-        # Split the data into training and test sets. (0.75, 0.25) split.
-        self.X_train, self.X_test, self.y_train, self.y_test = train_test_split(
+        # Dividindo os dados na proporção (0.8, 0.2).
+        X_train, X_test, y_train, y_test = train_test_split(
             X, y, test_size=0.2, random_state=42
         )
 
-        logger.info("Splited data into training and test sets")
+        logger.info("Dados divididos em treino e teste")
 
         splits = {
-            "X_train": self.X_train,
-            "X_test": self.X_test,
-            "y_train": self.y_train,
-            "y_test": self.y_test,
+            "X_train": X_train,
+            "X_test": X_test,
+            "y_train": y_train,
+            "y_test": y_test,
         }
 
         # Loop para salvar os arquivos
@@ -162,39 +269,37 @@ class DataTransformation:
             )
 
             logger.info(splitted_data.shape)
-            print(splitted_data.shape)
 
-    def apply_target_encoder(self):
-        category_train_df = self.X_train_transformed["categoria_produto"].to_frame(
-            name="categoria_produto"
-        )
-        category_test_df = self.X_test_transformed["categoria_produto"].to_frame(
-            name="categoria_produto"
-        )
+        return X_train, X_test, y_train, y_test
+
+    def apply_target_encoder(self, X_train, X_test, y_train, column):
+        category_train_df = X_train[column].to_frame(name=column)
+        category_test_df = X_test[column].to_frame(name=column)
 
         target_encoder = TargetEncoder()
 
-        self.X_train_transformed["categoria_produto"] = target_encoder.fit_transform(
-            category_train_df, self.y_train
+        X_train[column] = target_encoder.fit_transform(
+            category_train_df, y_train
         )
-        self.X_test_transformed["categoria_produto"] = target_encoder.transform(
-            category_test_df
-        )
+        X_test[column] = target_encoder.transform(category_test_df)
 
-    def convert_to_numeric(self, input_data):
-        new_data = input_data.copy()
-        print(new_data.select_dtypes(include=["object"]).columns)
-        for col in new_data.select_dtypes(include=["object"]).columns:
+        return X_train, X_test
+
+    def convert_to_numeric(self, X):
+        X_copy = X.copy()
+        print(X_copy.select_dtypes(include=["object"]).columns)
+        for col in X_copy.select_dtypes(include=["object"]).columns:
             try:
-                new_data[col] = pd.to_numeric(new_data[col], errors="coerce")
+                X_copy[col] = pd.to_numeric(X_copy[col], errors="coerce")
             except ValueError as e:
                 print(e)
-                pass
 
-        return new_data
+        return X_copy
 
     def preprocessing_pipeline(self):
-        self.split_data()
+        X_train, X_test, y_train, _ = self.split_data(
+            self.config.target_column
+        )
 
         discrete_columns = ["score_4", "score_7"]
         continuous_columns = [
@@ -209,8 +314,6 @@ class DataTransformation:
 
         to_drop_columns = ["score_fraude_modelo", "produto", "score_8"]
 
-        documents_columns = ["entrega_doc_1", "entrega_doc_2", "entrega_doc_3"]
-
         pipeline = Pipeline(
             [
                 ("dropper", DropColumn(to_drop_columns)),
@@ -221,9 +324,9 @@ class DataTransformation:
                         continuous_cols=continuous_columns,
                     ),
                 ),
-                ("docs", DocumentsProcessor(documents_columns)),
+                ("docs", DocumentsProcessor()),
                 ("country", CountryProcessor()),
-                ("date", DateProcessor("data_compra", "hora_compra", "dia_compra")),
+                ("date", DateProcessor()),
                 ("encoder", OneHotEncoderProcessor(["score_1", "continente"])),
                 (
                     "transform",
@@ -232,17 +335,19 @@ class DataTransformation:
             ]
         )
 
-        self.X_train_transformed = pipeline.fit_transform(self.X_train)
-        self.X_test_transformed = pipeline.transform(self.X_test)
+        X_train_transformed = pipeline.fit_transform(X_train)
+        X_test_transformed = pipeline.transform(X_test)
 
-        self.apply_target_encoder()
+        (X_train_transformed, X_test_transformed) = self.apply_target_encoder(
+            X_train, X_test, y_train, "categoria_produto"
+        )
 
-        self.X_train_transformed = self.convert_to_numeric(self.X_train_transformed)
-        self.X_test_transformed = self.convert_to_numeric(self.X_test_transformed)
+        X_train_transformed = self.convert_to_numeric(X_train_transformed)
+        X_test_transformed = self.convert_to_numeric(X_test_transformed)
 
         splitted_transforms = {
-            "X_train_transformed": self.X_train_transformed,
-            "X_test_transformed": self.X_test_transformed,
+            "X_train_transformed": X_train_transformed,
+            "X_test_transformed": X_test_transformed,
         }
 
         for name, split_transform in splitted_transforms.items():
@@ -251,5 +356,8 @@ class DataTransformation:
                 index=False,
             )
 
-            logger.info(split_transform.shape)
-            print(split_transform.shape)
+            logger.info(
+                "Dados divididos salvos em: %s.csv, de tamanho: %s",
+                name,
+                split_transform.shape,
+            )

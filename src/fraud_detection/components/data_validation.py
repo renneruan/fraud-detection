@@ -16,17 +16,25 @@ class DataValidation:
 
             all_schema = self.config.all_schema.keys()
             with open(self.config.status_file, "w") as f:
-                f.write(datetime.datetime.now().strftime("%d-%b-%Y (%H:%M:%S.%f)\n"))
+                f.write(
+                    datetime.datetime.now().strftime(
+                        "%d-%b-%Y (%H:%M:%S.%f)\n"
+                    )
+                )
 
             for col in all_cols:
                 if col not in all_schema:
                     validation_status = False
                     with open(self.config.status_file, "a") as f:
-                        f.write(f"{col} validation status: {validation_status}\n")
+                        f.write(
+                            f"{col} validation status: {validation_status}\n"
+                        )
                 else:
                     validation_status = True
                     with open(self.config.status_file, "a") as f:
-                        f.write(f"{col} validation status: {validation_status}\n")
+                        f.write(
+                            f"{col} validation status: {validation_status}\n"
+                        )
 
             return validation_status
 

@@ -3,7 +3,6 @@ from fraud_detection.entity.config_entity import ModelTrainerConfig
 import pandas as pd
 import os
 from fraud_detection import logger
-from sklearn.linear_model import ElasticNet
 import joblib
 
 
@@ -13,9 +12,7 @@ class ModelTrainer:
 
     def train(self):
         X_train = pd.read_csv(self.config.train_x_data_path)
-        X_test = pd.read_csv(self.config.test_x_data_path)
         y_train = pd.read_csv(self.config.train_y_data_path)
-        y_test = pd.read_csv(self.config.test_y_data_path)
 
         lgbm = LGBMClassifier(
             is_unbalance=True,
@@ -34,5 +31,6 @@ class ModelTrainer:
         logger.info(model)
 
         joblib.dump(
-            model, os.path.join(self.config.model_target_dir, self.config.model_name)
+            model,
+            os.path.join(self.config.model_target_dir, self.config.model_name),
         )

@@ -1,5 +1,10 @@
 import pandas as pd
-from sklearn.metrics import roc_auc_score, precision_score, recall_score, f1_score
+from sklearn.metrics import (
+    roc_auc_score,
+    precision_score,
+    recall_score,
+    f1_score,
+)
 from urllib.parse import urlparse
 import mlflow
 import mlflow.sklearn
@@ -38,7 +43,12 @@ class ModelEvaluation:
                 y_test, predicted_values
             )
 
-            scores = {"auc": auc, "precision": precision, "recall": recall, "f1": f1}
+            scores = {
+                "auc": auc,
+                "precision": precision,
+                "recall": recall,
+                "f1": f1,
+            }
             save_json(path=Path(self.config.metric_file_name), data=scores)
 
             mlflow.log_params(self.config.all_params)

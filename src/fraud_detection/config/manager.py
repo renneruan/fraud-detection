@@ -1,6 +1,10 @@
 from dotenv import load_dotenv
 import os
-from fraud_detection.constants import *
+from fraud_detection.constants import (
+    CONFIG_FILE_PATH,
+    PARAMS_FILE_PATH,
+    SCHEMA_FILE_PATH,
+)
 from fraud_detection.utils.commons import read_yaml, create_directories
 from fraud_detection.entity.config_entity import (
     DataTransformationConfig,
@@ -58,13 +62,10 @@ class ConfigurationManager:
 
         create_directories([config.model_target_dir])
 
-        # {'subsample': 1.0, 'reg_lambda': 10, 'reg_alpha': 1, 'num_leaves': 50, 'n_estimators': 100, 'max_depth': 10, 'learning_rate': 0.05, 'colsample_bytree': 1.0
         model_trainer_config = ModelTrainerConfig(
             model_target_dir=config.model_target_dir,
             train_x_data_path=config.train_x_data_path,
-            test_x_data_path=config.test_x_data_path,
             train_y_data_path=config.train_y_data_path,
-            test_y_data_path=config.test_y_data_path,
             model_name=config.model_name,
             subsample=params.subsample,
             reg_lambda=params.reg_lambda,

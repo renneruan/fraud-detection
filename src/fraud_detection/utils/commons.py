@@ -3,11 +3,9 @@ from box.exceptions import BoxValueError
 import yaml
 from fraud_detection import logger
 import json
-import joblib
 from ensure import ensure_annotations
 from box import ConfigBox
 from pathlib import Path
-from typing import Any
 
 
 @ensure_annotations
@@ -41,7 +39,8 @@ def create_directories(path_to_directories: list, verbose=True):
 
     Args:
         path_to_directories (list): list of path of directories
-        ignore_log (bool, optional): ignore if multiple dirs is to be created. Defaults to False.
+        ignore_log (bool, optional): ignore if multiple dirs is to be created.
+          Defaults to False.
     """
     for path in path_to_directories:
         os.makedirs(path, exist_ok=True)
