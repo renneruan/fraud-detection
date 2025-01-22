@@ -51,6 +51,7 @@ class ConfigurationManager:
         data_transformation_config = DataTransformationConfig(
             transformed_data_path=config.transformed_data_path,
             raw_data_path=config.raw_data_path,
+            target_column=config.target_column,
         )
 
         return data_transformation_config
@@ -66,6 +67,8 @@ class ConfigurationManager:
             model_target_dir=config.model_target_dir,
             train_x_data_path=config.train_x_data_path,
             train_y_data_path=config.train_y_data_path,
+            test_x_data_path=config.test_x_data_path,
+            test_y_data_path=config.test_y_data_path,
             model_name=config.model_name,
             subsample=params.subsample,
             reg_lambda=params.reg_lambda,

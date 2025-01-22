@@ -60,8 +60,12 @@ class CustomProcessor(BaseEstimator, TransformerMixin):
     def __init__(self, cols=None):
         self.cols = [] if cols is None else cols
 
-    # def fit(self):
-    #     return self
+    def fit(self, X, y=None):
+        """
+        Necessário para aderência ao pipeline de transformação, ele aplica
+          método fit a cada etapa.
+        """
+        return self
 
 
 class DropColumn(CustomProcessor):
@@ -219,7 +223,7 @@ class ImputeValuesProcessor(BaseEstimator, TransformerMixin):
         return transformed_columns
 
 
-class TransformColumns(BaseEstimator, TransformerMixin):
+class TransformColumns(CustomProcessor):
     def __init__(self, log_cols=None, cbrt_col=None):
         self.log_cols = log_cols
         self.cbrt_col = cbrt_col

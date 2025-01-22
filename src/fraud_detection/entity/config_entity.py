@@ -14,6 +14,7 @@ class DataValidationConfig:
 class DataTransformationConfig:
     raw_data_path: Path
     transformed_data_path: Path
+    target_column: str
 
 
 @dataclass(frozen=True)
