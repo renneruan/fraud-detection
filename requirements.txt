@@ -15,4 +15,6 @@ pycountry_convert
 python-dotenv
 dotenv-cli
 pylint
+optuna
+shap
 -e .
