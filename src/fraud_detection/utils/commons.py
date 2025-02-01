@@ -1,56 +1,91 @@
+"""
+Módulo de funções a serem utilizadas de forma comum entre os módulos.
+
+Possui funções de leituras e criação de arquivos e diretórios.
+
+Funções
+-------
+- read_yaml: Lê um arquivo yaml e retorna um objeto ConfigBox.
+- create_directories: Cria diretórios de acordo com o caminhos passado.
+- save_json: Salva um arquivo json no caminho especificado.
+"""
+
 import os
-from box.exceptions import BoxValueError
-import yaml
-from fraud_detection import logger
 import json
-from ensure import ensure_annotations
-from box import ConfigBox
 from pathlib import Path
 
+import yaml
+from ensure import ensure_annotations
+from box import ConfigBox
+from box.exceptions import BoxValueError
 
+from fraud_detection import logger
+
+
+# Ensure annotations garante que o parâmetro passado é do tipo esperado
 @ensure_annotations
 def read_yaml(path_to_yaml: Path) -> ConfigBox:
-    """reads yaml file and returns
+    """
+    Lê um arquivo yaml e retorna um objeto ConfigBox com
+    as informações lidas.
+
+    Será utilizado para ler arquivos de configuração em formato yaml.
+
+    Utilizar o ConfigBox é útil para transformarmos o arquivo yaml
+    para um estrutura que possa ser repassada para os módulos Python.
 
     Args:
-        path_to_yaml (str): path like input
+        path_to_yaml (str): Caminho para o arquivo.
 
     Raises:
-        ValueError: if yaml file is empty
-        e: empty file
+        ValueError: Se o arquivo estiver vazio
+        Exception: Qualquer outra exceção
 
     Returns:
-        ConfigBox: ConfigBox type
+        ConfigBox: Informações do arquivo em formato ConfigBox
     """
     try:
-        with open(path_to_yaml) as yaml_file:
+        with open(path_to_yaml, encoding="UTF-8") as yaml_file:
+            # Safe load é utilizado para evitar execução de código malicioso
             content = yaml.safe_load(yaml_file)
-            logger.info(f"yaml file: {path_to_yaml} loaded successfully")
+            logger.info(
+                "Arquivo yaml: %s carregado com sucesso.", path_to_yaml
+            )
             return ConfigBox(content)
-    except BoxValueError:
-        raise ValueError("yaml file is empty")
+    except BoxValueError as exc:
+        raise ValueError("Arquivo yaml está vazio.") from exc
     except Exception as e:
         raise e
 
 
 @ensure_annotations
 def create_directories(path_to_directories: list, verbose=True):
-    """create list of directories
+    """
+    Cria diretórios de acordo com a lista passada.
 
     Args:
-        path_to_directories (list): list of path of directories
-        ignore_log (bool, optional): ignore if multiple dirs is to be created.
-          Defaults to False.
+        path_to_directories (list): Lista de caminhos para os diretórios.
+        verbose (bool, optional): Booleano para decidir imprimir logs ou não.
+          Valor padrão: True.
     """
     for path in path_to_directories:
         os.makedirs(path, exist_ok=True)
         if verbose:
-            logger.info(f"created directory at: {path}")
+            logger.info("Diretório criado: %s", path)
 
 
 @ensure_annotations
 def save_json(path: Path, data: dict):
-    with open(path, "w") as f:
+    """
+    Salva um arquivo json no caminho especificado.
+    Dados de dicionário passados serão armazenados no JSON.
+
+    Args:
+    - path (str): Caminho para salvar o arquivo JSON.
+    - data (dict): Dados a serem salvos no arquivo JSON.
+    """
+
+    with open(path, "w", encoding="UTF-8") as f:
         json.dump(data, f, indent=4)
 
-    logger.info(f"json file saved at: {path}")
+    logger.info("Dados salvos em arquivo JSON: %s", path)

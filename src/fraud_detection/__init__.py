@@ -1,3 +1,7 @@
+"""
+Inicializando estrutura de logs para o módulode de treinamento.
+"""
+
 import os
 import sys
 import logging
