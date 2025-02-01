@@ -32,10 +32,10 @@ class ConfigurationManager:
         config = self.config.data_validation
         schema = self.schema.COLUMNS
 
-        create_directories([config.root_dir])
+        create_directories([config.root_path])
 
         data_validation_config = DataValidationConfig(
-            root_dir=config.root_dir,
+            root_path=config.root_path,
             raw_data_dir=config.raw_data_dir,
             status_file=config.status_file,
             all_schema=schema,

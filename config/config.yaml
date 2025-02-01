@@ -2,8 +2,8 @@ artifacts_root: artifacts
 
 
 data_validation:
-  root_dir: artifacts/data_validation
-  raw_data_dir: artifacts/data_ingestion/dados.csv
+  root_path: artifacts/data_validation
+  raw_data_path: artifacts/data_ingestion/dados.csv
   status_file: artifacts/data_validation/status.txt
 
 
@@ -16,7 +16,7 @@ data_transformation:
 
 
 model_trainer:
-  model_target_dir: artifacts/model_output
+  model_target_path: artifacts/model_output
   train_x_data_path: artifacts/data_transformation/X_train_transformed.csv
   test_x_data_path: artifacts/data_transformation/X_test_transformed.csv
   train_y_data_path: artifacts/data_transformation/y_train.csv
@@ -26,7 +26,7 @@ model_trainer:
 
 
 model_evaluation:
-  model_results_dir: artifacts/model_evaluation
+  model_results_path: artifacts/model_evaluation
   test_x_data_path: artifacts/data_transformation/X_test_transformed.csv
   test_y_data_path: artifacts/data_transformation/y_test.csv
   model_path: artifacts/model_output/model.joblib
