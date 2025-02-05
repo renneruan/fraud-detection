@@ -1,9 +1,10 @@
 LGBMClassifier:
-  subsample: 0.6507631810615698
-  reg_lambda: 0.14502516392192977
-  num_leaves: 54
-  n_estimators: 455
-  max_depth: 8
-  learning_rate: 0.014943986178804566
-  colsample_bytree: 0.5601655044537822
+  subsample: 0.9361289555144665
+  reg_lambda: 1.9517201745891524
+  reg_alpha: 1
+  num_leaves: 13
+  n_estimators: 826
+  max_depth: 12
+  learning_rate: 0.02520017403854532
+  colsample_bytree: 0.6314435287293312
   scale_pos_weight: 19

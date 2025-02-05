@@ -60,13 +60,15 @@ class ModelTrainerConfig:
         https://lightgbm.readthedocs.io/en/latest/pythonapi/lightgbm.LGBMClassifier.html
 
         subsample (float): Fração de amostras usadas por árvore.
+        reg_alpha (float): Regularização L1.
         reg_lambda (float): Regularização L2.
         num_leaves (int): Número máximo de folhas por árvore.
         n_estimators (int): Número de árvores no modelo.
         max_depth (int): Profundidade máxima das árvores.
         learning_rate (float): Taxa de aprendizado.
         colsample_bytree (float): Fração de colunas usadas por árvore.
-        scale_pos_weight (float): Proporção para lidar com desbalanceamento de classe
+        scale_pos_weight (float): Proporção para lidar com desbalanceamento
+         de classe
         target_column (str): Nome da coluna alvo para predição.
     """
 
@@ -78,6 +80,7 @@ class ModelTrainerConfig:
     model_name: str
     subsample: float
     reg_lambda: float
+    reg_alpha: float
     num_leaves: int
     n_estimators: int
     max_depth: int

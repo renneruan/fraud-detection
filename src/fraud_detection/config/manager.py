@@ -109,6 +109,7 @@ class ConfigurationManager:
             model_name=config.model_name,
             subsample=params.subsample,
             reg_lambda=params.reg_lambda,
+            reg_alpha=params.reg_alpha,
             num_leaves=params.num_leaves,
             n_estimators=params.n_estimators,
             max_depth=params.max_depth,

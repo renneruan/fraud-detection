@@ -49,6 +49,7 @@ class ModelTrainer:
         lgbm = LGBMClassifier(
             subsample=self.config.subsample,
             reg_lambda=self.config.reg_lambda,
+            reg_alpha=self.config.reg_alpha,
             num_leaves=self.config.num_leaves,
             n_estimators=self.config.n_estimators,
             max_depth=self.config.max_depth,
