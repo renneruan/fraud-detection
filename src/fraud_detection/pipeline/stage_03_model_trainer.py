@@ -30,7 +30,7 @@ if __name__ == "__main__":
 
         ModelTrainerTrainingPipeline()
 
-        logger.info("[FIM DE ETAPA] %s completo.\n\n")
+        logger.info("[FIM DE ETAPA] %s completo.\n\n", STAGE_NAME)
     except Exception as e:
         logger.exception(e)
         raise e

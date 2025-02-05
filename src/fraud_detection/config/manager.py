@@ -36,7 +36,7 @@ class ConfigurationManager:
 
         data_validation_config = DataValidationConfig(
             root_path=config.root_path,
-            raw_data_dir=config.raw_data_dir,
+            raw_data_path=config.raw_data_path,
             status_file=config.status_file,
             all_schema=schema,
         )
@@ -61,10 +61,10 @@ class ConfigurationManager:
         params = self.params.LGBMClassifier
         schema = self.schema.TARGET_COLUMN
 
-        create_directories([config.model_target_dir])
+        create_directories([config.model_target_path])
 
         model_trainer_config = ModelTrainerConfig(
-            model_target_dir=config.model_target_dir,
+            model_target_path=config.model_target_path,
             train_x_data_path=config.train_x_data_path,
             train_y_data_path=config.train_y_data_path,
             test_x_data_path=config.test_x_data_path,
@@ -88,12 +88,12 @@ class ConfigurationManager:
         params = self.params.LGBMClassifier
         schema = self.schema.TARGET_COLUMN
 
-        create_directories([config.model_results_dir])
+        create_directories([config.model_results_path])
 
         load_dotenv()
 
         model_evaluation_config = ModelEvaluationConfig(
-            model_results_dir=config.model_results_dir,
+            model_results_path=config.model_results_path,
             test_x_data_path=config.test_x_data_path,
             test_y_data_path=config.test_y_data_path,
             model_path=config.model_path,

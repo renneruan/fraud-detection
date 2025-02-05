@@ -15,7 +15,7 @@ class DataValidationConfig:
     Atributos:
         root_path (Path): O diretório que será salvo o arquivo com resultado
          da validação.
-        raw_data_dir (Path): Diretório contendo os dados iniciais brutos.
+        raw_data_path (Path): Diretório contendo os dados iniciais brutos.
         status_file (str): Arquivo que será salvo contendo o resultado.
         all_schema (dict): Colunas que devem estar nos dados de entrada.
     """

@@ -32,5 +32,7 @@ class ModelTrainer:
 
         joblib.dump(
             model,
-            os.path.join(self.config.model_target_dir, self.config.model_name),
+            os.path.join(
+                self.config.model_target_path, self.config.model_name
+            ),
         )
