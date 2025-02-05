@@ -61,12 +61,12 @@ class ModelTrainerConfig:
 
         subsample (float): Fração de amostras usadas por árvore.
         reg_lambda (float): Regularização L2.
-        reg_alpha (float): Regularização L1.
         num_leaves (int): Número máximo de folhas por árvore.
         n_estimators (int): Número de árvores no modelo.
         max_depth (int): Profundidade máxima das árvores.
         learning_rate (float): Taxa de aprendizado.
         colsample_bytree (float): Fração de colunas usadas por árvore.
+        scale_pos_weight (float): Proporção para lidar com desbalanceamento de classe
         target_column (str): Nome da coluna alvo para predição.
     """
 
@@ -78,17 +78,34 @@ class ModelTrainerConfig:
     model_name: str
     subsample: float
     reg_lambda: float
-    reg_alpha: float
     num_leaves: int
     n_estimators: int
     max_depth: int
     learning_rate: float
     colsample_bytree: float
+    scale_pos_weight: float
     target_column: str
 
 
 @dataclass(frozen=True)
 class ModelEvaluationConfig:
+    """
+    Armazena o padrão de configurações para a etapa de avaliação do modelo.
+
+    Atributos:
+        model_results_path (Path): Caminho onde os resultados da avaliação
+         serão armazenados.
+        test_x_data_path (Path): Caminho para os dados de teste (features).
+        test_y_data_path (Path): Caminho para os rótulos de teste.
+        model_path (Path): Caminho para o modelo treinado a ser avaliado.
+        all_params (dict): Dicionário contendo os hiperparâmetros usados no
+         modelo.
+        metric_file_name (Path): Nome do arquivo onde as métricas de avaliação
+         serão salvas.
+        target_column (str): Nome da coluna alvo para predição.
+        mlflow_uri (str): URI do MLflow para rastreamento dos experimentos.
+    """
+
     model_results_path: Path
     test_x_data_path: Path
     test_y_data_path: Path

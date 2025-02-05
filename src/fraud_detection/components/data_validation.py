@@ -1,6 +1,18 @@
-from fraud_detection.entity.config_entity import DataValidationConfig
+"""
+Este módulo realiza validação dos dados a serem utilizados no pipeline de
+ treinamento.
+
+Classes:
+    DataValidation: Classe com a operação de validação.
+
+Dependências:
+    - pandas
+    - datetime
+"""
+
 import datetime
 import pandas as pd
+from fraud_detection.entity.config_entity import DataValidationConfig
 
 
 class DataValidation:
@@ -31,7 +43,7 @@ class DataValidation:
             # Carrega o arquivo de schema e cria o arquivo
             # de status da verificação.
             all_schema = self.config.all_schema.keys()
-            with open(self.config.status_file, "w") as f:
+            with open(self.config.status_file, "w", encoding="UTF-8") as f:
                 # O arquivo de status pode ser utilizado em orquestradores
                 f.write(
                     datetime.datetime.now().strftime(
@@ -46,7 +58,7 @@ class DataValidation:
                 else:
                     validation_status = True
 
-                with open(self.config.status_file, "a") as f:
+                with open(self.config.status_file, "a", encoding="UTF-8") as f:
                     f.write(f"{col} validation status: {validation_status}\n")
 
             return validation_status

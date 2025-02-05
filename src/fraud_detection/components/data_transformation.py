@@ -688,5 +688,5 @@ class DataTransformation:
         # Salva pipeline de processamento para que este seja aplicável
         # aos dados de predição utilizando transform.
         joblib.dump(
-            pipeline, f"{self.config.transformed_data_path}/pipeline.pkl"
+            pipeline, f"{self.config.transformed_data_path}/pipeline.joblib"
         )

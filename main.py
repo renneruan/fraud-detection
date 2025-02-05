@@ -38,10 +38,10 @@ stages = {
 for stage_name, stage_function in stages.items():
     try:
         logger.info("[INICIO DE ETAPA] %s", stage_name)
-        data_validation = stage_function()
+
+        stage_function()
 
         # Cada arquivo de pipeline precisa possuir o método main
-        data_validation.main()
         logger.info("[FIM DE ETAPA], %s\n\n", stage_name)
         logger.info("---------------------------------------------")
     except Exception as e:
