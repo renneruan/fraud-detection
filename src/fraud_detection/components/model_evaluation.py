@@ -43,7 +43,7 @@ class ModelEvaluation:
     o modelo treinado.
 
     Args:
-    - ModelEvaluationConfig (dataclass): Classe com valores de configuração.
+        ModelEvaluationConfig (dataclass): Classe com valores de configuração.
     """
 
     def __init__(self, config: ModelEvaluationConfig):
@@ -55,15 +55,15 @@ class ModelEvaluation:
         comparando com os valores reais.
 
         Args:
-        - actual (Series): Série contendo valores reais das classes de saída.
-        - pred (Series): Série contendo os valores preditos das classes.
+            actual (Series): Série contendo valores reais das classes de saída.
+            pred (Series): Série contendo os valores preditos das classes.
 
         Returns:
-        - tuple:
-            - auc (float): Métrica de Área sob a cuva
-            - precision (float): Métrica de precisão
-            - recall (float): Métrica de revocação
-            - f1 (float): Métrica de F1 Score
+            tuple:
+                - auc (float): Métrica de Área sob a cuva
+                - precision (float): Métrica de precisão
+                - recall (float): Métrica de revocação
+                - f1 (float): Métrica de F1 Score
         """
         auc = roc_auc_score(actual, pred)
         precision = precision_score(actual, pred)

@@ -28,10 +28,10 @@ class BaseMetrics:
     Iremos utilizar tais métricas para comparar com o novo modelo criado.
 
     Args:
-    - data: DataFrame com as informações de compras realizadas
-    - score_column: Coluna com score de detecção de fraude do modelo base
-    - fraud_column: Nome da coluna com a classificação verdadeira de fraude
-    - value_column: Nome da coluna com o valor da transação
+        data: DataFrame com as informações de compras realizadas
+        score_column: Coluna com score de detecção de fraude do modelo base
+        fraud_column: Nome da coluna com a classificação verdadeira de fraude
+        value_column: Nome da coluna com o valor da transação
     """
 
     def __init__(
@@ -52,8 +52,9 @@ class BaseMetrics:
     def __check_best_threshold(self):
         """
         Função que verifica se o melhor limiar foi calculado previamente.
-        Caso contrário utiliza o limiar encontrado como padrão no entendimento
-         do negócio.
+
+        Caso contrário utiliza o limiar encontrado como padrão no entendimento\
+        do negócio.
         """
         if self.best_threshold is None:
             print(
@@ -68,15 +69,16 @@ class BaseMetrics:
     def calculate_revenue(self, threshold):
         """
         Função que calcula faturamento da amostra a partir de um limiar.
+
         O cálculo de faturamento se baseia nas premissas:
-            10% do valor de compras aceitas é recebido.
-            100% do valor de compras fraudulentar aceitas é perdido.
+            - 10% do valor de compras aceitas é recebido.
+            - 100% do valor de compras fraudulentar aceitas é perdido.
 
         Args:
-        - threshold (int): Limiar de score para aceitação.
+            threshold (int): Limiar de score para aceitação.
 
         Returns:
-        - total_revenue (float): Faturamento total para o limiar fornecido.
+            total_revenue (float): Faturamento total para o limiar fornecido.
         """
 
         try:
@@ -105,6 +107,7 @@ class BaseMetrics:
     def find_best_threshold(self):
         """
         Função que encontra o melhor limiar de corte para o modelo base.
+
         O melhor limiar maximiza a receita gerada pelo modelo.
         """
 
@@ -140,11 +143,13 @@ class BaseMetrics:
     def get_incoming_pressure_rate(self):
         """
         Função que calcula a pressão de entrada de transações fraudulentas.
-        Calculada como a razão entre o número de transações fraudulentas com o
-         número total de transações.
+
+        Calculada como a razão entre o número de transações fraudulentas com\
+        o número total de transações.
 
         Returns:
-        - incoming_pressure (float): Taxa de pressão de entrada de transações.
+            incoming_pressure (float): Taxa de pressão de entrada de\
+                                       transações.
         """
 
         incoming_pressure = (
@@ -157,11 +162,12 @@ class BaseMetrics:
     def get_approval_rate(self):
         """
         Função que calcula a taxa de aprovação.
-        Calculada como a razão entre o número de transações aprovadas e o
-         número total de transações.
+
+        Calculada como a razão entre o número de transações aprovadas e\
+        o número total de transações.
 
         Returns:
-        - approval_rate (float): Taxa de aprovação.
+            approval_rate (float): Taxa de aprovação.
         """
         best_threshold = self.__check_best_threshold()
 
@@ -176,8 +182,12 @@ class BaseMetrics:
     def get_decline_rate(self):
         """
         Função que calcula a taxa de declínio de transações.
-        Calculada como a razão entre o número de transações declinadas
-         e o número total de transações.
+
+        Calculada como a razão entre o número de transações declinadas\
+        e o número total de transações.
+        
+        Returns:
+            decline_rate (float): Taxa de declínio.
         """
 
         best_threshold = self.__check_best_threshold()
@@ -193,10 +203,14 @@ class BaseMetrics:
     def get_precision(self):
         """
         Função que calcula a precisão do modelo.
+
         VP: fraudes identificadas corretamente
         FP: transações legítimas identificadas como fraudes
 
         Precisão = VP / (VP + FP)
+
+        Returns:
+            precision (float): Taxa de precisão.
         """
 
         best_threshold = self.__check_best_threshold()
@@ -215,10 +229,14 @@ class BaseMetrics:
     def get_recall(self):
         """
         Função que calcula a revocação do modelo.
+
         VP: fraudes identificadas corretamente
         FN: transações fraudulentas identificadas como legítimas
 
-        Precisão = VP / (VP + FN)
+        Recall = VP / (VP + FN)
+
+        Returns:
+            recall (float): Taxa de revocação.
         """
 
         best_threshold = self.__check_best_threshold()
@@ -241,10 +259,14 @@ class BaseMetrics:
     def get_false_positive_rate(self):
         """
         Função que calcula a taxa de falsos positivos do modelo base.
+
         FP: transações legítimas identificadas como fraudes
         VN: transações legítimas identificadas corretamente
 
         FPR = FP / (FP + VN)
+
+        Returns:
+            false_positive_rate (float): Taxa de falsos positivos.
         """
         best_threshold = self.__check_best_threshold()
 

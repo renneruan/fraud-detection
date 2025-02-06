@@ -28,7 +28,7 @@ class ModelTrainer:
     Classe para treinamento do modelo LightGBM.
 
     Args:
-    - ModelTrainerConfig (dataclass): Configurações do treinamento.
+        ModelTrainerConfig (dataclass): Configurações do treinamento.
     """
 
     def __init__(self, config: ModelTrainerConfig):

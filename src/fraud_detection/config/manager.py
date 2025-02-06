@@ -24,10 +24,10 @@ from fraud_detection.entity.config_entity import (
 class ConfigurationManager:
     """
     Classe responsável por carregar e gerenciar configurações a partir de
-     arquivos YAML.
+    arquivos YAML.
 
     Lê os arquivos de configuração, cria diretórios e fornece métodos
-     para que os componentes do pipeline acessem suas configurações.
+    para que os componentes do pipeline acessem suas configurações.
     """
 
     def __init__(
@@ -54,7 +54,7 @@ class ConfigurationManager:
         """
         Obtém a configuração para a etapa de validação dos dados.
 
-        Retorna:
+        Returns:
             DataValidationConfig: Objeto com configurações para validação.
         """
         config = self.config.data_validation
@@ -73,7 +73,7 @@ class ConfigurationManager:
         """
         Obtém a configuração para a etapa de transformação dos dados.
 
-        Retorna:
+        Returns:
             DataTransformationConfig: Objeto de configurações da transformação.
         """
         config = self.config.data_transformation
@@ -90,7 +90,7 @@ class ConfigurationManager:
         """
         Obtém a configuração para a etapa de treinamento do modelo.
 
-        Retorna:
+        Returns:
             ModelTrainerConfig: Objeto contendo os parâmetros do modelo
              e os caminhos dos dados de treino/teste.
         """
@@ -123,7 +123,7 @@ class ConfigurationManager:
         """
         Obtém a configuração para a etapa de avaliação do modelo.
 
-        Retorna:
+        Returns:
             ModelEvaluationConfig: Objeto contendo os parâmetros para registro
              métricas e caminhos de dados de teste e modelo.
         """

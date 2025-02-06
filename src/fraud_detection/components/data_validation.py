@@ -1,6 +1,6 @@
 """
-Este módulo realiza validação dos dados a serem utilizados no pipeline de
- treinamento.
+Este módulo realiza validação dos dados a serem utilizados no pipeline de 
+treinamento.
 
 Classes:
     DataValidation: Classe com a operação de validação.
@@ -20,7 +20,7 @@ class DataValidation:
     Classe que irá realizar a validação para as colunas dos dados de entrada.
 
     Args:
-    - DataValidationConfig (dataclass): Classe de valores de configuração.
+        DataValidationConfig (dataclass): Classe de valores de configuração.
     """
 
     def __init__(self, config: DataValidationConfig):
@@ -32,7 +32,7 @@ class DataValidation:
         se elas seguem o esquema de configuração repassado.
 
         Returns:
-        - bool: Booleano contendo status do sucesso da validação.
+            bool: Booleano contendo status do sucesso da validação.
         """
         try:
             validation_status = None

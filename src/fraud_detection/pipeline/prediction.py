@@ -31,11 +31,11 @@ class PredictionPipeline:
         Encodings salvos a partir apenas dos dados de treino.
 
         Args:
-        - data (pd.DataFrame): DataFrame de linha única contendo dados a serem
-            submetidos ao modelo.
+            data (pd.DataFrame): DataFrame de linha única contendo dados \
+                                 a serem submetidos ao modelo.
 
         Returns:
-        - pd.DataFrame: Dados transformados para aplicação ao modelo treinado.
+            pd.DataFrame: Dados transformados para aplicação ao modelo treinado.
         """
         try:
             transformed_data = self.pipeline.transform(data)
@@ -53,12 +53,12 @@ class PredictionPipeline:
         pré-processar os dados inseridos.
 
         Args:
-        - data (pd.DataFrame): Dados de entrada para predição.
+            data (pd.DataFrame): Dados de entrada para predição.
 
         Returns:
-        - tuple:
-            - prediction int: Classe a qual os dados foram classificados
-            - prediction_proba list: Lista de probabilidades das classes
+            tuple:
+                - prediction int: Classe a qual os dados foram classificados
+                - prediction_proba list: Lista de probabilidades das classes
         """
         prediction = self.model.predict(data)
         prediction_proba = self.model.predict_proba(data)

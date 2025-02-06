@@ -1,30 +1,31 @@
 """
-Este módulo realiza tarefas de transformação de dados para serem aplicados ao
- modelo de detecção.
+Componente para tarefas de transformação de dados.
 
 Fornece funcionalidades para pré-processar e transformar os dados ao formato
- adequado. Ele inclui diversos transformadores para lidar com a imputação de
- valores ausentes, feature engineering e a divisão de conjuntos de dados.
+adequado. Ele inclui diversos transformadores para lidar com a imputação de
+valores ausentes, feature engineering e a divisão de conjuntos de dados.
 
-Classes:
-    CustomProcessor: Classe base customizada para criar processadores de
-                     transformação.
-    DropColumns: Remove colunas específicas do conjunto de dados.
-    DocumentsProcessor: Processa colunas de documentos, imputando valores
-                         vazios e convertendo binários em inteiros.
-    CountryProcessor: Transforma a coluna de país para continentes.
-    OneHotEncoderProcessor: Realiza codificação one-hot em colunas categóricas.
-    DateProcessor: Realiza engenharia de features para coluna de data, criando
-                    variáveis como hora e dia da semana.
-    ImputeValuesProcessor: Trata valores ausentes em colunas numéricas.
-    TransformColumns: Aplica transformações matemáticas (log, raiz cúbica).
-    NonFrequentAggregator: Transforma dados de categoria de produto não
-                            frequentes em uma única classificação Outros.
-    TargetEncoderTransformer: Aplica TargetEncoder a coluna de categoria de
-                               produtos.
-    DataTransformation: Encapsula todo o pipeline de transformação de dados,
-                         incluindo a divisão em treino e teste, aplicando
-                         transformações e salvando os dados transformados.
+**Classes**:
+
+- **CustomProcessor**: Classe base customizada para criar processadores \
+                       de transformação.
+- **DropColumns**: Remove colunas específicas do conjunto de dados.
+- **DocumentsProcessor**: Processa colunas de documentos, imputando valores \
+                      vazios e convertendo binários em inteiros.
+- **CountryProcessor**: Transforma a coluna de país para continentes.
+- **OneHotEncoderProcessor**: Realiza codificação one-hot em colunas \
+                              categóricas.
+- **DateProcessor**: Realiza engenharia de features para coluna de data, \
+                     criando variáveis como hora, turno e dia da semana.
+- **ImputeValuesProcessor**: Trata valores ausentes em colunas numéricas.
+- **TransformColumns**: Aplica transformações matemáticas (log, raiz cúbica).
+- **NonFrequentAggregator**: Transforma dados de categoria de produto não \
+                             frequentes em uma única classificação Outros.
+- **TargetEncoderTransformer**: Aplica TargetEncoder a coluna de categoria de \
+                                produtos.
+- **DataTransformation**: Encapsula todo o pipeline de transformação de dados,\
+                          incluindo a divisão em treino e teste, aplicando\
+                          transformações e salvando os dados transformados.
 
 
 Dependências:
@@ -100,10 +101,10 @@ class DropColumns(CustomProcessor):
         na inicialização da classe.
 
         Args:
-        - X (pd.DataFrame): Conjunto de dados originais.
+            X (pd.DataFrame): Conjunto de dados originais.
 
         Returns:
-        - pd.DataFrame: Dados sem as colunas desejadas.
+            pd.DataFrame: Dados sem as colunas desejadas.
         """
         return X.drop(self.drop_columns, axis=1)
 
@@ -128,10 +129,10 @@ class DocumentsProcessor(CustomProcessor):
         valor padrão "N" e posteriormente converte os valores para binário.
 
         Args:
-        - X (pd.DataFrame): Conjunto de dados originais.
+            X (pd.DataFrame): Conjunto de dados originais.
 
         Returns:
-        - pd.DataFrame: Dados com colunas de documentos processadas.
+            pd.DataFrame: Dados com colunas de documentos processadas.
         """
         X_new = X.copy()
         X_new[self.document_columns] = (
@@ -156,10 +157,10 @@ class CountryProcessor(CustomProcessor):
         Transformando a coluna em uma nova contendo o continente.
 
         Args:
-        - X (pd.DataFrame): Conjunto de dados originais.
+            X (pd.DataFrame): Conjunto de dados originais.
 
         Returns:
-        - pd.DataFrame: Dados com nova coluna de continente.
+            pd.DataFrame: Dados com nova coluna de continente.
         """
 
         X_new = X.copy()
@@ -192,10 +193,10 @@ class DateProcessor(CustomProcessor):
         Função para ser mapeada aos dados, criando a coluna turno.
 
         Args:
-        - hour (int): Valor inteiro da hora da compra.
+            hour (int): Valor inteiro da hora da compra.
 
         Returns:
-        - int: Inteiro representando o turno da compra.
+            int: Inteiro representando o turno da compra.
         """
         if 6 <= hour < 12:
             return 0  # "Manhã"
@@ -212,10 +213,10 @@ class DateProcessor(CustomProcessor):
         Cria features de hora da compra, dia da semana da compra e turno.
 
         Args:
-        - X (pd.DataFrame): Conjunto de dados originais.
+            X (pd.DataFrame): Conjunto de dados originais.
 
         Returns:
-        - pd.DataFrame: Dados com novas colunas relacionadas a data.
+            pd.DataFrame: Dados com novas colunas relacionadas a data.
         """
         X_new = X.copy()
         date = pd.to_datetime(X_new[self.date_column])
@@ -258,10 +259,10 @@ class OneHotEncoderProcessor(CustomProcessor):
         Realiza o fit do encoder com os dados de treino.
 
         Args:
-        - X (pd.DataFrame): Dados de treino de entrada.
+            X (pd.DataFrame): Dados de treino de entrada.
 
         Returns:
-        - OneHotEncoderProcessor: Processador com dados ajustados.
+            OneHotEncoderProcessor: Processador com dados ajustados.
         """
         self.encoder.fit(X[self.columns_to_encode])
         self.fitted = True
@@ -272,10 +273,10 @@ class OneHotEncoderProcessor(CustomProcessor):
         Aplica o OneHotEncoding utilizando o processador previamente ajustado.
 
         Args:
-        - X (pd.DataFrame): Conjunto de dados originais.
+            X (pd.DataFrame): Conjunto de dados originais.
 
         Returns:
-        - pd.DataFrame: Dados com novas colunas de one hot encoding.
+            pd.DataFrame: Dados com novas colunas de one hot encoding.
         """
         if not self.fitted:
             raise ValueError(
@@ -312,8 +313,8 @@ class ImputeValuesProcessor(CustomProcessor):
     contínuas.
 
     Colunas discretas: "score_4" e "score_7"
-    Colunas contínuas: "score_2", "score_3", "score_5", "score_6", "score_9",
-     "score_10" e "valor_compra"
+    Colunas contínuas: "score_2", "score_3", "score_5", "score_6", "score_9",\
+                       "score_10" e "valor_compra"
     """
 
     def __init__(self):
@@ -353,10 +354,10 @@ class ImputeValuesProcessor(CustomProcessor):
         Realiza o fit do imputer numérico com os dados de treino.
 
         Args:
-        - X (pd.DataFrame): Dados de treino de entrada.
+            X (pd.DataFrame): Dados de treino de entrada.
 
         Returns:
-        - ImputeValuesProcessor: Processador com dados ajustados.
+            ImputeValuesProcessor: Processador com dados ajustados.
         """
         self.numerical_imputer.fit(X)
         return self
@@ -368,10 +369,10 @@ class ImputeValuesProcessor(CustomProcessor):
          o pipeline corretamente.
 
         Args:
-        - X (pd.DataFrame): Dados de entraga a serem transformados.
+            X (pd.DataFrame): Dados de entraga a serem transformados.
 
         Returns:
-        - pd.DataFrame: Dados com as colunas numéricas transformadas.
+            pd.DataFrame: Dados com as colunas numéricas transformadas.
 
         """
 
@@ -388,10 +389,10 @@ class ImputeValuesProcessor(CustomProcessor):
         arrays não indexados.
 
         Args:
-        - X (pd.DataFrame): Conjunto de dados com colunas originais.
+            X (pd.DataFrame): Conjunto de dados com colunas originais.
 
         Returns:
-        - list(str): Lista de nomes das colunas concatenadas.
+            list(str): Lista de nomes das colunas concatenadas.
 
         """
 
@@ -424,10 +425,10 @@ class TransformColumns(CustomProcessor):
         Insere as transformações em novas colunas e retira as originais.
 
         Args:
-        - X (pd.DataFrame): Dados recebidos a serem transformados.
+            X (pd.DataFrame): Dados recebidos a serem transformados.
 
         Returns:
-        - pd.DataFrame: Dados com as novas colunas logarítmicas.
+            pd.DataFrame: Dados com as novas colunas logarítmicas.
         """
         X_new = X.copy()
         for col in self.log_columns:
@@ -455,10 +456,10 @@ class NonFrequentAggregator(CustomProcessor):
         Transformações posteriores irão ser realizadas utilizando este array.
 
         Args:
-        - X (pd.DataFrame): Dados de entrada
+            X (pd.DataFrame): Dados de entrada
 
         Returns:
-        - NonFrequentAggregator: Processador ajustado.
+            NonFrequentAggregator: Processador ajustado.
         """
         frequent_categories = X[self.column].value_counts()
         self.valid_categories = frequent_categories[
@@ -472,10 +473,10 @@ class NonFrequentAggregator(CustomProcessor):
         frequentes e agrupar os que não estão com mais de 2 ocorrências.
 
         Args:
-        - X (pd.DataFrame): Dados a serem ajustados.
+            X (pd.DataFrame): Dados a serem ajustados.
 
         Returns:
-        - pd.DataFrame: Dados com a nova coluna agregada.
+            pd.DataFrame: Dados com a nova coluna agregada.
         """
         X_new = X.copy()
 
@@ -508,11 +509,11 @@ class TargetEncoderTransformer(CustomProcessor):
         Ajusta o TargetEncoder usando os dados de treino.
 
         Args:
-        - X (pd.DataFrame): Conjunto de dados de treino.
-        - y (pd.Series): Coluna de classes de saída.
+            X (pd.DataFrame): Conjunto de dados de treino.
+            y (pd.Series): Coluna de classes de saída.
 
         Returns:
-        - self: O próprio objeto transformador.
+            self: O próprio objeto transformador.
         """
         self.encoder.fit(X[[self.column]], y)
         return self
@@ -522,7 +523,7 @@ class TargetEncoderTransformer(CustomProcessor):
         Transforma os dados usando o TargetEncoder previamente ajustado.
 
         Args:
-        - X (pd.DataFrame): Conjunto de dados a ser transformado.
+            X (pd.DataFrame): Conjunto de dados a ser transformado.
 
         Retorna:
         - pd.DataFrame: Conjunto de dados transformados.
@@ -538,7 +539,8 @@ class DataTransformation:
     recebendo as configurações e caminhos de arquivos de entrada e saída.
 
     Args:
-    - DataTransformationConfig (dataclass): Classe de valores de configuração.
+        DataTransformationConfig (dataclass): Classe de valores de \
+                                              configuração.
     """
 
     def __init__(self, config: DataTransformationConfig):
@@ -549,7 +551,7 @@ class DataTransformation:
         Método privado para dividir os pedaços de dados após divisão.
 
         Args:
-        - splits (dict): Dicionário contendo nome e dados divididos.
+            splits (dict): Dicionário contendo nome e dados divididos.
         """
         for name, split_transform in splits.items():
             split_transform.to_csv(
@@ -585,10 +587,10 @@ class DataTransformation:
         Proporção de 20% para dados de teste.
 
         Args:
-        - target_column (str): Coluna alvo contendo classes.
+            target_column (str): Coluna alvo contendo classes.
 
         Returns:
-        - tuple: Uma tupla contendo quatro conjuntos de dados:
+            tuple: Uma tupla contendo quatro conjuntos de dados:
             - X_train (pd.DataFrame): Conjunto de treino.
             - X_test (pd.DataFrame): Conjunto de teste.
             - y_train (pd.DataFrame): Rótulos do conjunto de treino.
@@ -618,15 +620,15 @@ class DataTransformation:
 
     def convert_to_numeric(self, X):
         """
-        Função para converser colunas de objeto para numérico.
+        Função para converter colunas de objeto para numérico.
         Será utilizado após as transformações, garantindo uma correta tipagem
         dos dados de entrada do modelo.
 
         Args:
-        - X (pd.DataFrame): Dados a serem convertidos em numérico.
+            X (pd.DataFrame): Dados a serem convertidos em numérico.
 
         Returns:
-        - pd.DataFrame: Dados após a conversão numérica.
+            pd.DataFrame: Dados após a conversão numérica.
         """
         X_new = X.copy()
         for col in X_new.select_dtypes(include=["object"]).columns:

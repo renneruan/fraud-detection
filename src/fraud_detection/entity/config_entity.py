@@ -1,5 +1,6 @@
 """
 Módulo para armazenar o formato das configurações recebidas.
+
 Serve para relacionar o que é lido no arquivo yaml para o formato a
 ser traduzido em python.
 """
@@ -12,9 +13,10 @@ from pathlib import Path
 class DataValidationConfig:
     """
     Armazena o modelo de configuração para validação dos dados.
-    Atributos:
-        root_path (Path): O diretório que será salvo o arquivo com resultado
-         da validação.
+
+    Args:
+        root_path (Path): O diretório que será salvo o arquivo com resultado\
+                          da validação.
         raw_data_path (Path): Diretório contendo os dados iniciais brutos.
         status_file (str): Arquivo que será salvo contendo o resultado.
         all_schema (dict): Colunas que devem estar nos dados de entrada.
@@ -30,10 +32,11 @@ class DataValidationConfig:
 class DataTransformationConfig:
     """
     Armazena o modelo de configuração para transformação dos dados.
-    Atributos:
+
+    Args:
         raw_data_path (Path): Diretório contendo os dados iniciais brutos.
-        transformed_data_path (Path): Diretório que os dados transformados
-         serão salvos.
+        transformed_data_path (Path): Diretório que os dados transformados\
+                                      serão salvos.
         target_column (str): Coluna alvo para ser usada na transformação.
     """
 
@@ -48,7 +51,7 @@ class ModelTrainerConfig:
     Armazena o modelo de configuração para o treinamento do modelo.
     Irá carregar os hiperparâmetros inerentes ao modelo.
 
-    Atributos:
+    Args:
         model_target_path (Path): Caminho para salvar o modelo treinado.
         train_x_data_path (Path): Caminho para os dados de treino (features).
         test_x_data_path (Path): Caminho para os dados de teste (features).
@@ -67,8 +70,8 @@ class ModelTrainerConfig:
         max_depth (int): Profundidade máxima das árvores.
         learning_rate (float): Taxa de aprendizado.
         colsample_bytree (float): Fração de colunas usadas por árvore.
-        scale_pos_weight (float): Proporção para lidar com desbalanceamento
-         de classe
+        scale_pos_weight (float): Proporção para lidar com desbalanceamento\
+                                  de classe
         target_column (str): Nome da coluna alvo para predição.
     """
 
@@ -95,16 +98,16 @@ class ModelEvaluationConfig:
     """
     Armazena o padrão de configurações para a etapa de avaliação do modelo.
 
-    Atributos:
+    Args:
         model_results_path (Path): Caminho onde os resultados da avaliação
          serão armazenados.
         test_x_data_path (Path): Caminho para os dados de teste (features).
         test_y_data_path (Path): Caminho para os rótulos de teste.
         model_path (Path): Caminho para o modelo treinado a ser avaliado.
-        all_params (dict): Dicionário contendo os hiperparâmetros usados no
-         modelo.
-        metric_file_name (Path): Nome do arquivo onde as métricas de avaliação
-         serão salvas.
+        all_params (dict): Dicionário contendo os hiperparâmetros usados no \
+                           modelo.
+        metric_file_name (Path): Nome do arquivo onde as métricas de \
+                                 avaliação serão salvas.
         target_column (str): Nome da coluna alvo para predição.
         mlflow_uri (str): URI do MLflow para rastreamento dos experimentos.
     """

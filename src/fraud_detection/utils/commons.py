@@ -81,8 +81,8 @@ def save_json(path: Path, data: dict):
     Dados de dicionário passados serão armazenados no JSON.
 
     Args:
-    - path (str): Caminho para salvar o arquivo JSON.
-    - data (dict): Dados a serem salvos no arquivo JSON.
+        path (str): Caminho para salvar o arquivo JSON.
+        data (dict): Dados a serem salvos no arquivo JSON.
     """
 
     with open(path, "w", encoding="UTF-8") as f:
