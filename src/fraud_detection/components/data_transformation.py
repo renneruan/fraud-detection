@@ -139,7 +139,8 @@ class DocumentsProcessor(CustomProcessor):
             X_new[self.document_columns].astype(str).fillna("N")
         )
         X_new[self.document_columns] = (
-            X_new[self.document_columns] == "Y"
+            (X_new[self.document_columns] == "Y")
+            | (X_new[self.document_columns] == "1")
         ).astype(int)
 
         return X_new

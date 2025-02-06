@@ -1,5 +1,5 @@
 """
-Este módulo realiza validação dos dados a serem utilizados no pipeline de 
+Este módulo realiza validação dos dados a serem utilizados no pipeline de
 treinamento.
 
 Classes:
