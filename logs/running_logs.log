@@ -1,0 +1,55 @@
+[2025-02-06 19:30:05,568: INFO: main: [INICIO DE ETAPA] Data Validation]
+[2025-02-06 19:30:05,588: INFO: commons: Arquivo yaml: config\config.yaml carregado com sucesso.]
+[2025-02-06 19:30:05,610: INFO: commons: Arquivo yaml: config\params.yaml carregado com sucesso.]
+[2025-02-06 19:30:05,634: INFO: commons: Arquivo yaml: config\schema.yaml carregado com sucesso.]
+[2025-02-06 19:30:05,636: INFO: commons: Diretório criado: artifacts]
+[2025-02-06 19:30:05,638: INFO: commons: Diretório criado: artifacts/data_validation]
+[2025-02-06 19:30:06,350: INFO: main: [FIM DE ETAPA], Data Validation
+
+]
+[2025-02-06 19:30:06,351: INFO: main: ---------------------------------------------]
+[2025-02-06 19:30:06,352: INFO: main: [INICIO DE ETAPA] Data Transformation]
+[2025-02-06 19:30:06,355: INFO: commons: Arquivo yaml: config\config.yaml carregado com sucesso.]
+[2025-02-06 19:30:06,357: INFO: commons: Arquivo yaml: config\params.yaml carregado com sucesso.]
+[2025-02-06 19:30:06,362: INFO: commons: Arquivo yaml: config\schema.yaml carregado com sucesso.]
+[2025-02-06 19:30:06,364: INFO: commons: Diretório criado: artifacts]
+[2025-02-06 19:30:06,365: INFO: commons: Diretório criado: artifacts/data_transformation]
+[2025-02-06 19:30:07,096: INFO: data_transformation: Dados divididos em treino e teste]
+[2025-02-06 19:30:08,761: INFO: data_transformation: Dados divididos salvos em: X_train.csv, de tamanho: (118712, 19)]
+[2025-02-06 19:30:09,324: INFO: data_transformation: Dados divididos salvos em: X_test.csv, de tamanho: (29679, 19)]
+[2025-02-06 19:30:09,398: INFO: data_transformation: Dados divididos salvos em: y_train.csv, de tamanho: (118712,)]
+[2025-02-06 19:30:09,415: INFO: data_transformation: Dados divididos salvos em: y_test.csv, de tamanho: (29679,)]
+[2025-02-06 19:30:13,378: INFO: data_transformation: Dados divididos salvos em: X_train_transformed.csv, de tamanho: (118712, 26)]
+[2025-02-06 19:30:13,817: INFO: data_transformation: Dados divididos salvos em: X_test_transformed.csv, de tamanho: (29679, 26)]
+[2025-02-06 19:30:13,900: INFO: main: [FIM DE ETAPA], Data Transformation
+
+]
+[2025-02-06 19:30:13,901: INFO: main: ---------------------------------------------]
+[2025-02-06 19:30:13,902: INFO: main: [INICIO DE ETAPA] Model Trainer]
+[2025-02-06 19:30:13,906: INFO: commons: Arquivo yaml: config\config.yaml carregado com sucesso.]
+[2025-02-06 19:30:13,909: INFO: commons: Arquivo yaml: config\params.yaml carregado com sucesso.]
+[2025-02-06 19:30:13,914: INFO: commons: Arquivo yaml: config\schema.yaml carregado com sucesso.]
+[2025-02-06 19:30:13,915: INFO: commons: Diretório criado: artifacts]
+[2025-02-06 19:30:13,918: INFO: commons: Diretório criado: artifacts/model_output]
+[2025-02-06 19:30:17,489: INFO: model_trainer: Modelo treinado]
+[2025-02-06 19:30:17,489: INFO: model_trainer: LGBMClassifier(colsample_bytree=0.6314435287293312,
+               learning_rate=0.02520017403854532, max_depth=12,
+               n_estimators=826, num_leaves=13, random_state=42, reg_alpha=1,
+               reg_lambda=1.9517201745891524, scale_pos_weight=19,
+               subsample=0.9361289555144665)]
+[2025-02-06 19:30:17,566: INFO: main: [FIM DE ETAPA], Model Trainer
+
+]
+[2025-02-06 19:30:17,567: INFO: main: ---------------------------------------------]
+[2025-02-06 19:30:17,567: INFO: main: [INICIO DE ETAPA] Model Evaluation]
+[2025-02-06 19:30:17,571: INFO: commons: Arquivo yaml: config\config.yaml carregado com sucesso.]
+[2025-02-06 19:30:17,574: INFO: commons: Arquivo yaml: config\params.yaml carregado com sucesso.]
+[2025-02-06 19:30:17,578: INFO: commons: Arquivo yaml: config\schema.yaml carregado com sucesso.]
+[2025-02-06 19:30:17,580: INFO: commons: Diretório criado: artifacts]
+[2025-02-06 19:30:17,581: INFO: commons: Diretório criado: artifacts/model_evaluation]
+[2025-02-06 19:30:19,716: INFO: commons: Dados salvos em arquivo JSON: artifacts\model_evaluation\metrics.json]
+[2025-02-06 19:30:41,720: INFO: main: [FIM DE ETAPA], Model Evaluation
+
+]
+[2025-02-06 19:30:41,722: INFO: main: ---------------------------------------------]
+[2025-02-06 19:30:41,722: INFO: main: Treinamento finalizado com sucesso!]

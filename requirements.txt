@@ -9,7 +9,7 @@ seaborn
 tabulate
 mlflow
 python-box==6.0.2
-ensure==1.0.2
+ensure
 joblib
 pycountry_convert
 python-dotenv

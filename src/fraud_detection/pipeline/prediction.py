@@ -35,7 +35,8 @@ class PredictionPipeline:
                                  a serem submetidos ao modelo.
 
         Returns:
-            pd.DataFrame: Dados transformados para aplicação ao modelo treinado.
+            pd.DataFrame: Dados transformados para aplicação ao modelo\
+                          treinado.
         """
         try:
             transformed_data = self.pipeline.transform(data)

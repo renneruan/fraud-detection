@@ -3,7 +3,9 @@
 ## Overview
 Este projeto tem como objetivo analisarmos como transações fraudulentas podem ser identificas em dados de compra de cartão de crédito. Iremos aplicar técnicas de análise estatística de dados, realizar a limpeza e pré-processamento e aplicá-los a um modelo de Machine Learning. O modelo treinado será comparado com o modelo base fornecido na amostra de dados, queremos verificar em como as métricas de negócio se alteram e se conseguimos mapear o perfil das transações fraudulentas.
 
-Além da criação das análises e treinamento de modelo utilizando notebooks Jupyter, modularizamos os códigos de pré processamento e treinamento, criando um pipeline para a validação dos dados, construção e avaliação do modelo, salvando o artefato final possibilitando o monitoramento e a aplicabilidade do classificador a um ambiente de produção. 
+Além da criação das análises e treinamento de modelo utilizando notebooks Jupyter, modularizamos os códigos de pré processamento e treinamento, criando um pipeline para a validação dos dados, construção e avaliação do modelo, salvando o artefato final possibilitando o monitoramento e a aplicabilidade do classificador a um ambiente de produção.
+
+Documentação do Projeto: https://renneruan.github.io/fraud-detection/
 
 Sumário:
 - [Overview](#overview)
