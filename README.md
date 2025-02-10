@@ -130,6 +130,10 @@ Vemos no gráfico a seguir como o novo modelo (curva azul) para os casos de frau
 
 Utilizamos da biblioteca SHAP para verificar quais features de entrada tiveram maior influência nos resultados do modelo.
 
+![resultados_shap](reports/figures/shap.png)
+
+
+
 ## 5. Estrutura do projeto e tecnologias
 
 Além dos estudos em protótipo realizados em notebook, para este projeto os códigos foram repassados para módulos python visando a criação de um pipeline de treinamento e predição, de forma que o modelo pudesse ser aplicado em ambiente de produção. Esta informação é necessária para visualizarmos melhor a estrutura de projeto construída.
