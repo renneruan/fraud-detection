@@ -220,6 +220,7 @@ class DateProcessor(CustomProcessor):
             pd.DataFrame: Dados com novas colunas relacionadas a data.
         """
         X_new = X.copy()
+
         date = pd.to_datetime(X_new[self.date_column])
 
         X_new["hora_compra"] = date.dt.hour
@@ -534,6 +535,28 @@ class TargetEncoderTransformer(CustomProcessor):
         return X_transformed
 
 
+def convert_to_numeric(X):
+    """
+    Função para converter colunas de objeto para numérico.
+    Será utilizado após as transformações, garantindo uma correta tipagem
+    dos dados de entrada do modelo.
+
+    Args:
+        X (pd.DataFrame): Dados a serem convertidos em numérico.
+
+    Returns:
+        pd.DataFrame: Dados após a conversão numérica.
+    """
+    X_new = X.copy()
+    for col in X_new.select_dtypes(include=["object"]).columns:
+        try:
+            X_new[col] = pd.to_numeric(X_new[col], errors="coerce")
+        except ValueError as e:
+            print(e)
+
+    return X_new
+
+
 class DataTransformation:
     """
     Classe que irá agregar e chamar todas as funções de processamento,
@@ -619,27 +642,6 @@ class DataTransformation:
 
         return X_train, X_test, y_train, y_test
 
-    def convert_to_numeric(self, X):
-        """
-        Função para converter colunas de objeto para numérico.
-        Será utilizado após as transformações, garantindo uma correta tipagem
-        dos dados de entrada do modelo.
-
-        Args:
-            X (pd.DataFrame): Dados a serem convertidos em numérico.
-
-        Returns:
-            pd.DataFrame: Dados após a conversão numérica.
-        """
-        X_new = X.copy()
-        for col in X_new.select_dtypes(include=["object"]).columns:
-            try:
-                X_new[col] = pd.to_numeric(X_new[col], errors="coerce")
-            except ValueError as e:
-                print(e)
-
-        return X_new
-
     def preprocessing_pipeline(self):
         """
         Método para realizar chamada do processamento dos dados.
@@ -677,8 +679,8 @@ class DataTransformation:
         X_test_transformed = pipeline.transform(X_test)
 
         # Garante que as colunas transformadas sejam numéricas para modelo
-        X_train_transformed = self.convert_to_numeric(X_train_transformed)
-        X_test_transformed = self.convert_to_numeric(X_test_transformed)
+        X_train_transformed = convert_to_numeric(X_train_transformed)
+        X_test_transformed = convert_to_numeric(X_test_transformed)
 
         splitted_transforms = {
             "X_train_transformed": X_train_transformed,

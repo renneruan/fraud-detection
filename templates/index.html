@@ -41,133 +41,182 @@
   <div class="overlay"></div>
 
   <div id="form-prediction" class="container mt-5 row">
-    <div class="container mt-5 col-8">
+    <div class="container mt-5 col-10">
         <h2 class="mb-4">Fraud Detection Data Form</h2>
-        <form method="POST" class="row" action="/predict">
-            <!-- Numerical Inputs -->
-            <div class="col-3 mb-5">
-                <label for="score_1" class="form-label">Score 1 (int64)</label>
-                <input type="number" class="form-control" id="score_1" name="score_1" required>
-            </div>
-            <div class="col-3 mb-5">
-                <label for="score_2" class="form-label">Score 2 (float64)</label>
-                <input type="number" class="form-control" id="score_2" name="score_2" step="any" required>
-            </div>
-            <div class="col-3 mb-5">
-                <label for="score_3" class="form-label">Score 3 (float64)</label>
-                <input type="number" class="form-control" id="score_3" name="score_3" step="any" required>
-            </div>
-            <div class="col-3 mb-5">
-                <label for="score_4" class="form-label">Score 4 (float64)</label>
-                <input type="number" class="form-control" id="score_4" name="score_4"  min="1" max="50" required>
-            </div>
-            <div class="col-3 mb-5">
-                <label for="score_5" class="form-label">Score 5 (float64)</label>
-                <input type="number" class="form-control" id="score_5" name="score_5" step="any" required>
-            </div>
-            <div class="col-3 mb-5">
-                <label for="score_6" class="form-label">Score 6 (float64)</label>
-                <input type="number" class="form-control" id="score_6" name="score_6" min="1" max="50" required>
-            </div>
-            <div class="col-3 mb-5">
-                <label for="score_7" class="form-label">Score 7 (int64)</label>
-                <input type="number" class="form-control" id="score_7" name="score_7" required>
-            </div>
-            <div class="col-3 mb-5">
-                <label for="score_8" class="form-label">Score 8 (float64)</label>
-                <input type="number" class="form-control" id="score_8" name="score_8" step="any" required>
-            </div>
-            <div class="col-3 mb-5">
-                <label for="score_9" class="form-label">Score 9 (float64)</label>
-                <input type="number" class="form-control" id="score_9" name="score_9" step="any" required>
-            </div>
-            <div class="col-3 mb-5">
-                <label for="score_10" class="form-label">Score 10 (float64)</label>
-                <input type="number" class="form-control" id="score_10" name="score_10" step="any" required>
-            </div>
-            <div class="col-3 mb-5">
-                <label for="valor_compra" class="form-label">Valor Compra (float64)</label>
-                <input type="number" class="form-control" id="valor_compra" name="valor_compra" step="any" required>
-            </div>
+        <form method="POST" class="row g-3" action="/predict">
+            <div class="col-md-4">
+                <!-- Numerical Inputs -->
+                <div class="row mb-3">
+                    <label for="score_1" class="col-sm-4 col-form-label">Score 1 (int64)</label>
+                    <div class="col-sm-8">
+                        <input type="number" value="4" class="form-control" id="score_1" name="score_1" required>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label for="score_2" class="col-sm-4 col-form-label">Score 2 (float64)</label>
+                    <div class="col-sm-8">
+                        <input type="number" value="0.76" class="form-control" id="score_2" name="score_2" step="any" required>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label for="score_3" class="col-sm-4 col-form-label">Score 3 (float64)</label>
+                    <div class="col-sm-8">
+                        <input type="number" value="4000" class="form-control" id="score_3" name="score_3" step="any" required>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label for="score_4" class="col-sm-4 col-form-label">Score 4 (float64)</label>
+                    <div class="col-sm-8">
+                        <input type="number" value="14" class="form-control" id="score_4" name="score_4" min="1" max="50" required>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label for="pais" class="col-sm-4 col-form-label">País</label>
+                    <div class="col-sm-8">
+                        <select class="form-select" id="pais" name="pais" required>
+                            <option value="">Seleciona o País</option>
+                            <option value="BR">BR</option>
+                            <option value="AR">AR</option>
+                            <option value="UY">UY</option>
+                            <option value="US">US</option>
+                            <option value="SE">SE</option>
+                            <option value="MX">MX</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label for="categoria_produto" class="col-sm-4 col-form-label">Categoria Produto</label>
+                    <div class="col-sm-8">
+                        <select class="form-select" id="categoria_produto" name="categoria_produto" required>
+                            <option value="cat_43b9c10">cat_43b9c10</option>
+                            <option value="cat_d69bed9">cat_d69bed9</option>
+                            <option value="cat_604df77">cat_604df77</option>
+                            <option value="cat_6c4cfdc">cat_6c4cfdc</option>
+                            <option value="cat_4249bd8">cat_4249bd8</option>
+                            <option value="cat_3203c7c">cat_3203c7c</option>
+                            <option value="cat_be0af8e">cat_be0af8e</option>
+                            <option value="cat_0820fab">cat_0820fab</option>
+                            <option value="cat_8ef7164">cat_8ef7164</option>
+                            <option value="cat_d5975ae">cat_d5975ae</option>
+                            
+                        </select>
+                    </div>
 
-            <!-- Categorical and Object Inputs -->
-            <div class="col-3 mb-5">
-                <label for="pais" class="form-label">País</label>
-                <select class="form-select" id="pais" name="pais" required>
-                    <option value="">Seleciona o País</option>
-                    <option value="BR">BR</option>
-                    <option value="AR">AR</option>
-                    <option value="UY">UY</option>
-                    <option value="US">US</option>
-                    <option value="SE">SE</option>
-                    <option value="MX">MX</option>
-                </select>
+                </div>
             </div>
-            <div class="col-3 mb-5">
-                <label for="produto" class="form-label">Produto</label>
-                <select class="form-select" id="produto" name="produto" required>
-                    <option value="Fone De Ouvido Sem Fio Xiaomi Airdots Preto">Fone De Ouvido Sem Fio Xiaomi Airdots Preto</option>
-                    <option value="Xiaomi Redmi Note 8 Dual Sim 64 Gb Azul-netuno 4 Gb Ram">Xiaomi Redmi Note 8 Dual Sim 64 Gb Azul-netuno 4 Gb Ram</option>
-                    <option value="Clean Sept - Álcool Em Gel 70% 500 Ml">Clean Sept - Álcool Em Gel 70% 500 Ml</option>
-                    <option value="Tapete Ilustrativo Pista Carrinho Hot Wheels 0,60x1,20m">Tapete Ilustrativo Pista Carrinho Hot Wheels 0,60x1,20m</option>
-                    <option value="Máscara Descartável Tripla Com Elástico Proteção Anvisa 50un">Máscara Descartável Tripla Com Elástico Proteção Anvisa 50un</option>
-                    <option value="Bebedouro Bomba Elétrica P Garrafão Galão Água Recarregável">Bebedouro Bomba Elétrica P Garrafão Galão Água Recarregável</option>
-                    <option value="Kit 10 Cuecas Box Boxer Microfibra Estampadas Originais">Kit 10 Cuecas Box Boxer Microfibra Estampadas Originais</option>
-                    <option value="Streaming Media Player Google Chromecast 2nd Generation 256mb Preto Com Memória Ram De 512mb">Streaming Media Player Google Chromecast 2nd Generation 256mb Preto Com Memória Ram De 512mb</option>
-                    <option value="Xiaomi Redmi Note 8 Dual Sim 64 Gb Preto-espacial 4 Gb Ram">Xiaomi Redmi Note 8 Dual Sim 64 Gb Preto-espacial 4 Gb Ram</option>
-                    <option value="Samsung Galaxy A30s Dual Sim 64 Gb Prism Crush Black 4 Gb Ram">Samsung Galaxy A30s Dual Sim 64 Gb Prism Crush Black 4 Gb Ram</option>
-                </select>
+            
+            <div class="col-md-4">
+                <!-- More Inputs -->
+                <div class="row mb-3">
+                    <label for="score_5" class="col-sm-4 col-form-label">Score 5 (float64)</label>
+                    <div class="col-sm-8">
+                        <input type="number" value="0.2" class="form-control" id="score_5" name="score_5" step="any" required>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label for="score_6" class="col-sm-4 col-form-label">Score 6 (float64)</label>
+                    <div class="col-sm-8">
+                        <input type="number" value="8" class="form-control" id="score_6" name="score_6" min="1" max="50" required>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label for="score_7" class="col-sm-4 col-form-label">Score 7 (int64)</label>
+                    <div class="col-sm-8">
+                        <input type="number" value="9" class="form-control" id="score_7" name="score_7" required>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label for="data_compra" class="col-sm-4 col-form-label">Data da Compra</label>
+                    <div class="col-sm-8">
+                        <input type="datetime-local" class="form-control" id="data_compra" name="data_compra" required>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label for="score_8" class="col-sm-4 col-form-label">Score 8 (float64)</label>
+                    <div class="col-sm-8">
+                        <input type="number" value="0.49" class="form-control" id="score_8" name="score_8" required>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label for="score_9" class="col-sm-4 col-form-label">Score 9 (int64)</label>
+                    <div class="col-sm-8">
+                        <input type="number" value="1937" class="form-control" id="score_9" name="score_9" required>
+                    </div>
+                </div>
+               
+              
             </div>
-            <div class="col-3 mb-5">
-                <label for="categoria_produto" class="form-label">Categoria Produto</label>
-                <select class="form-select" id="categoria_produto" name="categoria_produto" required>
-                    <option value="cat_43b9c10">cat_43b9c10</option>
-                    <option value="cat_d69bed9">cat_d69bed9</option>
-                    <option value="cat_604df77">cat_604df77</option>
-                    <option value="cat_6c4cfdc">cat_6c4cfdc</option>
-                    <option value="cat_4249bd8">cat_4249bd8</option>
-                    <option value="cat_3203c7c">cat_3203c7c</option>
-                    <option value="cat_be0af8e">cat_be0af8e</option>
-                    <option value="cat_0820fab">cat_0820fab</option>
-                    <option value="cat_8ef7164">cat_8ef7164</option>
-                    <option value="cat_d5975ae">cat_d5975ae</option>
-                    
-                </select>
+            <div class="col-md-4">
+                <div class="row mb-3">
+                    <label for="score_10" class="col-sm-4 col-form-label">Score 10 (int64)</label>
+                    <div class="col-sm-8">
+                        <input type="number" value="193" class="form-control" id="score_10" name="score_10" required>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label for="entrega_doc_1" class="col-sm-4 col-form-label">Documentos 1</label>
+                    <div class="col-sm-8">
+                        <select class="form-select" id="entrega_doc_1" name="entrega_doc_1">
+                            <option value="">Selecione</option>
+                            <option value="Sim">Sim</option>
+                            <option value="Não">Não</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label for="entrega_doc_2" class="col-sm-4 col-form-label">Documentos 2</label>
+                    <div class="col-sm-8">
+                        <select class="form-select" id="entrega_doc_2" name="entrega_doc_2">
+                            <option value="">Selecione</option>
+                            <option value="Sim">Sim</option>
+                            <option value="Não">Não</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label for="entrega_doc_3" class="col-sm-4 col-form-label">Documentos 3</label>
+                    <div class="col-sm-8">
+                        <select class="form-select" id="entrega_doc_3" name="entrega_doc_3">
+                            <option value="">Selecione</option>
+                            <option value="Sim">Sim</option>
+                            <option value="Não">Não</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label for="categoria_produto" class="col-sm-4 col-form-label">Categoria Produto</label>
+                    <div class="col-sm-8">
+                        <select class="form-select" id="produto" name="produto" required>
+                            <option value="Fone De Ouvido Sem Fio Xiaomi Airdots Preto">Fone De Ouvido Sem Fio Xiaomi Airdots Preto</option>
+                            <option value="Xiaomi Redmi Note 8 Dual Sim 64 Gb Azul-netuno 4 Gb Ram">Xiaomi Redmi Note 8 Dual Sim 64 Gb Azul-netuno 4 Gb Ram</option>
+                            <option value="Clean Sept - Álcool Em Gel 70% 500 Ml">Clean Sept - Álcool Em Gel 70% 500 Ml</option>
+                            <option value="Tapete Ilustrativo Pista Carrinho Hot Wheels 0,60x1,20m">Tapete Ilustrativo Pista Carrinho Hot Wheels 0,60x1,20m</option>
+                            <option value="Máscara Descartável Tripla Com Elástico Proteção Anvisa 50un">Máscara Descartável Tripla Com Elástico Proteção Anvisa 50un</option>
+                            <option value="Bebedouro Bomba Elétrica P Garrafão Galão Água Recarregável">Bebedouro Bomba Elétrica P Garrafão Galão Água Recarregável</option>
+                            <option value="Kit 10 Cuecas Box Boxer Microfibra Estampadas Originais">Kit 10 Cuecas Box Boxer Microfibra Estampadas Originais</option>
+                            <option value="Streaming Media Player Google Chromecast 2nd Generation 256mb Preto Com Memória Ram De 512mb">Streaming Media Player Google Chromecast 2nd Generation 256mb Preto Com Memória Ram De 512mb</option>
+                            <option value="Xiaomi Redmi Note 8 Dual Sim 64 Gb Preto-espacial 4 Gb Ram">Xiaomi Redmi Note 8 Dual Sim 64 Gb Preto-espacial 4 Gb Ram</option>
+                            <option value="Samsung Galaxy A30s Dual Sim 64 Gb Prism Crush Black 4 Gb Ram">Samsung Galaxy A30s Dual Sim 64 Gb Prism Crush Black 4 Gb Ram</option>
+                        </select>
+                    </div>
+                    <div class="row mb-3">
+                        <label for="valor_compra" class="col-sm-4 col-form-label">Valor compra (float64)</label>
+                        <div class="col-sm-8">
+                            <input type="number" value="50.5" class="form-control" id="valor_compra" name="valor_compra" required>
+                        </div>
+                    </div>
+                </div>
+                
+               
             </div>
-            <div class="col-3 mb-5">
-                <label for="entrega_doc_1" class="form-label">Entrega Doc 1</label>
-                <select class="form-select" id="entrega_doc_1" name="entrega_doc_1" required>
-                    <option value="">Select Entrega Doc 1</option>
-                    <option value="1">Sim</option>
-                    <option value="0">Não</option>
-                </select>
-            </div>
-            <div class="col-3 mb-5">
-                <label for="entrega_doc_2" class="form-label">Entrega Doc 2</label>
-                <select class="form-select" id="entrega_doc_2" name="entrega_doc_2" required>
-                    <option value="">Select Entrega Doc 2</option>
-                    <option value="Y">Sim</option>
-                    <option value="N">Não</option>
-                </select>
-            </div>
-            <div class="col-3 mb-5">
-                <label for="entrega_doc_3" class="form-label">Entrega Doc 3</label>
-                <select class="form-select" id="entrega_doc_3" name="entrega_doc_3" required>
-                    <option value="">Select Entrega Doc 3</option>
-                    <option value="Y">Sim</option>
-                    <option value="N">Não</option>
-                </select>
-            </div>
-            <div class="mb-3">
-                <label for="data_compra" class="form-label">Data da Compra</label>
-                <input type="datetime-local" class="form-control" id="data_compra" name="data_compra" required>
+            
+            <div class="col-12 text-center">
+                <button type="submit" class="btn btn-primary">Submeter</button>
             </div>
             <!-- Submit Button -->
-            <button type="submit" class="btn btn-primary">Submit</button>
+          
         </form>
-    </div>
-    <div class="results container m-2 col-4">
-        aaa
+        
     </div>
   </div>
 

@@ -5,6 +5,7 @@ Módulo com funções de endpoint a serem servidas pela API Flask.
 from flask import Flask, render_template, request
 import pandas as pd
 from fraud_detection.pipeline.prediction import PredictionPipeline
+from fraud_detection.components.data_transformation import convert_to_numeric
 from fraud_detection import logger
 
 
@@ -47,54 +48,49 @@ def index():
             score_4,
             score_5,
             score_6,
+            pais,
             score_7,
+            produto,
+            categoria_produto,
             score_8,
             score_9,
             score_10,
-            valor_compra,
-            pais,
-            produto,
-            categoria_produto,
-            data_compra,
             entrega_doc_1,
             entrega_doc_2,
             entrega_doc_3,
+            data_compra,
+            valor_compra,
+            0,
         ]
         logger.info("predict data:")
         logger.info(data)
 
         data = pd.DataFrame([data])
         data.columns = [
-            "score_4",
-            "score_7",
+            "score_1",
             "score_2",
+            "score_3",
+            "score_4",
             "score_5",
+            "score_6",
+            "pais",
+            "score_7",
+            "produto",
+            "categoria_produto",
+            "score_8",
             "score_9",
             "score_10",
-            "categoria_produto",
             "entrega_doc_1",
             "entrega_doc_2",
             "entrega_doc_3",
-            "hora_compra",
-            "dia_compra",
-            "score_1_2",
-            "score_1_3",
-            "score_1_4",
-            "continente_AS",
-            "continente_EU",
-            "continente_NA",
-            "continente_OC",
-            "continente_SA",
-            "log_score_3",
-            "log_valor_compra",
-            "cbrt_score_6",
+            "data_compra",
+            "valor_compra",
+            "score_fraude_modelo",
         ]
 
-        print(data)
         obj = PredictionPipeline()
         data = obj.transform_input_data(data)
-
-        print(data)
+        data = convert_to_numeric(data)
         predict, predict_proba = obj.predict(data)
 
         results = {predict, predict_proba}
@@ -110,5 +106,5 @@ def index():
 
 
 if __name__ == "__main__":
-    # app.run(host="0.0.0.0", port = 8080, debug=True)
-    app.run(host="0.0.0.0", port=8080)
+    app.run(host="0.0.0.0", port=8080, debug=True)
+    # app.run(host="0.0.0.0", port=8080)

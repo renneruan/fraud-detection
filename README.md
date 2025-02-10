@@ -200,6 +200,8 @@ OBS: Os dados necessários devem estar presentes na pasta `artifacts/data_ingest
 
 Para o pipeline de predição temos a construção de uma API utilizando Flask `app.py`, além da disponibilização de um formulário contendo valores de entrada aleatórios, onde é possível visualizar como cada um é classificado. (O formulário pode ser encontrado na pasta `static`)
 
+Podemos exercutar a instância flask a partir de `python app.py`
+
 
 O código interente pode ser visualizado na pasta `src/fraud_detection/pipeline/prediction`. Os dados de entrada recebidos são submetidos ao pipeline de pré-processamento ajustado aos dados de treino utilizados, garantindo o correto tratamento de evitando Data Leakege.
 
