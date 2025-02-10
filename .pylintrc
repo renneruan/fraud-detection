@@ -1,3 +1,4 @@
 [MESSAGES CONTROL]
 disable=invalid-name,too-few-public-methods,too-many-instance-attributes,too-many-locals
 ignore=docs/source/*, src/tests/*
+ignore-paths=^docs/source/.*$,^src/tests/.*$,
