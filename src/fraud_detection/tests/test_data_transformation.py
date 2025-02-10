@@ -4,6 +4,7 @@ Módulo de teste para etapa de pré-processamento dos dados.
 Armazena os testes unitários referentes a todos os passos do pipeline criado.
 """
 
+import pytest
 import numpy as np
 import pandas as pd
 from fraud_detection.components.data_transformation import (
@@ -16,7 +17,6 @@ from fraud_detection.components.data_transformation import (
     TargetEncoderTransformer,
     TransformColumns,
 )
-import pytest
 
 
 def test_drop_columns():
@@ -285,6 +285,7 @@ def test_impute_values_processor():
 
 
 def test_transform_columns():
+    """Teste para etapa de transformações numéricas (log)"""
     data = pd.DataFrame(
         {
             "score_1": [10, 20, 30, 40, 50],

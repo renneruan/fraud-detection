@@ -1,3 +1,5 @@
+"""Setupe de pacote para projeto de Detecção de Fraude"""
+
 import setuptools
 
 with open("README.md", "r", encoding="utf-8") as f:

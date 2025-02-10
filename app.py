@@ -1,5 +1,8 @@
+"""
+Módulo com funções de endpoint a serem servidas pela API Flask.
+"""
+
 from flask import Flask, render_template, request
-import os
 import pandas as pd
 from fraud_detection.pipeline.prediction import PredictionPipeline
 from fraud_detection import logger
@@ -10,11 +13,13 @@ app = Flask(__name__)
 
 @app.route("/", methods=["GET"])
 def homePage():
+    """Home page a ser renderizada"""
     return render_template("index.html")
 
 
 @app.route("/predict", methods=["POST"])
 def index():
+    """Endpoint de predição para verificação de fraude"""
     try:
         score_1 = int(request.form["score_1"])
         score_2 = float(request.form["score_2"])
@@ -58,32 +63,7 @@ def index():
         logger.info("predict data:")
         logger.info(data)
 
-        aux = [
-            50.0,
-            17.0,
-            0.5175,
-            0.3301100367,
-            4667.0,
-            518.0,
-            0.020659000392567364,
-            0,
-            0,
-            1,
-            11,
-            5,
-            0,
-            0,
-            1,
-            0,
-            0,
-            0,
-            0,
-            1,
-            11.378399177602017,
-            1.8961194845522977,
-            6.333025531362916,
-        ]
-        data = pd.DataFrame([aux])
+        data = pd.DataFrame([data])
         data.columns = [
             "score_4",
             "score_7",
@@ -112,6 +92,9 @@ def index():
 
         print(data)
         obj = PredictionPipeline()
+        data = obj.transform_input_data(data)
+
+        print(data)
         predict, predict_proba = obj.predict(data)
 
         results = {predict, predict_proba}
@@ -121,8 +104,8 @@ def index():
         resultado = f"{results}"
         return resultado
 
-    except Exception as e:
-        print(e)
+    except ValueError as e:
+        print(f"Não foi possível: {e}")
         return "falha"
 
 

@@ -1,2 +1,3 @@
 [MESSAGES CONTROL]
-disable=invalid-name,too-few-public-methods,too-many-instance-attributes
+disable=invalid-name,too-few-public-methods,too-many-instance-attributes,too-many-locals
+ignore=docs,tests
