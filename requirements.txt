@@ -17,4 +17,5 @@ dotenv-cli
 pylint
 optuna
 shap
+pytest
 -e .
