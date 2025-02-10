@@ -1,4 +1,4 @@
-![transacoes_fraudulentas](https://github.com/user-attachments/assets/504a34de-8554-4e29-a485-df07fe1cf2ee)
+![transacoes_fraudulentas](static/img/present_card.png)
 
 ## Overview
 Este projeto tem como objetivo a análise de transações fraudulentas em compras de cartão e como elas podem se identificadas da melhor forma utilizando Dados e Machine Learning.
