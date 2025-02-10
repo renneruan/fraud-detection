@@ -31,7 +31,7 @@ jobs:
           pip install -r requirements.txt
 
       - name: Lint code
-        run: pylint $(git ls-files '*.py') --rcfile=pylintrc --fail-under=10.0
+        run: pylint $(git ls-files '*.py') --rcfile=.pylintrc --fail-under=10.0
 
       - name: Run unit tests with pytest
         run: |
