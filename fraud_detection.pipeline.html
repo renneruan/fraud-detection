@@ -1,0 +1,253 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="pt-BR" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pipelines (pipeline) &mdash; Documentação Fraud Detection 1.0.0</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=c0c8e3fa"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="_static/translations.js?v=71a39b36"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Índice" href="genindex.html" />
+    <link rel="search" title="Buscar" href="search.html" />
+    <link rel="next" title="Funções Auxiliares (utils)" href="fraud_detection.utils.html" />
+    <link rel="prev" title="Templates de Configuração (entity)" href="fraud_detection.entity.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Fraud Detection
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Pesquisar documentos" aria-label="Pesquisar documentos" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Menu de navegação">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="fraud_detection.html">Estrutura Geral</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fraud_detection.components.html">Componentes (components)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fraud_detection.config.html">Gerenciador de Configurações (config)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fraud_detection.constants.html">Constantes (constants)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fraud_detection.entity.html">Templates de Configuração (entity)</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Pipelines (pipeline)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#module-fraud_detection.pipeline.prediction">Pipeline de predição (prediction)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#fraud_detection.pipeline.prediction.PredictionPipeline"><code class="docutils literal notranslate"><span class="pre">PredictionPipeline</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#fraud_detection.pipeline.prediction.PredictionPipeline.predict"><code class="docutils literal notranslate"><span class="pre">PredictionPipeline.predict()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#fraud_detection.pipeline.prediction.PredictionPipeline.transform_input_data"><code class="docutils literal notranslate"><span class="pre">PredictionPipeline.transform_input_data()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-fraud_detection.pipeline.stage_01_data_validation">Etapa 1 - Validação dos Dados</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#fraud_detection.pipeline.stage_01_data_validation.DataValidationTrainingPipeline"><code class="docutils literal notranslate"><span class="pre">DataValidationTrainingPipeline()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-fraud_detection.pipeline.stage_02_data_transformation">Etapa 2 - Transformação dos Dados</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#fraud_detection.pipeline.stage_02_data_transformation.DataTransformationTrainingPipeline"><code class="docutils literal notranslate"><span class="pre">DataTransformationTrainingPipeline()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-fraud_detection.pipeline.stage_03_model_trainer">Etapa 3 - Treinamento do Modelo</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#fraud_detection.pipeline.stage_03_model_trainer.ModelTrainerTrainingPipeline"><code class="docutils literal notranslate"><span class="pre">ModelTrainerTrainingPipeline()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-fraud_detection.pipeline.stage_04_model_evaluation">Etapa 4 - Avaliação do Modelo</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#fraud_detection.pipeline.stage_04_model_evaluation.ModelEvaluationTrainingPipeline"><code class="docutils literal notranslate"><span class="pre">ModelEvaluationTrainingPipeline()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="fraud_detection.utils.html">Funções Auxiliares (utils)</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Menu de navegação móvel" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Fraud Detection</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Navegação da página">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="fraud_detection.html">Estrutura Geral</a></li>
+      <li class="breadcrumb-item active">Pipelines (pipeline)</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/fraud_detection.pipeline.rst.txt" rel="nofollow"> Ver código-fonte da página</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="pipelines-pipeline">
+<h1>Pipelines (pipeline)<a class="headerlink" href="#pipelines-pipeline" title="Link para este cabeçalho"></a></h1>
+<section id="module-fraud_detection.pipeline.prediction">
+<span id="pipeline-de-predicao-prediction"></span><h2>Pipeline de predição (prediction)<a class="headerlink" href="#module-fraud_detection.pipeline.prediction" title="Link para este cabeçalho"></a></h2>
+<p>Módulo do pipeline utilizado para predição.</p>
+<p>Pensado inicialmente para processamento de apenas um dados recebido.</p>
+<p>A partir do dado recebido carrega o modelo, aplica o pré-processamento
+adequado aos dados de entrada e devolve a probabilidade da classe.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="fraud_detection.pipeline.prediction.PredictionPipeline">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">fraud_detection.pipeline.prediction.</span></span><span class="sig-name descname"><span class="pre">PredictionPipeline</span></span><a class="reference internal" href="_modules/fraud_detection/pipeline/prediction.html#PredictionPipeline"><span class="viewcode-link"><span class="pre">[código-fonte]</span></span></a><a class="headerlink" href="#fraud_detection.pipeline.prediction.PredictionPipeline" title="Link para esta definição"></a></dt>
+<dd><p>Base: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Class contendo pipeline de predição, submete os dados de entrada ao mesmo
+pipeline de transformação ajustado na etapa de pré-processamento dos dados
+de treino.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="fraud_detection.pipeline.prediction.PredictionPipeline.predict">
+<span class="sig-name descname"><span class="pre">predict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fraud_detection/pipeline/prediction.html#PredictionPipeline.predict"><span class="viewcode-link"><span class="pre">[código-fonte]</span></span></a><a class="headerlink" href="#fraud_detection.pipeline.prediction.PredictionPipeline.predict" title="Link para esta definição"></a></dt>
+<dd><p>Função que realiza a predição dos dados, também invoca o método para
+pré-processar os dados inseridos.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parâmetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>data</strong> (<em>pd.DataFrame</em>) – Dados de entrada para predição.</p>
+</dd>
+<dt class="field-even">Retorna<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p>prediction int: Classe a qual os dados foram classificados</p></li>
+<li><p>prediction_proba list: Lista de probabilidades das classes</p></li>
+</ul>
+</p>
+</dd>
+<dt class="field-odd">Tipo de retorno<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fraud_detection.pipeline.prediction.PredictionPipeline.transform_input_data">
+<span class="sig-name descname"><span class="pre">transform_input_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fraud_detection/pipeline/prediction.html#PredictionPipeline.transform_input_data"><span class="viewcode-link"><span class="pre">[código-fonte]</span></span></a><a class="headerlink" href="#fraud_detection.pipeline.prediction.PredictionPipeline.transform_input_data" title="Link para esta definição"></a></dt>
+<dd><p>Aplica o pipeline de pré-processamento nos dados a serem
+usados para predição. O pipeline possui informações de Imputers e
+Encodings salvos a partir apenas dos dados de treino.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parâmetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>data</strong> (<em>pd.DataFrame</em>) – DataFrame de linha única contendo dados                                  a serem submetidos ao modelo.</p>
+</dd>
+<dt class="field-even">Retorna<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dados transformados para aplicação ao modelo                          treinado.</p>
+</dd>
+<dt class="field-odd">Tipo de retorno<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-fraud_detection.pipeline.stage_01_data_validation">
+<span id="etapa-1-validacao-dos-dados"></span><h2>Etapa 1 - Validação dos Dados<a class="headerlink" href="#module-fraud_detection.pipeline.stage_01_data_validation" title="Link para este cabeçalho"></a></h2>
+<p>Arquivo contendo etapa do pipeline para Validação dos Dados de entrada.</p>
+<p>Serve para acoplar as configurações lidas do arquivo yaml no componente.
+Pode ser executado independentemente.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="fraud_detection.pipeline.stage_01_data_validation.DataValidationTrainingPipeline">
+<span class="sig-prename descclassname"><span class="pre">fraud_detection.pipeline.stage_01_data_validation.</span></span><span class="sig-name descname"><span class="pre">DataValidationTrainingPipeline</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fraud_detection/pipeline/stage_01_data_validation.html#DataValidationTrainingPipeline"><span class="viewcode-link"><span class="pre">[código-fonte]</span></span></a><a class="headerlink" href="#fraud_detection.pipeline.stage_01_data_validation.DataValidationTrainingPipeline" title="Link para esta definição"></a></dt>
+<dd><p>Função para repassar configuração para etapa de Validação dos dados
+Invoca método do componente de Validação para validar todas as colunas.</p>
+</dd></dl>
+
+</section>
+<section id="module-fraud_detection.pipeline.stage_02_data_transformation">
+<span id="etapa-2-transformacao-dos-dados"></span><h2>Etapa 2 - Transformação dos Dados<a class="headerlink" href="#module-fraud_detection.pipeline.stage_02_data_transformation" title="Link para este cabeçalho"></a></h2>
+<p>Arquivo contendo etapa do pipeline para Transformação dos Dados.</p>
+<p>Serve para acoplar as configurações lidas do arquivo yaml no componente.
+Pode ser executado independentemente</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="fraud_detection.pipeline.stage_02_data_transformation.DataTransformationTrainingPipeline">
+<span class="sig-prename descclassname"><span class="pre">fraud_detection.pipeline.stage_02_data_transformation.</span></span><span class="sig-name descname"><span class="pre">DataTransformationTrainingPipeline</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fraud_detection/pipeline/stage_02_data_transformation.html#DataTransformationTrainingPipeline"><span class="viewcode-link"><span class="pre">[código-fonte]</span></span></a><a class="headerlink" href="#fraud_detection.pipeline.stage_02_data_transformation.DataTransformationTrainingPipeline" title="Link para esta definição"></a></dt>
+<dd><p>Função para repassar configuração para etapa de Transformação dos dados
+Invoca método de pré-processamento dos dados para o modelo ser treinado.</p>
+</dd></dl>
+
+</section>
+<section id="module-fraud_detection.pipeline.stage_03_model_trainer">
+<span id="etapa-3-treinamento-do-modelo"></span><h2>Etapa 3 - Treinamento do Modelo<a class="headerlink" href="#module-fraud_detection.pipeline.stage_03_model_trainer" title="Link para este cabeçalho"></a></h2>
+<p>Arquivo contendo etapa do pipeline para Treinamento dos Dados.</p>
+<p>Serve para acoplar as configurações lidas do arquivo yaml no componente.
+Pode ser executado independentemente.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="fraud_detection.pipeline.stage_03_model_trainer.ModelTrainerTrainingPipeline">
+<span class="sig-prename descclassname"><span class="pre">fraud_detection.pipeline.stage_03_model_trainer.</span></span><span class="sig-name descname"><span class="pre">ModelTrainerTrainingPipeline</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fraud_detection/pipeline/stage_03_model_trainer.html#ModelTrainerTrainingPipeline"><span class="viewcode-link"><span class="pre">[código-fonte]</span></span></a><a class="headerlink" href="#fraud_detection.pipeline.stage_03_model_trainer.ModelTrainerTrainingPipeline" title="Link para esta definição"></a></dt>
+<dd><p>Função para repassar configuração para etapa de Treinamento dos dados
+Invoca método de treino do modelo com os dados processados.</p>
+</dd></dl>
+
+</section>
+<section id="module-fraud_detection.pipeline.stage_04_model_evaluation">
+<span id="etapa-4-avaliacao-do-modelo"></span><h2>Etapa 4 - Avaliação do Modelo<a class="headerlink" href="#module-fraud_detection.pipeline.stage_04_model_evaluation" title="Link para este cabeçalho"></a></h2>
+<p>Arquivo contendo etapa do pipeline para Avaliação do modelo.</p>
+<p>Serve para acoplar as configurações lidas do arquivo yaml no componente.
+Pode ser executado independentemente.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="fraud_detection.pipeline.stage_04_model_evaluation.ModelEvaluationTrainingPipeline">
+<span class="sig-prename descclassname"><span class="pre">fraud_detection.pipeline.stage_04_model_evaluation.</span></span><span class="sig-name descname"><span class="pre">ModelEvaluationTrainingPipeline</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fraud_detection/pipeline/stage_04_model_evaluation.html#ModelEvaluationTrainingPipeline"><span class="viewcode-link"><span class="pre">[código-fonte]</span></span></a><a class="headerlink" href="#fraud_detection.pipeline.stage_04_model_evaluation.ModelEvaluationTrainingPipeline" title="Link para esta definição"></a></dt>
+<dd><p>Função para repassar configuração para etapa de Avaliação dos dados
+Invoca método de avaliação do modelo após o treinamento.
+Também salva as métricas na plataforma MLFlow</p>
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Rodapé">
+        <a href="fraud_detection.entity.html" class="btn btn-neutral float-left" title="Templates de Configuração (entity)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Anterior</a>
+        <a href="fraud_detection.utils.html" class="btn btn-neutral float-right" title="Funções Auxiliares (utils)" accesskey="n" rel="next">Próximo <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Direitos autorais 2025, Rennê Oliveira.</p>
+  </div>
+
+  Compilado com <a href="https://www.sphinx-doc.org/">Sphinx</a> usando um
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">tema</a>
+    fornecido por <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
