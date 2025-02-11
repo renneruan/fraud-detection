@@ -2,7 +2,7 @@
 Módulo com funções de endpoint a serem servidas pela API Flask.
 """
 
-from flask import Flask, render_template, request
+from flask import Flask, jsonify, render_template, request
 import pandas as pd
 from fraud_detection.pipeline.prediction import PredictionPipeline
 from fraud_detection.components.data_transformation import convert_to_numeric
@@ -93,12 +93,15 @@ def index():
         data = convert_to_numeric(data)
         predict, predict_proba = obj.predict(data)
 
-        results = {predict, predict_proba}
-        logger.info("predict results:")
-        logger.info(results)
+        resultado = {
+            "predicted_class": int(predict),
+            "predict_proba": predict_proba.tolist()
+        }
 
-        resultado = f"{results}"
-        return resultado
+        logger.info("predict results:")
+        logger.info(resultado)
+
+        return jsonify(resultado)
 
     except ValueError as e:
         print(f"Não foi possível: {e}")
