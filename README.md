@@ -200,6 +200,9 @@ OBS: Os dados necessários devem estar presentes na pasta `artifacts/data_ingest
 
 Para o pipeline de predição temos a construção de uma API utilizando Flask `app.py`, além da disponibilização de um formulário contendo valores de entrada aleatórios, onde é possível visualizar como cada um é classificado. (O formulário pode ser encontrado na pasta `static`)
 
+https://github.com/user-attachments/assets/195959be-e9f0-4f7f-99d0-317cae167b7a
+
+
 Podemos exercutar a instância flask a partir de `python app.py`
 
 
