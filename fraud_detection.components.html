@@ -1,0 +1,750 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="pt-BR" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Componentes (components) &mdash; Documentação Fraud Detection 1.0.0</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=c0c8e3fa"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="_static/translations.js?v=71a39b36"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Índice" href="genindex.html" />
+    <link rel="search" title="Buscar" href="search.html" />
+    <link rel="next" title="Gerenciador de Configurações (config)" href="fraud_detection.config.html" />
+    <link rel="prev" title="Estrutura Geral" href="fraud_detection.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Fraud Detection
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Pesquisar documentos" aria-label="Pesquisar documentos" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Menu de navegação">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="fraud_detection.html">Estrutura Geral</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Componentes (components)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#module-fraud_detection.components.data_transformation">Transformador/Pré-processamento (data_transformation)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#fraud_detection.components.data_transformation.CountryProcessor"><code class="docutils literal notranslate"><span class="pre">CountryProcessor</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#fraud_detection.components.data_transformation.CountryProcessor.transform"><code class="docutils literal notranslate"><span class="pre">CountryProcessor.transform()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#fraud_detection.components.data_transformation.CustomProcessor"><code class="docutils literal notranslate"><span class="pre">CustomProcessor</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#fraud_detection.components.data_transformation.CustomProcessor.fit"><code class="docutils literal notranslate"><span class="pre">CustomProcessor.fit()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#fraud_detection.components.data_transformation.DataTransformation"><code class="docutils literal notranslate"><span class="pre">DataTransformation</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#fraud_detection.components.data_transformation.DataTransformation.preprocessing_pipeline"><code class="docutils literal notranslate"><span class="pre">DataTransformation.preprocessing_pipeline()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#fraud_detection.components.data_transformation.DateProcessor"><code class="docutils literal notranslate"><span class="pre">DateProcessor</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#fraud_detection.components.data_transformation.DateProcessor.transform"><code class="docutils literal notranslate"><span class="pre">DateProcessor.transform()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#fraud_detection.components.data_transformation.DocumentsProcessor"><code class="docutils literal notranslate"><span class="pre">DocumentsProcessor</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#fraud_detection.components.data_transformation.DocumentsProcessor.transform"><code class="docutils literal notranslate"><span class="pre">DocumentsProcessor.transform()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#fraud_detection.components.data_transformation.DropColumns"><code class="docutils literal notranslate"><span class="pre">DropColumns</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#fraud_detection.components.data_transformation.DropColumns.transform"><code class="docutils literal notranslate"><span class="pre">DropColumns.transform()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#fraud_detection.components.data_transformation.ImputeValuesProcessor"><code class="docutils literal notranslate"><span class="pre">ImputeValuesProcessor</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#fraud_detection.components.data_transformation.ImputeValuesProcessor.fit"><code class="docutils literal notranslate"><span class="pre">ImputeValuesProcessor.fit()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#fraud_detection.components.data_transformation.ImputeValuesProcessor.transform"><code class="docutils literal notranslate"><span class="pre">ImputeValuesProcessor.transform()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#fraud_detection.components.data_transformation.NonFrequentAggregator"><code class="docutils literal notranslate"><span class="pre">NonFrequentAggregator</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#fraud_detection.components.data_transformation.NonFrequentAggregator.fit"><code class="docutils literal notranslate"><span class="pre">NonFrequentAggregator.fit()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#fraud_detection.components.data_transformation.NonFrequentAggregator.transform"><code class="docutils literal notranslate"><span class="pre">NonFrequentAggregator.transform()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#fraud_detection.components.data_transformation.OneHotEncoderProcessor"><code class="docutils literal notranslate"><span class="pre">OneHotEncoderProcessor</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#fraud_detection.components.data_transformation.OneHotEncoderProcessor.fit"><code class="docutils literal notranslate"><span class="pre">OneHotEncoderProcessor.fit()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#fraud_detection.components.data_transformation.OneHotEncoderProcessor.transform"><code class="docutils literal notranslate"><span class="pre">OneHotEncoderProcessor.transform()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#fraud_detection.components.data_transformation.TargetEncoderTransformer"><code class="docutils literal notranslate"><span class="pre">TargetEncoderTransformer</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#fraud_detection.components.data_transformation.TargetEncoderTransformer.fit"><code class="docutils literal notranslate"><span class="pre">TargetEncoderTransformer.fit()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#fraud_detection.components.data_transformation.TargetEncoderTransformer.transform"><code class="docutils literal notranslate"><span class="pre">TargetEncoderTransformer.transform()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#fraud_detection.components.data_transformation.TransformColumns"><code class="docutils literal notranslate"><span class="pre">TransformColumns</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#fraud_detection.components.data_transformation.TransformColumns.transform"><code class="docutils literal notranslate"><span class="pre">TransformColumns.transform()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#fraud_detection.components.data_transformation.convert_to_numeric"><code class="docutils literal notranslate"><span class="pre">convert_to_numeric()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-fraud_detection.components.data_validation">Validação dos Dados (data_validation)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#fraud_detection.components.data_validation.DataValidation"><code class="docutils literal notranslate"><span class="pre">DataValidation</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#fraud_detection.components.data_validation.DataValidation.validate_all_columns"><code class="docutils literal notranslate"><span class="pre">DataValidation.validate_all_columns()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-fraud_detection.components.model_trainer">Treinamento do Modelo (model_trainer)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#fraud_detection.components.model_trainer.ModelTrainer"><code class="docutils literal notranslate"><span class="pre">ModelTrainer</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#fraud_detection.components.model_trainer.ModelTrainer.train"><code class="docutils literal notranslate"><span class="pre">ModelTrainer.train()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-fraud_detection.components.model_evaluation">Avaliação do Modelo (model_evaluation)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#fraud_detection.components.model_evaluation.ModelEvaluation"><code class="docutils literal notranslate"><span class="pre">ModelEvaluation</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#fraud_detection.components.model_evaluation.ModelEvaluation.evaluate_metrics"><code class="docutils literal notranslate"><span class="pre">ModelEvaluation.evaluate_metrics()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#fraud_detection.components.model_evaluation.ModelEvaluation.start_mlflow"><code class="docutils literal notranslate"><span class="pre">ModelEvaluation.start_mlflow()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="fraud_detection.config.html">Gerenciador de Configurações (config)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fraud_detection.constants.html">Constantes (constants)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fraud_detection.entity.html">Templates de Configuração (entity)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fraud_detection.pipeline.html">Pipelines (pipeline)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fraud_detection.utils.html">Funções Auxiliares (utils)</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Menu de navegação móvel" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Fraud Detection</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Navegação da página">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="fraud_detection.html">Estrutura Geral</a></li>
+      <li class="breadcrumb-item active">Componentes (components)</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/fraud_detection.components.rst.txt" rel="nofollow"> Ver código-fonte da página</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="componentes-components">
+<h1>Componentes (components)<a class="headerlink" href="#componentes-components" title="Link para este cabeçalho"></a></h1>
+<section id="module-fraud_detection.components.data_transformation">
+<span id="transformador-pre-processamento-data-transformation"></span><h2>Transformador/Pré-processamento (data_transformation)<a class="headerlink" href="#module-fraud_detection.components.data_transformation" title="Link para este cabeçalho"></a></h2>
+<p>Componente para tarefas de transformação de dados.</p>
+<p>Fornece funcionalidades para pré-processar e transformar os dados ao formato
+adequado. Ele inclui diversos transformadores para lidar com a imputação de
+valores ausentes, feature engineering e a divisão de conjuntos de dados.</p>
+<p><strong>Classes</strong>:</p>
+<ul class="simple">
+<li><p><strong>CustomProcessor</strong>: Classe base customizada para criar processadores                        de transformação.</p></li>
+<li><p><strong>DropColumns</strong>: Remove colunas específicas do conjunto de dados.</p></li>
+<li><p><strong>DocumentsProcessor</strong>: Processa colunas de documentos, imputando valores                       vazios e convertendo binários em inteiros.</p></li>
+<li><p><strong>CountryProcessor</strong>: Transforma a coluna de país para continentes.</p></li>
+<li><p><strong>OneHotEncoderProcessor</strong>: Realiza codificação one-hot em colunas                               categóricas.</p></li>
+<li><p><strong>DateProcessor</strong>: Realiza engenharia de features para coluna de data,                      criando variáveis como hora, turno e dia da semana.</p></li>
+<li><p><strong>ImputeValuesProcessor</strong>: Trata valores ausentes em colunas numéricas.</p></li>
+<li><p><strong>TransformColumns</strong>: Aplica transformações matemáticas (log, raiz cúbica).</p></li>
+<li><p><strong>NonFrequentAggregator</strong>: Transforma dados de categoria de produto não                              frequentes em uma única classificação Outros.</p></li>
+<li><p><strong>TargetEncoderTransformer</strong>: Aplica TargetEncoder a coluna de categoria de                                 produtos.</p></li>
+<li><p><strong>DataTransformation</strong>: Encapsula todo o pipeline de transformação de dados,                          incluindo a divisão em treino e teste, aplicando                          transformações e salvando os dados transformados.</p></li>
+</ul>
+<dl class="simple">
+<dt>Dependências:</dt><dd><ul class="simple">
+<li><p>pandas</p></li>
+<li><p>numpy</p></li>
+<li><p>sklearn</p></li>
+<li><p>joblib</p></li>
+<li><p>pycountry_convert</p></li>
+<li><p>fraud_detection.logger</p></li>
+<li><p>fraud_detection.entity.config_entity.DataTransformationConfig</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py class">
+<dt class="sig sig-object py" id="fraud_detection.components.data_transformation.CountryProcessor">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">fraud_detection.components.data_transformation.</span></span><span class="sig-name descname"><span class="pre">CountryProcessor</span></span><a class="reference internal" href="_modules/fraud_detection/components/data_transformation.html#CountryProcessor"><span class="viewcode-link"><span class="pre">[código-fonte]</span></span></a><a class="headerlink" href="#fraud_detection.components.data_transformation.CountryProcessor" title="Link para esta definição"></a></dt>
+<dd><p>Base: <a class="reference internal" href="#fraud_detection.components.data_transformation.CustomProcessor" title="fraud_detection.components.data_transformation.CustomProcessor"><code class="xref py py-class docutils literal notranslate"><span class="pre">CustomProcessor</span></code></a></p>
+<p>Processador direcionado para transformação da coluna país.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="fraud_detection.components.data_transformation.CountryProcessor.transform">
+<span class="sig-name descname"><span class="pre">transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fraud_detection/components/data_transformation.html#CountryProcessor.transform"><span class="viewcode-link"><span class="pre">[código-fonte]</span></span></a><a class="headerlink" href="#fraud_detection.components.data_transformation.CountryProcessor.transform" title="Link para esta definição"></a></dt>
+<dd><p>Realiza o feature engineering na coluna de país da compra.
+Transformando a coluna em uma nova contendo o continente.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parâmetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>X</strong> (<em>pd.DataFrame</em>) – Conjunto de dados originais.</p>
+</dd>
+<dt class="field-even">Retorna<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dados com nova coluna de continente.</p>
+</dd>
+<dt class="field-odd">Tipo de retorno<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="fraud_detection.components.data_transformation.CustomProcessor">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">fraud_detection.components.data_transformation.</span></span><span class="sig-name descname"><span class="pre">CustomProcessor</span></span><a class="reference internal" href="_modules/fraud_detection/components/data_transformation.html#CustomProcessor"><span class="viewcode-link"><span class="pre">[código-fonte]</span></span></a><a class="headerlink" href="#fraud_detection.components.data_transformation.CustomProcessor" title="Link para esta definição"></a></dt>
+<dd><p>Base: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseEstimator</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">TransformerMixin</span></code></p>
+<p>Classe para abstrair processadores base da biblioteca
+scikit-learn, sobrescreve o método fit para um retorno arbitrário.</p>
+<p>Utilizamos para garantir a aplicabilidade da transformação ao processo
+do fit_transform do pipeline, porém em que as alterações serão ditas
+apenas pela função transform, ou seja não serão armazenadas informações
+no fit para evitar data leakege, as etapas que necessitam este
+armazenamento não utilizarão este placeholder.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="fraud_detection.components.data_transformation.CustomProcessor.fit">
+<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fraud_detection/components/data_transformation.html#CustomProcessor.fit"><span class="viewcode-link"><span class="pre">[código-fonte]</span></span></a><a class="headerlink" href="#fraud_detection.components.data_transformation.CustomProcessor.fit" title="Link para esta definição"></a></dt>
+<dd><p>Sobrescrita do fit para compatibilidade com classes
+pais do scikit-learn, as transformações serão aplicadas com a
+função transform.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="fraud_detection.components.data_transformation.DataTransformation">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">fraud_detection.components.data_transformation.</span></span><span class="sig-name descname"><span class="pre">DataTransformation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="fraud_detection.entity.html#fraud_detection.entity.config_entity.DataTransformationConfig" title="fraud_detection.entity.config_entity.DataTransformationConfig"><span class="pre">DataTransformationConfig</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fraud_detection/components/data_transformation.html#DataTransformation"><span class="viewcode-link"><span class="pre">[código-fonte]</span></span></a><a class="headerlink" href="#fraud_detection.components.data_transformation.DataTransformation" title="Link para esta definição"></a></dt>
+<dd><p>Base: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Classe que irá agregar e chamar todas as funções de processamento,
+recebendo as configurações e caminhos de arquivos de entrada e saída.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parâmetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>DataTransformationConfig</strong> (<em>dataclass</em>) – Classe de valores de                                               configuração.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="fraud_detection.components.data_transformation.DataTransformation.preprocessing_pipeline">
+<span class="sig-name descname"><span class="pre">preprocessing_pipeline</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fraud_detection/components/data_transformation.html#DataTransformation.preprocessing_pipeline"><span class="viewcode-link"><span class="pre">[código-fonte]</span></span></a><a class="headerlink" href="#fraud_detection.components.data_transformation.DataTransformation.preprocessing_pipeline" title="Link para esta definição"></a></dt>
+<dd><p>Método para realizar chamada do processamento dos dados.</p>
+<p>Irá criar o pipeline de processamento utilizando as classes de
+processadores presentes neste módulo.</p>
+<p>Remove outliers, divide os dados, processa e salva os resultados.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="fraud_detection.components.data_transformation.DateProcessor">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">fraud_detection.components.data_transformation.</span></span><span class="sig-name descname"><span class="pre">DateProcessor</span></span><a class="reference internal" href="_modules/fraud_detection/components/data_transformation.html#DateProcessor"><span class="viewcode-link"><span class="pre">[código-fonte]</span></span></a><a class="headerlink" href="#fraud_detection.components.data_transformation.DateProcessor" title="Link para esta definição"></a></dt>
+<dd><p>Base: <a class="reference internal" href="#fraud_detection.components.data_transformation.CustomProcessor" title="fraud_detection.components.data_transformation.CustomProcessor"><code class="xref py py-class docutils literal notranslate"><span class="pre">CustomProcessor</span></code></a></p>
+<p>Processador direcionado para transformações da coluna de data da compra.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="fraud_detection.components.data_transformation.DateProcessor.transform">
+<span class="sig-name descname"><span class="pre">transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fraud_detection/components/data_transformation.html#DateProcessor.transform"><span class="viewcode-link"><span class="pre">[código-fonte]</span></span></a><a class="headerlink" href="#fraud_detection.components.data_transformation.DateProcessor.transform" title="Link para esta definição"></a></dt>
+<dd><p>Realiza o feature engineering para a coluna de data.
+Cria features de hora da compra, dia da semana da compra e turno.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parâmetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>X</strong> (<em>pd.DataFrame</em>) – Conjunto de dados originais.</p>
+</dd>
+<dt class="field-even">Retorna<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dados com novas colunas relacionadas a data.</p>
+</dd>
+<dt class="field-odd">Tipo de retorno<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="fraud_detection.components.data_transformation.DocumentsProcessor">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">fraud_detection.components.data_transformation.</span></span><span class="sig-name descname"><span class="pre">DocumentsProcessor</span></span><a class="reference internal" href="_modules/fraud_detection/components/data_transformation.html#DocumentsProcessor"><span class="viewcode-link"><span class="pre">[código-fonte]</span></span></a><a class="headerlink" href="#fraud_detection.components.data_transformation.DocumentsProcessor" title="Link para esta definição"></a></dt>
+<dd><p>Base: <a class="reference internal" href="#fraud_detection.components.data_transformation.CustomProcessor" title="fraud_detection.components.data_transformation.CustomProcessor"><code class="xref py py-class docutils literal notranslate"><span class="pre">CustomProcessor</span></code></a></p>
+<p>Processador direcionado para transformações nas colunas de documentos.</p>
+<p>Colunas transformadas: “entrega_doc_1”, “entrega_doc_2”, “entrega_doc_3”</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="fraud_detection.components.data_transformation.DocumentsProcessor.transform">
+<span class="sig-name descname"><span class="pre">transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fraud_detection/components/data_transformation.html#DocumentsProcessor.transform"><span class="viewcode-link"><span class="pre">[código-fonte]</span></span></a><a class="headerlink" href="#fraud_detection.components.data_transformation.DocumentsProcessor.transform" title="Link para esta definição"></a></dt>
+<dd><p>Trata as colunas de documento, preenchendo valores ausentes com o
+valor padrão “N” e posteriormente converte os valores para binário.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parâmetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>X</strong> (<em>pd.DataFrame</em>) – Conjunto de dados originais.</p>
+</dd>
+<dt class="field-even">Retorna<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dados com colunas de documentos processadas.</p>
+</dd>
+<dt class="field-odd">Tipo de retorno<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="fraud_detection.components.data_transformation.DropColumns">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">fraud_detection.components.data_transformation.</span></span><span class="sig-name descname"><span class="pre">DropColumns</span></span><a class="reference internal" href="_modules/fraud_detection/components/data_transformation.html#DropColumns"><span class="viewcode-link"><span class="pre">[código-fonte]</span></span></a><a class="headerlink" href="#fraud_detection.components.data_transformation.DropColumns" title="Link para esta definição"></a></dt>
+<dd><p>Base: <a class="reference internal" href="#fraud_detection.components.data_transformation.CustomProcessor" title="fraud_detection.components.data_transformation.CustomProcessor"><code class="xref py py-class docutils literal notranslate"><span class="pre">CustomProcessor</span></code></a></p>
+<p>Função do pipeline de transformação para exclusão de colunas.
+As colunas foram selecionadas a partir da análise estatística dos dados
+ou não possuem informações práticas para o modelo, ou apresentam
+distribuições não aderentes como uniforme ou de com alta cardinalidade
+de categorias.</p>
+<p>Colunas a serem excluídas: “score_fraude_modelo”, “produto”, “score_8”</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="fraud_detection.components.data_transformation.DropColumns.transform">
+<span class="sig-name descname"><span class="pre">transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fraud_detection/components/data_transformation.html#DropColumns.transform"><span class="viewcode-link"><span class="pre">[código-fonte]</span></span></a><a class="headerlink" href="#fraud_detection.components.data_transformation.DropColumns.transform" title="Link para esta definição"></a></dt>
+<dd><p>Retorna os dados de entrada sem a presença das colunas declaradas
+na inicialização da classe.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parâmetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>X</strong> (<em>pd.DataFrame</em>) – Conjunto de dados originais.</p>
+</dd>
+<dt class="field-even">Retorna<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dados sem as colunas desejadas.</p>
+</dd>
+<dt class="field-odd">Tipo de retorno<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="fraud_detection.components.data_transformation.ImputeValuesProcessor">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">fraud_detection.components.data_transformation.</span></span><span class="sig-name descname"><span class="pre">ImputeValuesProcessor</span></span><a class="reference internal" href="_modules/fraud_detection/components/data_transformation.html#ImputeValuesProcessor"><span class="viewcode-link"><span class="pre">[código-fonte]</span></span></a><a class="headerlink" href="#fraud_detection.components.data_transformation.ImputeValuesProcessor" title="Link para esta definição"></a></dt>
+<dd><p>Base: <a class="reference internal" href="#fraud_detection.components.data_transformation.CustomProcessor" title="fraud_detection.components.data_transformation.CustomProcessor"><code class="xref py py-class docutils literal notranslate"><span class="pre">CustomProcessor</span></code></a></p>
+<p>Classe para aplicar transformações nas colunas numéricas existentes.
+Aplica as classes discretas e contínuas aos respectivos Imputers,
+aplicando-os a um ColumnTransformer.</p>
+<p>Utiliza a moda para colunas numéricas discretas e mediana para colunas
+contínuas.</p>
+<p>Colunas discretas: “score_4” e “score_7”
+Colunas contínuas: “score_2”, “score_3”, “score_5”, “score_6”, “score_9”,                       “score_10” e “valor_compra”</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="fraud_detection.components.data_transformation.ImputeValuesProcessor.fit">
+<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fraud_detection/components/data_transformation.html#ImputeValuesProcessor.fit"><span class="viewcode-link"><span class="pre">[código-fonte]</span></span></a><a class="headerlink" href="#fraud_detection.components.data_transformation.ImputeValuesProcessor.fit" title="Link para esta definição"></a></dt>
+<dd><p>Realiza o fit do imputer numérico com os dados de treino.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parâmetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>X</strong> (<em>pd.DataFrame</em>) – Dados de treino de entrada.</p>
+</dd>
+<dt class="field-even">Retorna<span class="colon">:</span></dt>
+<dd class="field-even"><p>Processador com dados ajustados.</p>
+</dd>
+<dt class="field-odd">Tipo de retorno<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#fraud_detection.components.data_transformation.ImputeValuesProcessor" title="fraud_detection.components.data_transformation.ImputeValuesProcessor">ImputeValuesProcessor</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fraud_detection.components.data_transformation.ImputeValuesProcessor.transform">
+<span class="sig-name descname"><span class="pre">transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fraud_detection/components/data_transformation.html#ImputeValuesProcessor.transform"><span class="viewcode-link"><span class="pre">[código-fonte]</span></span></a><a class="headerlink" href="#fraud_detection.components.data_transformation.ImputeValuesProcessor.transform" title="Link para esta definição"></a></dt>
+<dd><p>Aplica os dados de entrada ao imputer numérico previamente ajustados
+aos dados de treino. Aplica novamente os labels as colunas para seguir</p>
+<blockquote>
+<div><p>o pipeline corretamente.</p>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parâmetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>X</strong> (<em>pd.DataFrame</em>) – Dados de entraga a serem transformados.</p>
+</dd>
+<dt class="field-even">Retorna<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dados com as colunas numéricas transformadas.</p>
+</dd>
+<dt class="field-odd">Tipo de retorno<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="fraud_detection.components.data_transformation.NonFrequentAggregator">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">fraud_detection.components.data_transformation.</span></span><span class="sig-name descname"><span class="pre">NonFrequentAggregator</span></span><a class="reference internal" href="_modules/fraud_detection/components/data_transformation.html#NonFrequentAggregator"><span class="viewcode-link"><span class="pre">[código-fonte]</span></span></a><a class="headerlink" href="#fraud_detection.components.data_transformation.NonFrequentAggregator" title="Link para esta definição"></a></dt>
+<dd><p>Base: <a class="reference internal" href="#fraud_detection.components.data_transformation.CustomProcessor" title="fraud_detection.components.data_transformation.CustomProcessor"><code class="xref py py-class docutils literal notranslate"><span class="pre">CustomProcessor</span></code></a></p>
+<p>Classe de processador para agregas valores não frequentes de categorias
+de produto.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="fraud_detection.components.data_transformation.NonFrequentAggregator.fit">
+<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fraud_detection/components/data_transformation.html#NonFrequentAggregator.fit"><span class="viewcode-link"><span class="pre">[código-fonte]</span></span></a><a class="headerlink" href="#fraud_detection.components.data_transformation.NonFrequentAggregator.fit" title="Link para esta definição"></a></dt>
+<dd><p>Método de ajuste irá criar o array de categorias válidas.
+Transformações posteriores irão ser realizadas utilizando este array.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parâmetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>X</strong> (<em>pd.DataFrame</em>) – Dados de entrada</p>
+</dd>
+<dt class="field-even">Retorna<span class="colon">:</span></dt>
+<dd class="field-even"><p>Processador ajustado.</p>
+</dd>
+<dt class="field-odd">Tipo de retorno<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#fraud_detection.components.data_transformation.NonFrequentAggregator" title="fraud_detection.components.data_transformation.NonFrequentAggregator">NonFrequentAggregator</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fraud_detection.components.data_transformation.NonFrequentAggregator.transform">
+<span class="sig-name descname"><span class="pre">transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fraud_detection/components/data_transformation.html#NonFrequentAggregator.transform"><span class="viewcode-link"><span class="pre">[código-fonte]</span></span></a><a class="headerlink" href="#fraud_detection.components.data_transformation.NonFrequentAggregator.transform" title="Link para esta definição"></a></dt>
+<dd><p>Recebe os dados que irão consultar o vetor de categorias
+frequentes e agrupar os que não estão com mais de 2 ocorrências.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parâmetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>X</strong> (<em>pd.DataFrame</em>) – Dados a serem ajustados.</p>
+</dd>
+<dt class="field-even">Retorna<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dados com a nova coluna agregada.</p>
+</dd>
+<dt class="field-odd">Tipo de retorno<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="fraud_detection.components.data_transformation.OneHotEncoderProcessor">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">fraud_detection.components.data_transformation.</span></span><span class="sig-name descname"><span class="pre">OneHotEncoderProcessor</span></span><a class="reference internal" href="_modules/fraud_detection/components/data_transformation.html#OneHotEncoderProcessor"><span class="viewcode-link"><span class="pre">[código-fonte]</span></span></a><a class="headerlink" href="#fraud_detection.components.data_transformation.OneHotEncoderProcessor" title="Link para esta definição"></a></dt>
+<dd><p>Base: <a class="reference internal" href="#fraud_detection.components.data_transformation.CustomProcessor" title="fraud_detection.components.data_transformation.CustomProcessor"><code class="xref py py-class docutils literal notranslate"><span class="pre">CustomProcessor</span></code></a></p>
+<p>Classe de transformação para aplicar OneHotEncoder a colunas categóricas
+de baixa cardinalidade.</p>
+<p>Utiliza OneHotEncoder provindo do pacote scikit-learn.</p>
+<p>Lida com dados não desconhecidos com a tratativa “ignore”</p>
+<p>Colunas que serão aplicadas: “score_1”, “continente”</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="fraud_detection.components.data_transformation.OneHotEncoderProcessor.fit">
+<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fraud_detection/components/data_transformation.html#OneHotEncoderProcessor.fit"><span class="viewcode-link"><span class="pre">[código-fonte]</span></span></a><a class="headerlink" href="#fraud_detection.components.data_transformation.OneHotEncoderProcessor.fit" title="Link para esta definição"></a></dt>
+<dd><p>Realiza o fit do encoder com os dados de treino.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parâmetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>X</strong> (<em>pd.DataFrame</em>) – Dados de treino de entrada.</p>
+</dd>
+<dt class="field-even">Retorna<span class="colon">:</span></dt>
+<dd class="field-even"><p>Processador com dados ajustados.</p>
+</dd>
+<dt class="field-odd">Tipo de retorno<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#fraud_detection.components.data_transformation.OneHotEncoderProcessor" title="fraud_detection.components.data_transformation.OneHotEncoderProcessor">OneHotEncoderProcessor</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fraud_detection.components.data_transformation.OneHotEncoderProcessor.transform">
+<span class="sig-name descname"><span class="pre">transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fraud_detection/components/data_transformation.html#OneHotEncoderProcessor.transform"><span class="viewcode-link"><span class="pre">[código-fonte]</span></span></a><a class="headerlink" href="#fraud_detection.components.data_transformation.OneHotEncoderProcessor.transform" title="Link para esta definição"></a></dt>
+<dd><p>Aplica o OneHotEncoding utilizando o processador previamente ajustado.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parâmetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>X</strong> (<em>pd.DataFrame</em>) – Conjunto de dados originais.</p>
+</dd>
+<dt class="field-even">Retorna<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dados com novas colunas de one hot encoding.</p>
+</dd>
+<dt class="field-odd">Tipo de retorno<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="fraud_detection.components.data_transformation.TargetEncoderTransformer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">fraud_detection.components.data_transformation.</span></span><span class="sig-name descname"><span class="pre">TargetEncoderTransformer</span></span><a class="reference internal" href="_modules/fraud_detection/components/data_transformation.html#TargetEncoderTransformer"><span class="viewcode-link"><span class="pre">[código-fonte]</span></span></a><a class="headerlink" href="#fraud_detection.components.data_transformation.TargetEncoderTransformer" title="Link para esta definição"></a></dt>
+<dd><p>Base: <a class="reference internal" href="#fraud_detection.components.data_transformation.CustomProcessor" title="fraud_detection.components.data_transformation.CustomProcessor"><code class="xref py py-class docutils literal notranslate"><span class="pre">CustomProcessor</span></code></a></p>
+<p>Transformer para aplicar Target Encoding a uma coluna categórica
+de alta cardinalidade.</p>
+<p>Coluna a ser aplicada: “categoria_produto_reduzida”</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="fraud_detection.components.data_transformation.TargetEncoderTransformer.fit">
+<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fraud_detection/components/data_transformation.html#TargetEncoderTransformer.fit"><span class="viewcode-link"><span class="pre">[código-fonte]</span></span></a><a class="headerlink" href="#fraud_detection.components.data_transformation.TargetEncoderTransformer.fit" title="Link para esta definição"></a></dt>
+<dd><p>Ajusta o TargetEncoder usando os dados de treino.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parâmetros<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>X</strong> (<em>pd.DataFrame</em>) – Conjunto de dados de treino.</p></li>
+<li><p><strong>y</strong> (<em>pd.Series</em>) – Coluna de classes de saída.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Retorna<span class="colon">:</span></dt>
+<dd class="field-even"><p>O próprio objeto transformador.</p>
+</dd>
+<dt class="field-odd">Tipo de retorno<span class="colon">:</span></dt>
+<dd class="field-odd"><p>self</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fraud_detection.components.data_transformation.TargetEncoderTransformer.transform">
+<span class="sig-name descname"><span class="pre">transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fraud_detection/components/data_transformation.html#TargetEncoderTransformer.transform"><span class="viewcode-link"><span class="pre">[código-fonte]</span></span></a><a class="headerlink" href="#fraud_detection.components.data_transformation.TargetEncoderTransformer.transform" title="Link para esta definição"></a></dt>
+<dd><p>Transforma os dados usando o TargetEncoder previamente ajustado.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parâmetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>X</strong> (<em>pd.DataFrame</em>) – Conjunto de dados a ser transformado.</p>
+</dd>
+</dl>
+<p>Retorna:
+- pd.DataFrame: Conjunto de dados transformados.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="fraud_detection.components.data_transformation.TransformColumns">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">fraud_detection.components.data_transformation.</span></span><span class="sig-name descname"><span class="pre">TransformColumns</span></span><a class="reference internal" href="_modules/fraud_detection/components/data_transformation.html#TransformColumns"><span class="viewcode-link"><span class="pre">[código-fonte]</span></span></a><a class="headerlink" href="#fraud_detection.components.data_transformation.TransformColumns" title="Link para esta definição"></a></dt>
+<dd><p>Base: <a class="reference internal" href="#fraud_detection.components.data_transformation.CustomProcessor" title="fraud_detection.components.data_transformation.CustomProcessor"><code class="xref py py-class docutils literal notranslate"><span class="pre">CustomProcessor</span></code></a></p>
+<p>Classe de processador para aplicar transformação log
+as colunas aplicáveis.</p>
+<p>Colunas: “score_3” e “valor_compra”</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="fraud_detection.components.data_transformation.TransformColumns.transform">
+<span class="sig-name descname"><span class="pre">transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fraud_detection/components/data_transformation.html#TransformColumns.transform"><span class="viewcode-link"><span class="pre">[código-fonte]</span></span></a><a class="headerlink" href="#fraud_detection.components.data_transformation.TransformColumns.transform" title="Link para esta definição"></a></dt>
+<dd><p>Aplica transformação log as colunas ditas na inicialização.
+Insere as transformações em novas colunas e retira as originais.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parâmetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>X</strong> (<em>pd.DataFrame</em>) – Dados recebidos a serem transformados.</p>
+</dd>
+<dt class="field-even">Retorna<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dados com as novas colunas logarítmicas.</p>
+</dd>
+<dt class="field-odd">Tipo de retorno<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="fraud_detection.components.data_transformation.convert_to_numeric">
+<span class="sig-prename descclassname"><span class="pre">fraud_detection.components.data_transformation.</span></span><span class="sig-name descname"><span class="pre">convert_to_numeric</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fraud_detection/components/data_transformation.html#convert_to_numeric"><span class="viewcode-link"><span class="pre">[código-fonte]</span></span></a><a class="headerlink" href="#fraud_detection.components.data_transformation.convert_to_numeric" title="Link para esta definição"></a></dt>
+<dd><p>Função para converter colunas de objeto para numérico.
+Será utilizado após as transformações, garantindo uma correta tipagem
+dos dados de entrada do modelo.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parâmetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>X</strong> (<em>pd.DataFrame</em>) – Dados a serem convertidos em numérico.</p>
+</dd>
+<dt class="field-even">Retorna<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dados após a conversão numérica.</p>
+</dd>
+<dt class="field-odd">Tipo de retorno<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-fraud_detection.components.data_validation">
+<span id="validacao-dos-dados-data-validation"></span><h2>Validação dos Dados (data_validation)<a class="headerlink" href="#module-fraud_detection.components.data_validation" title="Link para este cabeçalho"></a></h2>
+<p>Este módulo realiza validação dos dados a serem utilizados no pipeline de
+treinamento.</p>
+<dl class="simple">
+<dt>Classes:</dt><dd><p>DataValidation: Classe com a operação de validação.</p>
+</dd>
+<dt>Dependências:</dt><dd><ul class="simple">
+<li><p>pandas</p></li>
+<li><p>datetime</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py class">
+<dt class="sig sig-object py" id="fraud_detection.components.data_validation.DataValidation">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">fraud_detection.components.data_validation.</span></span><span class="sig-name descname"><span class="pre">DataValidation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="fraud_detection.entity.html#fraud_detection.entity.config_entity.DataValidationConfig" title="fraud_detection.entity.config_entity.DataValidationConfig"><span class="pre">DataValidationConfig</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fraud_detection/components/data_validation.html#DataValidation"><span class="viewcode-link"><span class="pre">[código-fonte]</span></span></a><a class="headerlink" href="#fraud_detection.components.data_validation.DataValidation" title="Link para esta definição"></a></dt>
+<dd><p>Base: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Classe que irá realizar a validação para as colunas dos dados de entrada.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parâmetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>DataValidationConfig</strong> (<em>dataclass</em>) – Classe de valores de configuração.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="fraud_detection.components.data_validation.DataValidation.validate_all_columns">
+<span class="sig-name descname"><span class="pre">validate_all_columns</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/fraud_detection/components/data_validation.html#DataValidation.validate_all_columns"><span class="viewcode-link"><span class="pre">[código-fonte]</span></span></a><a class="headerlink" href="#fraud_detection.components.data_validation.DataValidation.validate_all_columns" title="Link para esta definição"></a></dt>
+<dd><p>Função para validar colunas dos dados de entrada, verifica
+se elas seguem o esquema de configuração repassado.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Retorna<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Booleano contendo status do sucesso da validação.</p>
+</dd>
+<dt class="field-even">Tipo de retorno<span class="colon">:</span></dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-fraud_detection.components.model_trainer">
+<span id="treinamento-do-modelo-model-trainer"></span><h2>Treinamento do Modelo (model_trainer)<a class="headerlink" href="#module-fraud_detection.components.model_trainer" title="Link para este cabeçalho"></a></h2>
+<p>Este módulo realiza o treinamento do modelo LightGBM utilizando os parâmetros
+repassados como configuração ao pipeline.</p>
+<dl class="simple">
+<dt>Classes:</dt><dd><p>ModelTrainer: Classe para treinamento do modelo.</p>
+</dd>
+<dt>Dependências:</dt><dd><ul class="simple">
+<li><p>os</p></li>
+<li><p>pandas</p></li>
+<li><p>lightgbm</p></li>
+<li><p>joblib</p></li>
+<li><p>fraud_detection.logger</p></li>
+<li><p>fraud_detection.entity.config_entity.ModelTrainerConfig</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py class">
+<dt class="sig sig-object py" id="fraud_detection.components.model_trainer.ModelTrainer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">fraud_detection.components.model_trainer.</span></span><span class="sig-name descname"><span class="pre">ModelTrainer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="fraud_detection.entity.html#fraud_detection.entity.config_entity.ModelTrainerConfig" title="fraud_detection.entity.config_entity.ModelTrainerConfig"><span class="pre">ModelTrainerConfig</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fraud_detection/components/model_trainer.html#ModelTrainer"><span class="viewcode-link"><span class="pre">[código-fonte]</span></span></a><a class="headerlink" href="#fraud_detection.components.model_trainer.ModelTrainer" title="Link para esta definição"></a></dt>
+<dd><p>Base: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Classe para treinamento do modelo LightGBM.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parâmetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ModelTrainerConfig</strong> (<em>dataclass</em>) – Configurações do treinamento.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="fraud_detection.components.model_trainer.ModelTrainer.train">
+<span class="sig-name descname"><span class="pre">train</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fraud_detection/components/model_trainer.html#ModelTrainer.train"><span class="viewcode-link"><span class="pre">[código-fonte]</span></span></a><a class="headerlink" href="#fraud_detection.components.model_trainer.ModelTrainer.train" title="Link para esta definição"></a></dt>
+<dd><p>Método para treinamento do classificado LGBM.
+Treina o modelo com os dados transformados, e os parâmetros
+e salva em arquivo joblib.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-fraud_detection.components.model_evaluation">
+<span id="avaliacao-do-modelo-model-evaluation"></span><h2>Avaliação do Modelo (model_evaluation)<a class="headerlink" href="#module-fraud_detection.components.model_evaluation" title="Link para este cabeçalho"></a></h2>
+<p>Este módulo realiza a avaliação do modelo de Machine Learning treinado.</p>
+<p>Irá coletar as métricas e salvá-las utilizando MLFlow.</p>
+<dl class="simple">
+<dt>Classes:</dt><dd><p>ModelEvaluation: Classe para obtenção e registro de métricas.</p>
+</dd>
+<dt>Dependências:</dt><dd><ul class="simple">
+<li><p>pandas</p></li>
+<li><p>sklearn</p></li>
+<li><p>urlib</p></li>
+<li><p>mlflow</p></li>
+<li><p>joblib</p></li>
+<li><p>pathlib</p></li>
+<li><p>fraud_detection.utils.commons.save_json</p></li>
+<li><p>fraud_detection.entity.config_entity.ModelEvaluationConfig</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py class">
+<dt class="sig sig-object py" id="fraud_detection.components.model_evaluation.ModelEvaluation">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">fraud_detection.components.model_evaluation.</span></span><span class="sig-name descname"><span class="pre">ModelEvaluation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="fraud_detection.entity.html#fraud_detection.entity.config_entity.ModelEvaluationConfig" title="fraud_detection.entity.config_entity.ModelEvaluationConfig"><span class="pre">ModelEvaluationConfig</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fraud_detection/components/model_evaluation.html#ModelEvaluation"><span class="viewcode-link"><span class="pre">[código-fonte]</span></span></a><a class="headerlink" href="#fraud_detection.components.model_evaluation.ModelEvaluation" title="Link para esta definição"></a></dt>
+<dd><p>Base: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Classe responsável por coletar métricas e salvá-las em ambiente
+do MLFlow.</p>
+<p>Irá avaliar os valores de AUC, Precision, Recall e F1 Score para
+o modelo treinado.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parâmetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ModelEvaluationConfig</strong> (<em>dataclass</em>) – Classe com valores de configuração.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="fraud_detection.components.model_evaluation.ModelEvaluation.evaluate_metrics">
+<span class="sig-name descname"><span class="pre">evaluate_metrics</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">actual</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pred</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fraud_detection/components/model_evaluation.html#ModelEvaluation.evaluate_metrics"><span class="viewcode-link"><span class="pre">[código-fonte]</span></span></a><a class="headerlink" href="#fraud_detection.components.model_evaluation.ModelEvaluation.evaluate_metrics" title="Link para esta definição"></a></dt>
+<dd><p>Função para retornar métricas do modelo a partir dos dados preditos
+comparando com os valores reais.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parâmetros<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>actual</strong> (<em>Series</em>) – Série contendo valores reais das classes de saída.</p></li>
+<li><p><strong>pred</strong> (<em>Series</em>) – Série contendo os valores preditos das classes.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Retorna<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p>auc (float): Métrica de Área sob a cuva</p></li>
+<li><p>precision (float): Métrica de precisão</p></li>
+<li><p>recall (float): Métrica de revocação</p></li>
+<li><p>f1 (float): Métrica de F1 Score</p></li>
+</ul>
+</p>
+</dd>
+<dt class="field-odd">Tipo de retorno<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fraud_detection.components.model_evaluation.ModelEvaluation.start_mlflow">
+<span class="sig-name descname"><span class="pre">start_mlflow</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fraud_detection/components/model_evaluation.html#ModelEvaluation.start_mlflow"><span class="viewcode-link"><span class="pre">[código-fonte]</span></span></a><a class="headerlink" href="#fraud_detection.components.model_evaluation.ModelEvaluation.start_mlflow" title="Link para esta definição"></a></dt>
+<dd><p>Método para inicializar MLFlow e enviar métricas do modelo treinado.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Rodapé">
+        <a href="fraud_detection.html" class="btn btn-neutral float-left" title="Estrutura Geral" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Anterior</a>
+        <a href="fraud_detection.config.html" class="btn btn-neutral float-right" title="Gerenciador de Configurações (config)" accesskey="n" rel="next">Próximo <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Direitos autorais 2025, Rennê Oliveira.</p>
+  </div>
+
+  Compilado com <a href="https://www.sphinx-doc.org/">Sphinx</a> usando um
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">tema</a>
+    fornecido por <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

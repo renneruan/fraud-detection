@@ -1,0 +1,327 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="pt-BR" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Estrutura Geral &mdash; Documentação Fraud Detection 1.0.0</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=c0c8e3fa"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="_static/translations.js?v=71a39b36"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Índice" href="genindex.html" />
+    <link rel="search" title="Buscar" href="search.html" />
+    <link rel="next" title="Componentes (components)" href="fraud_detection.components.html" />
+    <link rel="prev" title="Documentação Fraud Detection" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Fraud Detection
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Pesquisar documentos" aria-label="Pesquisar documentos" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Menu de navegação">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Estrutura Geral</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#modulos">Módulos</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fraud_detection.components.html">Componentes (components)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fraud_detection.config.html">Gerenciador de Configurações (config)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fraud_detection.constants.html">Constantes (constants)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fraud_detection.entity.html">Templates de Configuração (entity)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fraud_detection.pipeline.html">Pipelines (pipeline)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fraud_detection.utils.html">Funções Auxiliares (utils)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="fraud_detection.components.html">Componentes (components)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fraud_detection.config.html">Gerenciador de Configurações (config)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fraud_detection.constants.html">Constantes (constants)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fraud_detection.entity.html">Templates de Configuração (entity)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fraud_detection.pipeline.html">Pipelines (pipeline)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fraud_detection.utils.html">Funções Auxiliares (utils)</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Menu de navegação móvel" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Fraud Detection</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Navegação da página">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Estrutura Geral</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/fraud_detection.rst.txt" rel="nofollow"> Ver código-fonte da página</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="estrutura-geral">
+<h1>Estrutura Geral<a class="headerlink" href="#estrutura-geral" title="Link para este cabeçalho"></a></h1>
+<section id="modulos">
+<h2>Módulos<a class="headerlink" href="#modulos" title="Link para este cabeçalho"></a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="fraud_detection.components.html">Componentes (components)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="fraud_detection.components.html#module-fraud_detection.components.data_transformation">Transformador/Pré-processamento (data_transformation)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fraud_detection.components.html#fraud_detection.components.data_transformation.CountryProcessor"><code class="docutils literal notranslate"><span class="pre">CountryProcessor</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="fraud_detection.components.html#fraud_detection.components.data_transformation.CountryProcessor.transform"><code class="docutils literal notranslate"><span class="pre">CountryProcessor.transform()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="fraud_detection.components.html#fraud_detection.components.data_transformation.CustomProcessor"><code class="docutils literal notranslate"><span class="pre">CustomProcessor</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="fraud_detection.components.html#fraud_detection.components.data_transformation.CustomProcessor.fit"><code class="docutils literal notranslate"><span class="pre">CustomProcessor.fit()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="fraud_detection.components.html#fraud_detection.components.data_transformation.DataTransformation"><code class="docutils literal notranslate"><span class="pre">DataTransformation</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="fraud_detection.components.html#fraud_detection.components.data_transformation.DataTransformation.preprocessing_pipeline"><code class="docutils literal notranslate"><span class="pre">DataTransformation.preprocessing_pipeline()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="fraud_detection.components.html#fraud_detection.components.data_transformation.DateProcessor"><code class="docutils literal notranslate"><span class="pre">DateProcessor</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="fraud_detection.components.html#fraud_detection.components.data_transformation.DateProcessor.transform"><code class="docutils literal notranslate"><span class="pre">DateProcessor.transform()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="fraud_detection.components.html#fraud_detection.components.data_transformation.DocumentsProcessor"><code class="docutils literal notranslate"><span class="pre">DocumentsProcessor</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="fraud_detection.components.html#fraud_detection.components.data_transformation.DocumentsProcessor.transform"><code class="docutils literal notranslate"><span class="pre">DocumentsProcessor.transform()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="fraud_detection.components.html#fraud_detection.components.data_transformation.DropColumns"><code class="docutils literal notranslate"><span class="pre">DropColumns</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="fraud_detection.components.html#fraud_detection.components.data_transformation.DropColumns.transform"><code class="docutils literal notranslate"><span class="pre">DropColumns.transform()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="fraud_detection.components.html#fraud_detection.components.data_transformation.ImputeValuesProcessor"><code class="docutils literal notranslate"><span class="pre">ImputeValuesProcessor</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="fraud_detection.components.html#fraud_detection.components.data_transformation.ImputeValuesProcessor.fit"><code class="docutils literal notranslate"><span class="pre">ImputeValuesProcessor.fit()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fraud_detection.components.html#fraud_detection.components.data_transformation.ImputeValuesProcessor.transform"><code class="docutils literal notranslate"><span class="pre">ImputeValuesProcessor.transform()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="fraud_detection.components.html#fraud_detection.components.data_transformation.NonFrequentAggregator"><code class="docutils literal notranslate"><span class="pre">NonFrequentAggregator</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="fraud_detection.components.html#fraud_detection.components.data_transformation.NonFrequentAggregator.fit"><code class="docutils literal notranslate"><span class="pre">NonFrequentAggregator.fit()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fraud_detection.components.html#fraud_detection.components.data_transformation.NonFrequentAggregator.transform"><code class="docutils literal notranslate"><span class="pre">NonFrequentAggregator.transform()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="fraud_detection.components.html#fraud_detection.components.data_transformation.OneHotEncoderProcessor"><code class="docutils literal notranslate"><span class="pre">OneHotEncoderProcessor</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="fraud_detection.components.html#fraud_detection.components.data_transformation.OneHotEncoderProcessor.fit"><code class="docutils literal notranslate"><span class="pre">OneHotEncoderProcessor.fit()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fraud_detection.components.html#fraud_detection.components.data_transformation.OneHotEncoderProcessor.transform"><code class="docutils literal notranslate"><span class="pre">OneHotEncoderProcessor.transform()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="fraud_detection.components.html#fraud_detection.components.data_transformation.TargetEncoderTransformer"><code class="docutils literal notranslate"><span class="pre">TargetEncoderTransformer</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="fraud_detection.components.html#fraud_detection.components.data_transformation.TargetEncoderTransformer.fit"><code class="docutils literal notranslate"><span class="pre">TargetEncoderTransformer.fit()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fraud_detection.components.html#fraud_detection.components.data_transformation.TargetEncoderTransformer.transform"><code class="docutils literal notranslate"><span class="pre">TargetEncoderTransformer.transform()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="fraud_detection.components.html#fraud_detection.components.data_transformation.TransformColumns"><code class="docutils literal notranslate"><span class="pre">TransformColumns</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="fraud_detection.components.html#fraud_detection.components.data_transformation.TransformColumns.transform"><code class="docutils literal notranslate"><span class="pre">TransformColumns.transform()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="fraud_detection.components.html#fraud_detection.components.data_transformation.convert_to_numeric"><code class="docutils literal notranslate"><span class="pre">convert_to_numeric()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fraud_detection.components.html#module-fraud_detection.components.data_validation">Validação dos Dados (data_validation)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fraud_detection.components.html#fraud_detection.components.data_validation.DataValidation"><code class="docutils literal notranslate"><span class="pre">DataValidation</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="fraud_detection.components.html#fraud_detection.components.data_validation.DataValidation.validate_all_columns"><code class="docutils literal notranslate"><span class="pre">DataValidation.validate_all_columns()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fraud_detection.components.html#module-fraud_detection.components.model_trainer">Treinamento do Modelo (model_trainer)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fraud_detection.components.html#fraud_detection.components.model_trainer.ModelTrainer"><code class="docutils literal notranslate"><span class="pre">ModelTrainer</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="fraud_detection.components.html#fraud_detection.components.model_trainer.ModelTrainer.train"><code class="docutils literal notranslate"><span class="pre">ModelTrainer.train()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fraud_detection.components.html#module-fraud_detection.components.model_evaluation">Avaliação do Modelo (model_evaluation)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fraud_detection.components.html#fraud_detection.components.model_evaluation.ModelEvaluation"><code class="docutils literal notranslate"><span class="pre">ModelEvaluation</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="fraud_detection.components.html#fraud_detection.components.model_evaluation.ModelEvaluation.evaluate_metrics"><code class="docutils literal notranslate"><span class="pre">ModelEvaluation.evaluate_metrics()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fraud_detection.components.html#fraud_detection.components.model_evaluation.ModelEvaluation.start_mlflow"><code class="docutils literal notranslate"><span class="pre">ModelEvaluation.start_mlflow()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="fraud_detection.config.html">Gerenciador de Configurações (config)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="fraud_detection.config.html#module-fraud_detection.config.manager">Manager</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fraud_detection.config.html#fraud_detection.config.manager.ConfigurationManager"><code class="docutils literal notranslate"><span class="pre">ConfigurationManager</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="fraud_detection.config.html#fraud_detection.config.manager.ConfigurationManager.get_data_transformation_config"><code class="docutils literal notranslate"><span class="pre">ConfigurationManager.get_data_transformation_config()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fraud_detection.config.html#fraud_detection.config.manager.ConfigurationManager.get_data_validation_config"><code class="docutils literal notranslate"><span class="pre">ConfigurationManager.get_data_validation_config()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fraud_detection.config.html#fraud_detection.config.manager.ConfigurationManager.get_model_evaluation_config"><code class="docutils literal notranslate"><span class="pre">ConfigurationManager.get_model_evaluation_config()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fraud_detection.config.html#fraud_detection.config.manager.ConfigurationManager.get_model_trainer_config"><code class="docutils literal notranslate"><span class="pre">ConfigurationManager.get_model_trainer_config()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="fraud_detection.constants.html">Constantes (constants)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="fraud_detection.constants.html#conteudo-do-modulo">Conteúdo do Módulo</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="fraud_detection.entity.html">Templates de Configuração (entity)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="fraud_detection.entity.html#module-fraud_detection.entity.config_entity">Estruturas</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fraud_detection.entity.html#fraud_detection.entity.config_entity.DataTransformationConfig"><code class="docutils literal notranslate"><span class="pre">DataTransformationConfig</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="fraud_detection.entity.html#fraud_detection.entity.config_entity.DataTransformationConfig.raw_data_path"><code class="docutils literal notranslate"><span class="pre">DataTransformationConfig.raw_data_path</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fraud_detection.entity.html#fraud_detection.entity.config_entity.DataTransformationConfig.target_column"><code class="docutils literal notranslate"><span class="pre">DataTransformationConfig.target_column</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fraud_detection.entity.html#fraud_detection.entity.config_entity.DataTransformationConfig.transformed_data_path"><code class="docutils literal notranslate"><span class="pre">DataTransformationConfig.transformed_data_path</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="fraud_detection.entity.html#fraud_detection.entity.config_entity.DataValidationConfig"><code class="docutils literal notranslate"><span class="pre">DataValidationConfig</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="fraud_detection.entity.html#fraud_detection.entity.config_entity.DataValidationConfig.all_schema"><code class="docutils literal notranslate"><span class="pre">DataValidationConfig.all_schema</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fraud_detection.entity.html#fraud_detection.entity.config_entity.DataValidationConfig.raw_data_path"><code class="docutils literal notranslate"><span class="pre">DataValidationConfig.raw_data_path</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fraud_detection.entity.html#fraud_detection.entity.config_entity.DataValidationConfig.root_path"><code class="docutils literal notranslate"><span class="pre">DataValidationConfig.root_path</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fraud_detection.entity.html#fraud_detection.entity.config_entity.DataValidationConfig.status_file"><code class="docutils literal notranslate"><span class="pre">DataValidationConfig.status_file</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="fraud_detection.entity.html#fraud_detection.entity.config_entity.ModelEvaluationConfig"><code class="docutils literal notranslate"><span class="pre">ModelEvaluationConfig</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="fraud_detection.entity.html#fraud_detection.entity.config_entity.ModelEvaluationConfig.all_params"><code class="docutils literal notranslate"><span class="pre">ModelEvaluationConfig.all_params</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fraud_detection.entity.html#fraud_detection.entity.config_entity.ModelEvaluationConfig.metric_file_name"><code class="docutils literal notranslate"><span class="pre">ModelEvaluationConfig.metric_file_name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fraud_detection.entity.html#fraud_detection.entity.config_entity.ModelEvaluationConfig.mlflow_uri"><code class="docutils literal notranslate"><span class="pre">ModelEvaluationConfig.mlflow_uri</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fraud_detection.entity.html#fraud_detection.entity.config_entity.ModelEvaluationConfig.model_path"><code class="docutils literal notranslate"><span class="pre">ModelEvaluationConfig.model_path</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fraud_detection.entity.html#fraud_detection.entity.config_entity.ModelEvaluationConfig.model_results_path"><code class="docutils literal notranslate"><span class="pre">ModelEvaluationConfig.model_results_path</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fraud_detection.entity.html#fraud_detection.entity.config_entity.ModelEvaluationConfig.target_column"><code class="docutils literal notranslate"><span class="pre">ModelEvaluationConfig.target_column</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fraud_detection.entity.html#fraud_detection.entity.config_entity.ModelEvaluationConfig.test_x_data_path"><code class="docutils literal notranslate"><span class="pre">ModelEvaluationConfig.test_x_data_path</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fraud_detection.entity.html#fraud_detection.entity.config_entity.ModelEvaluationConfig.test_y_data_path"><code class="docutils literal notranslate"><span class="pre">ModelEvaluationConfig.test_y_data_path</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="fraud_detection.entity.html#fraud_detection.entity.config_entity.ModelTrainerConfig"><code class="docutils literal notranslate"><span class="pre">ModelTrainerConfig</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="fraud_detection.entity.html#fraud_detection.entity.config_entity.ModelTrainerConfig.colsample_bytree"><code class="docutils literal notranslate"><span class="pre">ModelTrainerConfig.colsample_bytree</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fraud_detection.entity.html#fraud_detection.entity.config_entity.ModelTrainerConfig.learning_rate"><code class="docutils literal notranslate"><span class="pre">ModelTrainerConfig.learning_rate</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fraud_detection.entity.html#fraud_detection.entity.config_entity.ModelTrainerConfig.max_depth"><code class="docutils literal notranslate"><span class="pre">ModelTrainerConfig.max_depth</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fraud_detection.entity.html#fraud_detection.entity.config_entity.ModelTrainerConfig.model_name"><code class="docutils literal notranslate"><span class="pre">ModelTrainerConfig.model_name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fraud_detection.entity.html#fraud_detection.entity.config_entity.ModelTrainerConfig.model_target_path"><code class="docutils literal notranslate"><span class="pre">ModelTrainerConfig.model_target_path</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fraud_detection.entity.html#fraud_detection.entity.config_entity.ModelTrainerConfig.n_estimators"><code class="docutils literal notranslate"><span class="pre">ModelTrainerConfig.n_estimators</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fraud_detection.entity.html#fraud_detection.entity.config_entity.ModelTrainerConfig.num_leaves"><code class="docutils literal notranslate"><span class="pre">ModelTrainerConfig.num_leaves</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fraud_detection.entity.html#fraud_detection.entity.config_entity.ModelTrainerConfig.reg_alpha"><code class="docutils literal notranslate"><span class="pre">ModelTrainerConfig.reg_alpha</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fraud_detection.entity.html#fraud_detection.entity.config_entity.ModelTrainerConfig.reg_lambda"><code class="docutils literal notranslate"><span class="pre">ModelTrainerConfig.reg_lambda</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fraud_detection.entity.html#fraud_detection.entity.config_entity.ModelTrainerConfig.scale_pos_weight"><code class="docutils literal notranslate"><span class="pre">ModelTrainerConfig.scale_pos_weight</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fraud_detection.entity.html#fraud_detection.entity.config_entity.ModelTrainerConfig.subsample"><code class="docutils literal notranslate"><span class="pre">ModelTrainerConfig.subsample</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fraud_detection.entity.html#fraud_detection.entity.config_entity.ModelTrainerConfig.target_column"><code class="docutils literal notranslate"><span class="pre">ModelTrainerConfig.target_column</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fraud_detection.entity.html#fraud_detection.entity.config_entity.ModelTrainerConfig.test_x_data_path"><code class="docutils literal notranslate"><span class="pre">ModelTrainerConfig.test_x_data_path</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fraud_detection.entity.html#fraud_detection.entity.config_entity.ModelTrainerConfig.test_y_data_path"><code class="docutils literal notranslate"><span class="pre">ModelTrainerConfig.test_y_data_path</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fraud_detection.entity.html#fraud_detection.entity.config_entity.ModelTrainerConfig.train_x_data_path"><code class="docutils literal notranslate"><span class="pre">ModelTrainerConfig.train_x_data_path</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fraud_detection.entity.html#fraud_detection.entity.config_entity.ModelTrainerConfig.train_y_data_path"><code class="docutils literal notranslate"><span class="pre">ModelTrainerConfig.train_y_data_path</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="fraud_detection.pipeline.html">Pipelines (pipeline)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="fraud_detection.pipeline.html#module-fraud_detection.pipeline.prediction">Pipeline de predição (prediction)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fraud_detection.pipeline.html#fraud_detection.pipeline.prediction.PredictionPipeline"><code class="docutils literal notranslate"><span class="pre">PredictionPipeline</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="fraud_detection.pipeline.html#fraud_detection.pipeline.prediction.PredictionPipeline.predict"><code class="docutils literal notranslate"><span class="pre">PredictionPipeline.predict()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fraud_detection.pipeline.html#fraud_detection.pipeline.prediction.PredictionPipeline.transform_input_data"><code class="docutils literal notranslate"><span class="pre">PredictionPipeline.transform_input_data()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fraud_detection.pipeline.html#module-fraud_detection.pipeline.stage_01_data_validation">Etapa 1 - Validação dos Dados</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fraud_detection.pipeline.html#fraud_detection.pipeline.stage_01_data_validation.DataValidationTrainingPipeline"><code class="docutils literal notranslate"><span class="pre">DataValidationTrainingPipeline()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fraud_detection.pipeline.html#module-fraud_detection.pipeline.stage_02_data_transformation">Etapa 2 - Transformação dos Dados</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fraud_detection.pipeline.html#fraud_detection.pipeline.stage_02_data_transformation.DataTransformationTrainingPipeline"><code class="docutils literal notranslate"><span class="pre">DataTransformationTrainingPipeline()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fraud_detection.pipeline.html#module-fraud_detection.pipeline.stage_03_model_trainer">Etapa 3 - Treinamento do Modelo</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fraud_detection.pipeline.html#fraud_detection.pipeline.stage_03_model_trainer.ModelTrainerTrainingPipeline"><code class="docutils literal notranslate"><span class="pre">ModelTrainerTrainingPipeline()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fraud_detection.pipeline.html#module-fraud_detection.pipeline.stage_04_model_evaluation">Etapa 4 - Avaliação do Modelo</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fraud_detection.pipeline.html#fraud_detection.pipeline.stage_04_model_evaluation.ModelEvaluationTrainingPipeline"><code class="docutils literal notranslate"><span class="pre">ModelEvaluationTrainingPipeline()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="fraud_detection.utils.html">Funções Auxiliares (utils)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="fraud_detection.utils.html#module-fraud_detection.utils.base_metrics">Métricas do negócio (base_metrics)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fraud_detection.utils.html#funcoes">Funções</a></li>
+<li class="toctree-l3"><a class="reference internal" href="fraud_detection.utils.html#fraud_detection.utils.base_metrics.BaseMetrics"><code class="docutils literal notranslate"><span class="pre">BaseMetrics</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="fraud_detection.utils.html#fraud_detection.utils.base_metrics.BaseMetrics.calculate_revenue"><code class="docutils literal notranslate"><span class="pre">BaseMetrics.calculate_revenue()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fraud_detection.utils.html#fraud_detection.utils.base_metrics.BaseMetrics.find_best_threshold"><code class="docutils literal notranslate"><span class="pre">BaseMetrics.find_best_threshold()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fraud_detection.utils.html#fraud_detection.utils.base_metrics.BaseMetrics.get_approval_rate"><code class="docutils literal notranslate"><span class="pre">BaseMetrics.get_approval_rate()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fraud_detection.utils.html#fraud_detection.utils.base_metrics.BaseMetrics.get_decline_rate"><code class="docutils literal notranslate"><span class="pre">BaseMetrics.get_decline_rate()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fraud_detection.utils.html#fraud_detection.utils.base_metrics.BaseMetrics.get_false_positive_rate"><code class="docutils literal notranslate"><span class="pre">BaseMetrics.get_false_positive_rate()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fraud_detection.utils.html#fraud_detection.utils.base_metrics.BaseMetrics.get_incoming_pressure_rate"><code class="docutils literal notranslate"><span class="pre">BaseMetrics.get_incoming_pressure_rate()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fraud_detection.utils.html#fraud_detection.utils.base_metrics.BaseMetrics.get_precision"><code class="docutils literal notranslate"><span class="pre">BaseMetrics.get_precision()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fraud_detection.utils.html#fraud_detection.utils.base_metrics.BaseMetrics.get_recall"><code class="docutils literal notranslate"><span class="pre">BaseMetrics.get_recall()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="fraud_detection.utils.html#fraud_detection.utils.base_metrics.BaseMetrics.show_all_metrics"><code class="docutils literal notranslate"><span class="pre">BaseMetrics.show_all_metrics()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fraud_detection.utils.html#module-fraud_detection.utils.commons">Funções gerais de arquivos (commons)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="fraud_detection.utils.html#id1">Funções</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Rodapé">
+        <a href="index.html" class="btn btn-neutral float-left" title="Documentação Fraud Detection" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Anterior</a>
+        <a href="fraud_detection.components.html" class="btn btn-neutral float-right" title="Componentes (components)" accesskey="n" rel="next">Próximo <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Direitos autorais 2025, Rennê Oliveira.</p>
+  </div>
+
+  Compilado com <a href="https://www.sphinx-doc.org/">Sphinx</a> usando um
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">tema</a>
+    fornecido por <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
