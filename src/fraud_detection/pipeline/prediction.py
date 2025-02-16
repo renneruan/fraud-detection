@@ -40,7 +40,6 @@ class PredictionPipeline:
         """
         try:
             transformed_data = self.pipeline.transform(data)
-            print(transformed_data)
             return transformed_data
         except NotFittedError as e:
             logger.exception(
