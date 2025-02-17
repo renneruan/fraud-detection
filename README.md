@@ -216,7 +216,7 @@ O processo de CI/CD foi realizado utilizando Github Actions, temos workflows cri
 
 Foi utilizado a biblioteca Sphinx para a leitura automática das docstrings presentes em código, a biblioteca transforma as docstrings em um formato de página, foi utilizado Github pages para a disponibilização da documentação gerada. O processo de envio para o Github Pages também foi automatizado.
 
-### Verificação estática de cóidigo
+### Verificação estática de código
 
 Aplicação de Pylint para a garantia da qualidade estatática do código, garantindo que não existem variáveis não utilizadas, funções sem documentação dentre outras problemáticas, o Pylint é aplicado ao workflow de integração garantindo uma nota de corte para o código (10). Alterações realizadas também devem seguir esse padrão. Inserimos algumas exceções no que tange a nomeclatura (Permitir variáveis sem snake_case como X, e quantia de funções/parâmetros).
 
