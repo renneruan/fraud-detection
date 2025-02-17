@@ -1,0 +1,242 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="pt-BR" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>fraud_detection.entity.config_entity &mdash; Documentação Fraud Detection 1.0.0</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=c0c8e3fa"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../../_static/translations.js?v=71a39b36"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Índice" href="../../../genindex.html" />
+    <link rel="search" title="Buscar" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            Fraud Detection
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Pesquisar documentos" aria-label="Pesquisar documentos" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Menu de navegação">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../fraud_detection.html">Estrutura Geral</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../fraud_detection.components.html">Componentes (components)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../fraud_detection.config.html">Gerenciador de Configurações (config)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../fraud_detection.constants.html">Constantes (constants)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../fraud_detection.entity.html">Templates de Configuração (entity)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../fraud_detection.pipeline.html">Pipelines (pipeline)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../fraud_detection.utils.html">Funções Auxiliares (utils)</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Menu de navegação móvel" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Fraud Detection</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Navegação da página">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Código do módulo</a></li>
+      <li class="breadcrumb-item active">fraud_detection.entity.config_entity</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Código-fonte para fraud_detection.entity.config_entity</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Módulo para armazenar o formato das configurações recebidas.</span>
+
+<span class="sd">Serve para relacionar o que é lido no arquivo yaml para o formato a</span>
+<span class="sd">ser traduzido em python.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+
+
+<div class="viewcode-block" id="DataValidationConfig">
+<a class="viewcode-back" href="../../../fraud_detection.entity.html#fraud_detection.entity.config_entity.DataValidationConfig">[documentos]</a>
+<span class="nd">@dataclass</span><span class="p">(</span><span class="n">frozen</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">DataValidationConfig</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Armazena o modelo de configuração para validação dos dados.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        root_path (Path): O diretório que será salvo o arquivo com resultado\</span>
+<span class="sd">                          da validação.</span>
+<span class="sd">        raw_data_path (Path): Diretório contendo os dados iniciais brutos.</span>
+<span class="sd">        status_file (str): Arquivo que será salvo contendo o resultado.</span>
+<span class="sd">        all_schema (dict): Colunas que devem estar nos dados de entrada.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">root_path</span><span class="p">:</span> <span class="n">Path</span>
+    <span class="n">raw_data_path</span><span class="p">:</span> <span class="n">Path</span>
+    <span class="n">status_file</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">all_schema</span><span class="p">:</span> <span class="nb">dict</span></div>
+
+
+
+<div class="viewcode-block" id="DataTransformationConfig">
+<a class="viewcode-back" href="../../../fraud_detection.entity.html#fraud_detection.entity.config_entity.DataTransformationConfig">[documentos]</a>
+<span class="nd">@dataclass</span><span class="p">(</span><span class="n">frozen</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">DataTransformationConfig</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Armazena o modelo de configuração para transformação dos dados.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        raw_data_path (Path): Diretório contendo os dados iniciais brutos.</span>
+<span class="sd">        transformed_data_path (Path): Diretório que os dados transformados\</span>
+<span class="sd">                                      serão salvos.</span>
+<span class="sd">        target_column (str): Coluna alvo para ser usada na transformação.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">raw_data_path</span><span class="p">:</span> <span class="n">Path</span>
+    <span class="n">transformed_data_path</span><span class="p">:</span> <span class="n">Path</span>
+    <span class="n">target_column</span><span class="p">:</span> <span class="nb">str</span></div>
+
+
+
+<div class="viewcode-block" id="ModelTrainerConfig">
+<a class="viewcode-back" href="../../../fraud_detection.entity.html#fraud_detection.entity.config_entity.ModelTrainerConfig">[documentos]</a>
+<span class="nd">@dataclass</span><span class="p">(</span><span class="n">frozen</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">ModelTrainerConfig</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Armazena o modelo de configuração para o treinamento do modelo.</span>
+<span class="sd">    Irá carregar os hiperparâmetros inerentes ao modelo.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        model_target_path (Path): Caminho para salvar o modelo treinado.</span>
+<span class="sd">        train_x_data_path (Path): Caminho para os dados de treino (features).</span>
+<span class="sd">        test_x_data_path (Path): Caminho para os dados de teste (features).</span>
+<span class="sd">        train_y_data_path (Path): Caminho para os rótulos de treino.</span>
+<span class="sd">        test_y_data_path (Path): Caminho para os rótulos de teste.</span>
+<span class="sd">        model_name (str): Nome do modelo.</span>
+
+<span class="sd">        Hiperparâmetros do LightGBM (consulte a documentação do scikit-learn):</span>
+<span class="sd">        https://lightgbm.readthedocs.io/en/latest/pythonapi/lightgbm.LGBMClassifier.html</span>
+
+<span class="sd">        subsample (float): Fração de amostras usadas por árvore.</span>
+<span class="sd">        reg_alpha (float): Regularização L1.</span>
+<span class="sd">        reg_lambda (float): Regularização L2.</span>
+<span class="sd">        num_leaves (int): Número máximo de folhas por árvore.</span>
+<span class="sd">        n_estimators (int): Número de árvores no modelo.</span>
+<span class="sd">        max_depth (int): Profundidade máxima das árvores.</span>
+<span class="sd">        learning_rate (float): Taxa de aprendizado.</span>
+<span class="sd">        colsample_bytree (float): Fração de colunas usadas por árvore.</span>
+<span class="sd">        scale_pos_weight (float): Proporção para lidar com desbalanceamento\</span>
+<span class="sd">                                  de classe</span>
+<span class="sd">        target_column (str): Nome da coluna alvo para predição.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">model_target_path</span><span class="p">:</span> <span class="n">Path</span>
+    <span class="n">train_x_data_path</span><span class="p">:</span> <span class="n">Path</span>
+    <span class="n">test_x_data_path</span><span class="p">:</span> <span class="n">Path</span>
+    <span class="n">train_y_data_path</span><span class="p">:</span> <span class="n">Path</span>
+    <span class="n">test_y_data_path</span><span class="p">:</span> <span class="n">Path</span>
+    <span class="n">model_name</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">subsample</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">reg_lambda</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">reg_alpha</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">num_leaves</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">n_estimators</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">max_depth</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">learning_rate</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">colsample_bytree</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">scale_pos_weight</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">target_column</span><span class="p">:</span> <span class="nb">str</span></div>
+
+
+
+<div class="viewcode-block" id="ModelEvaluationConfig">
+<a class="viewcode-back" href="../../../fraud_detection.entity.html#fraud_detection.entity.config_entity.ModelEvaluationConfig">[documentos]</a>
+<span class="nd">@dataclass</span><span class="p">(</span><span class="n">frozen</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">ModelEvaluationConfig</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Armazena o padrão de configurações para a etapa de avaliação do modelo.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        model_results_path (Path): Caminho onde os resultados da avaliação</span>
+<span class="sd">         serão armazenados.</span>
+<span class="sd">        test_x_data_path (Path): Caminho para os dados de teste (features).</span>
+<span class="sd">        test_y_data_path (Path): Caminho para os rótulos de teste.</span>
+<span class="sd">        model_path (Path): Caminho para o modelo treinado a ser avaliado.</span>
+<span class="sd">        all_params (dict): Dicionário contendo os hiperparâmetros usados no \</span>
+<span class="sd">                           modelo.</span>
+<span class="sd">        metric_file_name (Path): Nome do arquivo onde as métricas de \</span>
+<span class="sd">                                 avaliação serão salvas.</span>
+<span class="sd">        target_column (str): Nome da coluna alvo para predição.</span>
+<span class="sd">        mlflow_uri (str): URI do MLflow para rastreamento dos experimentos.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">model_results_path</span><span class="p">:</span> <span class="n">Path</span>
+    <span class="n">test_x_data_path</span><span class="p">:</span> <span class="n">Path</span>
+    <span class="n">test_y_data_path</span><span class="p">:</span> <span class="n">Path</span>
+    <span class="n">model_path</span><span class="p">:</span> <span class="n">Path</span>
+    <span class="n">all_params</span><span class="p">:</span> <span class="nb">dict</span>
+    <span class="n">metric_file_name</span><span class="p">:</span> <span class="n">Path</span>
+    <span class="n">target_column</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">mlflow_uri</span><span class="p">:</span> <span class="nb">str</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Direitos autorais 2025, Rennê Oliveira.</p>
+  </div>
+
+  Compilado com <a href="https://www.sphinx-doc.org/">Sphinx</a> usando um
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">tema</a>
+    fornecido por <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

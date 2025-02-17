@@ -1,0 +1,413 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="pt-BR" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Templates de Configuração (entity) &mdash; Documentação Fraud Detection 1.0.0</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=c0c8e3fa"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="_static/translations.js?v=71a39b36"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Índice" href="genindex.html" />
+    <link rel="search" title="Buscar" href="search.html" />
+    <link rel="next" title="Pipelines (pipeline)" href="fraud_detection.pipeline.html" />
+    <link rel="prev" title="Constantes (constants)" href="fraud_detection.constants.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Fraud Detection
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Pesquisar documentos" aria-label="Pesquisar documentos" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Menu de navegação">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="fraud_detection.html">Estrutura Geral</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fraud_detection.components.html">Componentes (components)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fraud_detection.config.html">Gerenciador de Configurações (config)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fraud_detection.constants.html">Constantes (constants)</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Templates de Configuração (entity)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#module-fraud_detection.entity.config_entity">Estruturas</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#fraud_detection.entity.config_entity.DataTransformationConfig"><code class="docutils literal notranslate"><span class="pre">DataTransformationConfig</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#fraud_detection.entity.config_entity.DataTransformationConfig.raw_data_path"><code class="docutils literal notranslate"><span class="pre">DataTransformationConfig.raw_data_path</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#fraud_detection.entity.config_entity.DataTransformationConfig.target_column"><code class="docutils literal notranslate"><span class="pre">DataTransformationConfig.target_column</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#fraud_detection.entity.config_entity.DataTransformationConfig.transformed_data_path"><code class="docutils literal notranslate"><span class="pre">DataTransformationConfig.transformed_data_path</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#fraud_detection.entity.config_entity.DataValidationConfig"><code class="docutils literal notranslate"><span class="pre">DataValidationConfig</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#fraud_detection.entity.config_entity.DataValidationConfig.all_schema"><code class="docutils literal notranslate"><span class="pre">DataValidationConfig.all_schema</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#fraud_detection.entity.config_entity.DataValidationConfig.raw_data_path"><code class="docutils literal notranslate"><span class="pre">DataValidationConfig.raw_data_path</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#fraud_detection.entity.config_entity.DataValidationConfig.root_path"><code class="docutils literal notranslate"><span class="pre">DataValidationConfig.root_path</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#fraud_detection.entity.config_entity.DataValidationConfig.status_file"><code class="docutils literal notranslate"><span class="pre">DataValidationConfig.status_file</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#fraud_detection.entity.config_entity.ModelEvaluationConfig"><code class="docutils literal notranslate"><span class="pre">ModelEvaluationConfig</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#fraud_detection.entity.config_entity.ModelEvaluationConfig.all_params"><code class="docutils literal notranslate"><span class="pre">ModelEvaluationConfig.all_params</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#fraud_detection.entity.config_entity.ModelEvaluationConfig.metric_file_name"><code class="docutils literal notranslate"><span class="pre">ModelEvaluationConfig.metric_file_name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#fraud_detection.entity.config_entity.ModelEvaluationConfig.mlflow_uri"><code class="docutils literal notranslate"><span class="pre">ModelEvaluationConfig.mlflow_uri</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#fraud_detection.entity.config_entity.ModelEvaluationConfig.model_path"><code class="docutils literal notranslate"><span class="pre">ModelEvaluationConfig.model_path</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#fraud_detection.entity.config_entity.ModelEvaluationConfig.model_results_path"><code class="docutils literal notranslate"><span class="pre">ModelEvaluationConfig.model_results_path</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#fraud_detection.entity.config_entity.ModelEvaluationConfig.target_column"><code class="docutils literal notranslate"><span class="pre">ModelEvaluationConfig.target_column</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#fraud_detection.entity.config_entity.ModelEvaluationConfig.test_x_data_path"><code class="docutils literal notranslate"><span class="pre">ModelEvaluationConfig.test_x_data_path</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#fraud_detection.entity.config_entity.ModelEvaluationConfig.test_y_data_path"><code class="docutils literal notranslate"><span class="pre">ModelEvaluationConfig.test_y_data_path</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#fraud_detection.entity.config_entity.ModelTrainerConfig"><code class="docutils literal notranslate"><span class="pre">ModelTrainerConfig</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#fraud_detection.entity.config_entity.ModelTrainerConfig.colsample_bytree"><code class="docutils literal notranslate"><span class="pre">ModelTrainerConfig.colsample_bytree</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#fraud_detection.entity.config_entity.ModelTrainerConfig.learning_rate"><code class="docutils literal notranslate"><span class="pre">ModelTrainerConfig.learning_rate</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#fraud_detection.entity.config_entity.ModelTrainerConfig.max_depth"><code class="docutils literal notranslate"><span class="pre">ModelTrainerConfig.max_depth</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#fraud_detection.entity.config_entity.ModelTrainerConfig.model_name"><code class="docutils literal notranslate"><span class="pre">ModelTrainerConfig.model_name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#fraud_detection.entity.config_entity.ModelTrainerConfig.model_target_path"><code class="docutils literal notranslate"><span class="pre">ModelTrainerConfig.model_target_path</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#fraud_detection.entity.config_entity.ModelTrainerConfig.n_estimators"><code class="docutils literal notranslate"><span class="pre">ModelTrainerConfig.n_estimators</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#fraud_detection.entity.config_entity.ModelTrainerConfig.num_leaves"><code class="docutils literal notranslate"><span class="pre">ModelTrainerConfig.num_leaves</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#fraud_detection.entity.config_entity.ModelTrainerConfig.reg_alpha"><code class="docutils literal notranslate"><span class="pre">ModelTrainerConfig.reg_alpha</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#fraud_detection.entity.config_entity.ModelTrainerConfig.reg_lambda"><code class="docutils literal notranslate"><span class="pre">ModelTrainerConfig.reg_lambda</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#fraud_detection.entity.config_entity.ModelTrainerConfig.scale_pos_weight"><code class="docutils literal notranslate"><span class="pre">ModelTrainerConfig.scale_pos_weight</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#fraud_detection.entity.config_entity.ModelTrainerConfig.subsample"><code class="docutils literal notranslate"><span class="pre">ModelTrainerConfig.subsample</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#fraud_detection.entity.config_entity.ModelTrainerConfig.target_column"><code class="docutils literal notranslate"><span class="pre">ModelTrainerConfig.target_column</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#fraud_detection.entity.config_entity.ModelTrainerConfig.test_x_data_path"><code class="docutils literal notranslate"><span class="pre">ModelTrainerConfig.test_x_data_path</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#fraud_detection.entity.config_entity.ModelTrainerConfig.test_y_data_path"><code class="docutils literal notranslate"><span class="pre">ModelTrainerConfig.test_y_data_path</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#fraud_detection.entity.config_entity.ModelTrainerConfig.train_x_data_path"><code class="docutils literal notranslate"><span class="pre">ModelTrainerConfig.train_x_data_path</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#fraud_detection.entity.config_entity.ModelTrainerConfig.train_y_data_path"><code class="docutils literal notranslate"><span class="pre">ModelTrainerConfig.train_y_data_path</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="fraud_detection.pipeline.html">Pipelines (pipeline)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fraud_detection.utils.html">Funções Auxiliares (utils)</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Menu de navegação móvel" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Fraud Detection</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Navegação da página">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="fraud_detection.html">Estrutura Geral</a></li>
+      <li class="breadcrumb-item active">Templates de Configuração (entity)</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/fraud_detection.entity.rst.txt" rel="nofollow"> Ver código-fonte da página</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="templates-de-configuracao-entity">
+<h1>Templates de Configuração (entity)<a class="headerlink" href="#templates-de-configuracao-entity" title="Link para este cabeçalho"></a></h1>
+<section id="module-fraud_detection.entity.config_entity">
+<span id="estruturas"></span><h2>Estruturas<a class="headerlink" href="#module-fraud_detection.entity.config_entity" title="Link para este cabeçalho"></a></h2>
+<p>Módulo para armazenar o formato das configurações recebidas.</p>
+<p>Serve para relacionar o que é lido no arquivo yaml para o formato a
+ser traduzido em python.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="fraud_detection.entity.config_entity.DataTransformationConfig">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">fraud_detection.entity.config_entity.</span></span><span class="sig-name descname"><span class="pre">DataTransformationConfig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">raw_data_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transformed_data_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_column</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fraud_detection/entity/config_entity.html#DataTransformationConfig"><span class="viewcode-link"><span class="pre">[código-fonte]</span></span></a><a class="headerlink" href="#fraud_detection.entity.config_entity.DataTransformationConfig" title="Link para esta definição"></a></dt>
+<dd><p>Base: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Armazena o modelo de configuração para transformação dos dados.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parâmetros<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>raw_data_path</strong> (<em>Path</em>) – Diretório contendo os dados iniciais brutos.</p></li>
+<li><p><strong>transformed_data_path</strong> (<em>Path</em>) – Diretório que os dados transformados                                      serão salvos.</p></li>
+<li><p><strong>target_column</strong> (<em>str</em>) – Coluna alvo para ser usada na transformação.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fraud_detection.entity.config_entity.DataTransformationConfig.raw_data_path">
+<span class="sig-name descname"><span class="pre">raw_data_path</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Path</span></em><a class="headerlink" href="#fraud_detection.entity.config_entity.DataTransformationConfig.raw_data_path" title="Link para esta definição"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fraud_detection.entity.config_entity.DataTransformationConfig.target_column">
+<span class="sig-name descname"><span class="pre">target_column</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#fraud_detection.entity.config_entity.DataTransformationConfig.target_column" title="Link para esta definição"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fraud_detection.entity.config_entity.DataTransformationConfig.transformed_data_path">
+<span class="sig-name descname"><span class="pre">transformed_data_path</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Path</span></em><a class="headerlink" href="#fraud_detection.entity.config_entity.DataTransformationConfig.transformed_data_path" title="Link para esta definição"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="fraud_detection.entity.config_entity.DataValidationConfig">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">fraud_detection.entity.config_entity.</span></span><span class="sig-name descname"><span class="pre">DataValidationConfig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">root_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">raw_data_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">status_file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">all_schema</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fraud_detection/entity/config_entity.html#DataValidationConfig"><span class="viewcode-link"><span class="pre">[código-fonte]</span></span></a><a class="headerlink" href="#fraud_detection.entity.config_entity.DataValidationConfig" title="Link para esta definição"></a></dt>
+<dd><p>Base: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Armazena o modelo de configuração para validação dos dados.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parâmetros<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>root_path</strong> (<em>Path</em>) – O diretório que será salvo o arquivo com resultado                          da validação.</p></li>
+<li><p><strong>raw_data_path</strong> (<em>Path</em>) – Diretório contendo os dados iniciais brutos.</p></li>
+<li><p><strong>status_file</strong> (<em>str</em>) – Arquivo que será salvo contendo o resultado.</p></li>
+<li><p><strong>all_schema</strong> (<em>dict</em>) – Colunas que devem estar nos dados de entrada.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fraud_detection.entity.config_entity.DataValidationConfig.all_schema">
+<span class="sig-name descname"><span class="pre">all_schema</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">dict</span></em><a class="headerlink" href="#fraud_detection.entity.config_entity.DataValidationConfig.all_schema" title="Link para esta definição"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fraud_detection.entity.config_entity.DataValidationConfig.raw_data_path">
+<span class="sig-name descname"><span class="pre">raw_data_path</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Path</span></em><a class="headerlink" href="#fraud_detection.entity.config_entity.DataValidationConfig.raw_data_path" title="Link para esta definição"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fraud_detection.entity.config_entity.DataValidationConfig.root_path">
+<span class="sig-name descname"><span class="pre">root_path</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Path</span></em><a class="headerlink" href="#fraud_detection.entity.config_entity.DataValidationConfig.root_path" title="Link para esta definição"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fraud_detection.entity.config_entity.DataValidationConfig.status_file">
+<span class="sig-name descname"><span class="pre">status_file</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#fraud_detection.entity.config_entity.DataValidationConfig.status_file" title="Link para esta definição"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="fraud_detection.entity.config_entity.ModelEvaluationConfig">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">fraud_detection.entity.config_entity.</span></span><span class="sig-name descname"><span class="pre">ModelEvaluationConfig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_results_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">test_x_data_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">test_y_data_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">all_params</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metric_file_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_column</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mlflow_uri</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fraud_detection/entity/config_entity.html#ModelEvaluationConfig"><span class="viewcode-link"><span class="pre">[código-fonte]</span></span></a><a class="headerlink" href="#fraud_detection.entity.config_entity.ModelEvaluationConfig" title="Link para esta definição"></a></dt>
+<dd><p>Base: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Armazena o padrão de configurações para a etapa de avaliação do modelo.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parâmetros<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>model_results_path</strong> (<em>Path</em>) – Caminho onde os resultados da avaliação
+serão armazenados.</p></li>
+<li><p><strong>test_x_data_path</strong> (<em>Path</em>) – Caminho para os dados de teste (features).</p></li>
+<li><p><strong>test_y_data_path</strong> (<em>Path</em>) – Caminho para os rótulos de teste.</p></li>
+<li><p><strong>model_path</strong> (<em>Path</em>) – Caminho para o modelo treinado a ser avaliado.</p></li>
+<li><p><strong>all_params</strong> (<em>dict</em>) – Dicionário contendo os hiperparâmetros usados no                            modelo.</p></li>
+<li><p><strong>metric_file_name</strong> (<em>Path</em>) – Nome do arquivo onde as métricas de                                  avaliação serão salvas.</p></li>
+<li><p><strong>target_column</strong> (<em>str</em>) – Nome da coluna alvo para predição.</p></li>
+<li><p><strong>mlflow_uri</strong> (<em>str</em>) – URI do MLflow para rastreamento dos experimentos.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fraud_detection.entity.config_entity.ModelEvaluationConfig.all_params">
+<span class="sig-name descname"><span class="pre">all_params</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">dict</span></em><a class="headerlink" href="#fraud_detection.entity.config_entity.ModelEvaluationConfig.all_params" title="Link para esta definição"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fraud_detection.entity.config_entity.ModelEvaluationConfig.metric_file_name">
+<span class="sig-name descname"><span class="pre">metric_file_name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Path</span></em><a class="headerlink" href="#fraud_detection.entity.config_entity.ModelEvaluationConfig.metric_file_name" title="Link para esta definição"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fraud_detection.entity.config_entity.ModelEvaluationConfig.mlflow_uri">
+<span class="sig-name descname"><span class="pre">mlflow_uri</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#fraud_detection.entity.config_entity.ModelEvaluationConfig.mlflow_uri" title="Link para esta definição"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fraud_detection.entity.config_entity.ModelEvaluationConfig.model_path">
+<span class="sig-name descname"><span class="pre">model_path</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Path</span></em><a class="headerlink" href="#fraud_detection.entity.config_entity.ModelEvaluationConfig.model_path" title="Link para esta definição"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fraud_detection.entity.config_entity.ModelEvaluationConfig.model_results_path">
+<span class="sig-name descname"><span class="pre">model_results_path</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Path</span></em><a class="headerlink" href="#fraud_detection.entity.config_entity.ModelEvaluationConfig.model_results_path" title="Link para esta definição"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fraud_detection.entity.config_entity.ModelEvaluationConfig.target_column">
+<span class="sig-name descname"><span class="pre">target_column</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#fraud_detection.entity.config_entity.ModelEvaluationConfig.target_column" title="Link para esta definição"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fraud_detection.entity.config_entity.ModelEvaluationConfig.test_x_data_path">
+<span class="sig-name descname"><span class="pre">test_x_data_path</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Path</span></em><a class="headerlink" href="#fraud_detection.entity.config_entity.ModelEvaluationConfig.test_x_data_path" title="Link para esta definição"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fraud_detection.entity.config_entity.ModelEvaluationConfig.test_y_data_path">
+<span class="sig-name descname"><span class="pre">test_y_data_path</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Path</span></em><a class="headerlink" href="#fraud_detection.entity.config_entity.ModelEvaluationConfig.test_y_data_path" title="Link para esta definição"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="fraud_detection.entity.config_entity.ModelTrainerConfig">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">fraud_detection.entity.config_entity.</span></span><span class="sig-name descname"><span class="pre">ModelTrainerConfig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_target_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">train_x_data_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">test_x_data_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">train_y_data_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">test_y_data_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subsample</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reg_lambda</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reg_alpha</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_leaves</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_estimators</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_depth</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">learning_rate</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colsample_bytree</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale_pos_weight</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_column</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fraud_detection/entity/config_entity.html#ModelTrainerConfig"><span class="viewcode-link"><span class="pre">[código-fonte]</span></span></a><a class="headerlink" href="#fraud_detection.entity.config_entity.ModelTrainerConfig" title="Link para esta definição"></a></dt>
+<dd><p>Base: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Armazena o modelo de configuração para o treinamento do modelo.
+Irá carregar os hiperparâmetros inerentes ao modelo.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parâmetros<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>model_target_path</strong> (<em>Path</em>) – Caminho para salvar o modelo treinado.</p></li>
+<li><p><strong>train_x_data_path</strong> (<em>Path</em>) – Caminho para os dados de treino (features).</p></li>
+<li><p><strong>test_x_data_path</strong> (<em>Path</em>) – Caminho para os dados de teste (features).</p></li>
+<li><p><strong>train_y_data_path</strong> (<em>Path</em>) – Caminho para os rótulos de treino.</p></li>
+<li><p><strong>test_y_data_path</strong> (<em>Path</em>) – Caminho para os rótulos de teste.</p></li>
+<li><p><strong>model_name</strong> (<em>str</em>) – Nome do modelo.</p></li>
+<li><p><strong>LightGBM</strong> (<em>Hiperparâmetros do</em>)</p></li>
+<li><p><strong>https</strong> – //lightgbm.readthedocs.io/en/latest/pythonapi/lightgbm.LGBMClassifier.html</p></li>
+<li><p><strong>subsample</strong> (<em>float</em>) – Fração de amostras usadas por árvore.</p></li>
+<li><p><strong>reg_alpha</strong> (<em>float</em>) – Regularização L1.</p></li>
+<li><p><strong>reg_lambda</strong> (<em>float</em>) – Regularização L2.</p></li>
+<li><p><strong>num_leaves</strong> (<em>int</em>) – Número máximo de folhas por árvore.</p></li>
+<li><p><strong>n_estimators</strong> (<em>int</em>) – Número de árvores no modelo.</p></li>
+<li><p><strong>max_depth</strong> (<em>int</em>) – Profundidade máxima das árvores.</p></li>
+<li><p><strong>learning_rate</strong> (<em>float</em>) – Taxa de aprendizado.</p></li>
+<li><p><strong>colsample_bytree</strong> (<em>float</em>) – Fração de colunas usadas por árvore.</p></li>
+<li><p><strong>scale_pos_weight</strong> (<em>float</em>) – Proporção para lidar com desbalanceamento                                  de classe</p></li>
+<li><p><strong>target_column</strong> (<em>str</em>) – Nome da coluna alvo para predição.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fraud_detection.entity.config_entity.ModelTrainerConfig.colsample_bytree">
+<span class="sig-name descname"><span class="pre">colsample_bytree</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#fraud_detection.entity.config_entity.ModelTrainerConfig.colsample_bytree" title="Link para esta definição"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fraud_detection.entity.config_entity.ModelTrainerConfig.learning_rate">
+<span class="sig-name descname"><span class="pre">learning_rate</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#fraud_detection.entity.config_entity.ModelTrainerConfig.learning_rate" title="Link para esta definição"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fraud_detection.entity.config_entity.ModelTrainerConfig.max_depth">
+<span class="sig-name descname"><span class="pre">max_depth</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#fraud_detection.entity.config_entity.ModelTrainerConfig.max_depth" title="Link para esta definição"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fraud_detection.entity.config_entity.ModelTrainerConfig.model_name">
+<span class="sig-name descname"><span class="pre">model_name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#fraud_detection.entity.config_entity.ModelTrainerConfig.model_name" title="Link para esta definição"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fraud_detection.entity.config_entity.ModelTrainerConfig.model_target_path">
+<span class="sig-name descname"><span class="pre">model_target_path</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Path</span></em><a class="headerlink" href="#fraud_detection.entity.config_entity.ModelTrainerConfig.model_target_path" title="Link para esta definição"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fraud_detection.entity.config_entity.ModelTrainerConfig.n_estimators">
+<span class="sig-name descname"><span class="pre">n_estimators</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#fraud_detection.entity.config_entity.ModelTrainerConfig.n_estimators" title="Link para esta definição"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fraud_detection.entity.config_entity.ModelTrainerConfig.num_leaves">
+<span class="sig-name descname"><span class="pre">num_leaves</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#fraud_detection.entity.config_entity.ModelTrainerConfig.num_leaves" title="Link para esta definição"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fraud_detection.entity.config_entity.ModelTrainerConfig.reg_alpha">
+<span class="sig-name descname"><span class="pre">reg_alpha</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#fraud_detection.entity.config_entity.ModelTrainerConfig.reg_alpha" title="Link para esta definição"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fraud_detection.entity.config_entity.ModelTrainerConfig.reg_lambda">
+<span class="sig-name descname"><span class="pre">reg_lambda</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#fraud_detection.entity.config_entity.ModelTrainerConfig.reg_lambda" title="Link para esta definição"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fraud_detection.entity.config_entity.ModelTrainerConfig.scale_pos_weight">
+<span class="sig-name descname"><span class="pre">scale_pos_weight</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#fraud_detection.entity.config_entity.ModelTrainerConfig.scale_pos_weight" title="Link para esta definição"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fraud_detection.entity.config_entity.ModelTrainerConfig.subsample">
+<span class="sig-name descname"><span class="pre">subsample</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#fraud_detection.entity.config_entity.ModelTrainerConfig.subsample" title="Link para esta definição"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fraud_detection.entity.config_entity.ModelTrainerConfig.target_column">
+<span class="sig-name descname"><span class="pre">target_column</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#fraud_detection.entity.config_entity.ModelTrainerConfig.target_column" title="Link para esta definição"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fraud_detection.entity.config_entity.ModelTrainerConfig.test_x_data_path">
+<span class="sig-name descname"><span class="pre">test_x_data_path</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Path</span></em><a class="headerlink" href="#fraud_detection.entity.config_entity.ModelTrainerConfig.test_x_data_path" title="Link para esta definição"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fraud_detection.entity.config_entity.ModelTrainerConfig.test_y_data_path">
+<span class="sig-name descname"><span class="pre">test_y_data_path</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Path</span></em><a class="headerlink" href="#fraud_detection.entity.config_entity.ModelTrainerConfig.test_y_data_path" title="Link para esta definição"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fraud_detection.entity.config_entity.ModelTrainerConfig.train_x_data_path">
+<span class="sig-name descname"><span class="pre">train_x_data_path</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Path</span></em><a class="headerlink" href="#fraud_detection.entity.config_entity.ModelTrainerConfig.train_x_data_path" title="Link para esta definição"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fraud_detection.entity.config_entity.ModelTrainerConfig.train_y_data_path">
+<span class="sig-name descname"><span class="pre">train_y_data_path</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Path</span></em><a class="headerlink" href="#fraud_detection.entity.config_entity.ModelTrainerConfig.train_y_data_path" title="Link para esta definição"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Rodapé">
+        <a href="fraud_detection.constants.html" class="btn btn-neutral float-left" title="Constantes (constants)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Anterior</a>
+        <a href="fraud_detection.pipeline.html" class="btn btn-neutral float-right" title="Pipelines (pipeline)" accesskey="n" rel="next">Próximo <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Direitos autorais 2025, Rennê Oliveira.</p>
+  </div>
+
+  Compilado com <a href="https://www.sphinx-doc.org/">Sphinx</a> usando um
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">tema</a>
+    fornecido por <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

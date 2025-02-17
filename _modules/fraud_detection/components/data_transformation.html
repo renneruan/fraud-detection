@@ -1,0 +1,886 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="pt-BR" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>fraud_detection.components.data_transformation &mdash; Documentação Fraud Detection 1.0.0</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=c0c8e3fa"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../../_static/translations.js?v=71a39b36"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Índice" href="../../../genindex.html" />
+    <link rel="search" title="Buscar" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            Fraud Detection
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Pesquisar documentos" aria-label="Pesquisar documentos" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Menu de navegação">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../fraud_detection.html">Estrutura Geral</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../fraud_detection.components.html">Componentes (components)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../fraud_detection.config.html">Gerenciador de Configurações (config)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../fraud_detection.constants.html">Constantes (constants)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../fraud_detection.entity.html">Templates de Configuração (entity)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../fraud_detection.pipeline.html">Pipelines (pipeline)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../fraud_detection.utils.html">Funções Auxiliares (utils)</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Menu de navegação móvel" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Fraud Detection</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Navegação da página">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Código do módulo</a></li>
+      <li class="breadcrumb-item active">fraud_detection.components.data_transformation</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Código-fonte para fraud_detection.components.data_transformation</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Componente para tarefas de transformação de dados.</span>
+
+<span class="sd">Fornece funcionalidades para pré-processar e transformar os dados ao formato</span>
+<span class="sd">adequado. Ele inclui diversos transformadores para lidar com a imputação de</span>
+<span class="sd">valores ausentes, feature engineering e a divisão de conjuntos de dados.</span>
+
+<span class="sd">**Classes**:</span>
+
+<span class="sd">- **CustomProcessor**: Classe base customizada para criar processadores \</span>
+<span class="sd">                       de transformação.</span>
+<span class="sd">- **DropColumns**: Remove colunas específicas do conjunto de dados.</span>
+<span class="sd">- **DocumentsProcessor**: Processa colunas de documentos, imputando valores \</span>
+<span class="sd">                      vazios e convertendo binários em inteiros.</span>
+<span class="sd">- **CountryProcessor**: Transforma a coluna de país para continentes.</span>
+<span class="sd">- **OneHotEncoderProcessor**: Realiza codificação one-hot em colunas \</span>
+<span class="sd">                              categóricas.</span>
+<span class="sd">- **DateProcessor**: Realiza engenharia de features para coluna de data, \</span>
+<span class="sd">                     criando variáveis como hora, turno e dia da semana.</span>
+<span class="sd">- **ImputeValuesProcessor**: Trata valores ausentes em colunas numéricas.</span>
+<span class="sd">- **TransformColumns**: Aplica transformações matemáticas (log, raiz cúbica).</span>
+<span class="sd">- **NonFrequentAggregator**: Transforma dados de categoria de produto não \</span>
+<span class="sd">                             frequentes em uma única classificação Outros.</span>
+<span class="sd">- **TargetEncoderTransformer**: Aplica TargetEncoder a coluna de categoria de \</span>
+<span class="sd">                                produtos.</span>
+<span class="sd">- **DataTransformation**: Encapsula todo o pipeline de transformação de dados,\</span>
+<span class="sd">                          incluindo a divisão em treino e teste, aplicando\</span>
+<span class="sd">                          transformações e salvando os dados transformados.</span>
+
+
+<span class="sd">Dependências:</span>
+<span class="sd">    - pandas</span>
+<span class="sd">    - numpy</span>
+<span class="sd">    - sklearn</span>
+<span class="sd">    - joblib</span>
+<span class="sd">    - pycountry_convert</span>
+<span class="sd">    - fraud_detection.logger</span>
+<span class="sd">    - fraud_detection.entity.config_entity.DataTransformationConfig</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">os</span>
+
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">joblib</span>
+
+<span class="kn">from</span> <span class="nn">sklearn.pipeline</span> <span class="kn">import</span> <span class="n">Pipeline</span>
+<span class="kn">from</span> <span class="nn">sklearn.base</span> <span class="kn">import</span> <span class="n">BaseEstimator</span><span class="p">,</span> <span class="n">TransformerMixin</span>
+<span class="kn">from</span> <span class="nn">sklearn.compose</span> <span class="kn">import</span> <span class="n">ColumnTransformer</span>
+<span class="kn">from</span> <span class="nn">sklearn.impute</span> <span class="kn">import</span> <span class="n">SimpleImputer</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">TargetEncoder</span><span class="p">,</span> <span class="n">OneHotEncoder</span>
+
+<span class="kn">import</span> <span class="nn">pycountry_convert</span> <span class="k">as</span> <span class="nn">pc</span>
+<span class="kn">from</span> <span class="nn">fraud_detection</span> <span class="kn">import</span> <span class="n">logger</span>
+<span class="kn">from</span> <span class="nn">fraud_detection.entity.config_entity</span> <span class="kn">import</span> <span class="n">DataTransformationConfig</span>
+
+
+<span class="c1"># Classe que servirá para o pai dos transformadores customizados</span>
+<div class="viewcode-block" id="CustomProcessor">
+<a class="viewcode-back" href="../../../fraud_detection.components.html#fraud_detection.components.data_transformation.CustomProcessor">[documentos]</a>
+<span class="k">class</span> <span class="nc">CustomProcessor</span><span class="p">(</span><span class="n">BaseEstimator</span><span class="p">,</span> <span class="n">TransformerMixin</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Classe para abstrair processadores base da biblioteca</span>
+<span class="sd">    scikit-learn, sobrescreve o método fit para um retorno arbitrário.</span>
+
+<span class="sd">    Utilizamos para garantir a aplicabilidade da transformação ao processo</span>
+<span class="sd">    do fit_transform do pipeline, porém em que as alterações serão ditas</span>
+<span class="sd">    apenas pela função transform, ou seja não serão armazenadas informações</span>
+<span class="sd">    no fit para evitar data leakege, as etapas que necessitam este</span>
+<span class="sd">    armazenamento não utilizarão este placeholder.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">pass</span>
+
+<div class="viewcode-block" id="CustomProcessor.fit">
+<a class="viewcode-back" href="../../../fraud_detection.components.html#fraud_detection.components.data_transformation.CustomProcessor.fit">[documentos]</a>
+    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_y</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Sobrescrita do fit para compatibilidade com classes</span>
+<span class="sd">        pais do scikit-learn, as transformações serão aplicadas com a</span>
+<span class="sd">        função transform.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="DropColumns">
+<a class="viewcode-back" href="../../../fraud_detection.components.html#fraud_detection.components.data_transformation.DropColumns">[documentos]</a>
+<span class="k">class</span> <span class="nc">DropColumns</span><span class="p">(</span><span class="n">CustomProcessor</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Função do pipeline de transformação para exclusão de colunas.</span>
+<span class="sd">    As colunas foram selecionadas a partir da análise estatística dos dados</span>
+<span class="sd">    ou não possuem informações práticas para o modelo, ou apresentam</span>
+<span class="sd">    distribuições não aderentes como uniforme ou de com alta cardinalidade</span>
+<span class="sd">    de categorias.</span>
+
+<span class="sd">    Colunas a serem excluídas: &quot;score_fraude_modelo&quot;, &quot;produto&quot;, &quot;score_8&quot;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">drop_columns</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;score_fraude_modelo&quot;</span><span class="p">,</span> <span class="s2">&quot;produto&quot;</span><span class="p">,</span> <span class="s2">&quot;score_8&quot;</span><span class="p">]</span>
+
+<div class="viewcode-block" id="DropColumns.transform">
+<a class="viewcode-back" href="../../../fraud_detection.components.html#fraud_detection.components.data_transformation.DropColumns.transform">[documentos]</a>
+    <span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Retorna os dados de entrada sem a presença das colunas declaradas</span>
+<span class="sd">        na inicialização da classe.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            X (pd.DataFrame): Conjunto de dados originais.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            pd.DataFrame: Dados sem as colunas desejadas.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">X</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">drop_columns</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="DocumentsProcessor">
+<a class="viewcode-back" href="../../../fraud_detection.components.html#fraud_detection.components.data_transformation.DocumentsProcessor">[documentos]</a>
+<span class="k">class</span> <span class="nc">DocumentsProcessor</span><span class="p">(</span><span class="n">CustomProcessor</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Processador direcionado para transformações nas colunas de documentos.</span>
+
+<span class="sd">    Colunas transformadas: &quot;entrega_doc_1&quot;, &quot;entrega_doc_2&quot;, &quot;entrega_doc_3&quot;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">document_columns</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="s2">&quot;entrega_doc_1&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;entrega_doc_2&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;entrega_doc_3&quot;</span><span class="p">,</span>
+        <span class="p">]</span>
+
+<div class="viewcode-block" id="DocumentsProcessor.transform">
+<a class="viewcode-back" href="../../../fraud_detection.components.html#fraud_detection.components.data_transformation.DocumentsProcessor.transform">[documentos]</a>
+    <span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Trata as colunas de documento, preenchendo valores ausentes com o</span>
+<span class="sd">        valor padrão &quot;N&quot; e posteriormente converte os valores para binário.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            X (pd.DataFrame): Conjunto de dados originais.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            pd.DataFrame: Dados com colunas de documentos processadas.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">X_new</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">X_new</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">document_columns</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">X_new</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">document_columns</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="s2">&quot;N&quot;</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="n">X_new</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">document_columns</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="p">(</span><span class="n">X_new</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">document_columns</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;Y&quot;</span><span class="p">)</span>
+            <span class="o">|</span> <span class="p">(</span><span class="n">X_new</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">document_columns</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;1&quot;</span><span class="p">)</span>
+        <span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">X_new</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="CountryProcessor">
+<a class="viewcode-back" href="../../../fraud_detection.components.html#fraud_detection.components.data_transformation.CountryProcessor">[documentos]</a>
+<span class="k">class</span> <span class="nc">CountryProcessor</span><span class="p">(</span><span class="n">CustomProcessor</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Processador direcionado para transformação da coluna país.&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">country_column</span> <span class="o">=</span> <span class="s2">&quot;pais&quot;</span>
+
+<div class="viewcode-block" id="CountryProcessor.transform">
+<a class="viewcode-back" href="../../../fraud_detection.components.html#fraud_detection.components.data_transformation.CountryProcessor.transform">[documentos]</a>
+    <span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Realiza o feature engineering na coluna de país da compra.</span>
+<span class="sd">        Transformando a coluna em uma nova contendo o continente.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            X (pd.DataFrame): Conjunto de dados originais.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            pd.DataFrame: Dados com nova coluna de continente.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">X_new</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="c1"># Insere valores ausentes baseado no valor mais frequente</span>
+        <span class="n">X_new</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">country_column</span><span class="p">]</span> <span class="o">=</span> <span class="n">X_new</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">country_column</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span>
+            <span class="n">X_new</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">country_column</span><span class="p">]</span><span class="o">.</span><span class="n">mode</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Utiliza biblioteca pycountry_convert para transformar os códigos</span>
+        <span class="c1"># de países em continentes.</span>
+        <span class="n">X_new</span><span class="p">[</span><span class="s2">&quot;continente&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">X_new</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">country_column</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span>
+            <span class="n">pc</span><span class="o">.</span><span class="n">country_alpha2_to_continent_code</span>
+        <span class="p">)</span>
+        <span class="c1"># Remove a coluna de país para evitar duplicidade de informação</span>
+        <span class="n">X_new</span> <span class="o">=</span> <span class="n">X_new</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">country_column</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">X_new</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="DateProcessor">
+<a class="viewcode-back" href="../../../fraud_detection.components.html#fraud_detection.components.data_transformation.DateProcessor">[documentos]</a>
+<span class="k">class</span> <span class="nc">DateProcessor</span><span class="p">(</span><span class="n">CustomProcessor</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Processador direcionado para transformações da coluna de data da compra.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">date_column</span> <span class="o">=</span> <span class="s2">&quot;data_compra&quot;</span>
+
+    <span class="k">def</span> <span class="nf">_hour_to_period</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">hour</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Função para ser mapeada aos dados, criando a coluna turno.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            hour (int): Valor inteiro da hora da compra.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            int: Inteiro representando o turno da compra.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="mi">6</span> <span class="o">&lt;=</span> <span class="n">hour</span> <span class="o">&lt;</span> <span class="mi">12</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mi">0</span>  <span class="c1"># &quot;Manhã&quot;</span>
+        <span class="k">if</span> <span class="mi">12</span> <span class="o">&lt;=</span> <span class="n">hour</span> <span class="o">&lt;</span> <span class="mi">18</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mi">1</span>  <span class="c1"># &quot;Tarde&quot;</span>
+        <span class="k">if</span> <span class="mi">18</span> <span class="o">&lt;=</span> <span class="n">hour</span> <span class="o">&lt;</span> <span class="mi">24</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mi">2</span>  <span class="c1"># &quot;Noite&quot;</span>
+
+        <span class="k">return</span> <span class="mi">3</span>  <span class="c1"># &quot;Madrugada&quot;</span>
+
+<div class="viewcode-block" id="DateProcessor.transform">
+<a class="viewcode-back" href="../../../fraud_detection.components.html#fraud_detection.components.data_transformation.DateProcessor.transform">[documentos]</a>
+    <span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Realiza o feature engineering para a coluna de data.</span>
+<span class="sd">        Cria features de hora da compra, dia da semana da compra e turno.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            X (pd.DataFrame): Conjunto de dados originais.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            pd.DataFrame: Dados com novas colunas relacionadas a data.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">X_new</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+        <span class="n">date</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">X_new</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">date_column</span><span class="p">])</span>
+
+        <span class="n">X_new</span><span class="p">[</span><span class="s2">&quot;hora_compra&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">date</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">hour</span>
+        <span class="n">X_new</span><span class="p">[</span><span class="s2">&quot;dia_compra&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">date</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">dayofweek</span>
+        <span class="n">X_new</span><span class="p">[</span><span class="s2">&quot;turno_compra&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">X_new</span><span class="p">[</span><span class="s2">&quot;hora_compra&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_hour_to_period</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Remove coluna de data para evitar informação duplicada</span>
+        <span class="c1"># A coluna de data removida também impede que o modelo deprecie</span>
+        <span class="c1"># para datas mais recentes sendo inseridas.</span>
+        <span class="n">X_new</span> <span class="o">=</span> <span class="n">X_new</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">date_column</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">X_new</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="OneHotEncoderProcessor">
+<a class="viewcode-back" href="../../../fraud_detection.components.html#fraud_detection.components.data_transformation.OneHotEncoderProcessor">[documentos]</a>
+<span class="k">class</span> <span class="nc">OneHotEncoderProcessor</span><span class="p">(</span><span class="n">CustomProcessor</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Classe de transformação para aplicar OneHotEncoder a colunas categóricas</span>
+<span class="sd">    de baixa cardinalidade.</span>
+
+<span class="sd">    Utiliza OneHotEncoder provindo do pacote scikit-learn.</span>
+
+<span class="sd">    Lida com dados não desconhecidos com a tratativa &quot;ignore&quot;</span>
+
+<span class="sd">    Colunas que serão aplicadas: &quot;score_1&quot;, &quot;continente&quot;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">columns_to_encode</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;score_1&quot;</span><span class="p">,</span> <span class="s2">&quot;continente&quot;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">encoder</span> <span class="o">=</span> <span class="n">OneHotEncoder</span><span class="p">(</span>
+            <span class="n">sparse_output</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">handle_unknown</span><span class="o">=</span><span class="s2">&quot;ignore&quot;</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fitted</span> <span class="o">=</span> <span class="kc">False</span>
+
+<div class="viewcode-block" id="OneHotEncoderProcessor.fit">
+<a class="viewcode-back" href="../../../fraud_detection.components.html#fraud_detection.components.data_transformation.OneHotEncoderProcessor.fit">[documentos]</a>
+    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">_y</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Realiza o fit do encoder com os dados de treino.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            X (pd.DataFrame): Dados de treino de entrada.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            OneHotEncoderProcessor: Processador com dados ajustados.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">encoder</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">columns_to_encode</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fitted</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">return</span> <span class="bp">self</span></div>
+
+
+<div class="viewcode-block" id="OneHotEncoderProcessor.transform">
+<a class="viewcode-back" href="../../../fraud_detection.components.html#fraud_detection.components.data_transformation.OneHotEncoderProcessor.transform">[documentos]</a>
+    <span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Aplica o OneHotEncoding utilizando o processador previamente ajustado.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            X (pd.DataFrame): Conjunto de dados originais.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            pd.DataFrame: Dados com novas colunas de one hot encoding.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">fitted</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">&quot;O encoder não foi ajustado previamente (Fit necessário).&quot;</span>
+            <span class="p">)</span>
+
+        <span class="n">X_new</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+        <span class="c1"># Cria novas colunas com Hot Encodings a partir dos dados recebidos</span>
+        <span class="n">encoded_columns</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">encoder</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X_new</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">columns_to_encode</span><span class="p">])</span>
+
+        <span class="c1"># Transforma as colunas de resultado em um DataFrame</span>
+        <span class="n">encoded_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+            <span class="n">encoded_columns</span><span class="p">,</span>
+            <span class="n">columns</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">encoder</span><span class="o">.</span><span class="n">get_feature_names_out</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">columns_to_encode</span><span class="p">),</span>
+            <span class="n">index</span><span class="o">=</span><span class="n">X_new</span><span class="o">.</span><span class="n">index</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Remove as colunas originais dos dados de entrada</span>
+        <span class="n">X_new</span> <span class="o">=</span> <span class="n">X_new</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">columns_to_encode</span><span class="p">)</span>
+
+        <span class="c1"># Concatena os dados originais as colunas de hot encoding criadas</span>
+        <span class="n">X_encoded</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">X_new</span><span class="p">,</span> <span class="n">encoded_df</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">X_encoded</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="ImputeValuesProcessor">
+<a class="viewcode-back" href="../../../fraud_detection.components.html#fraud_detection.components.data_transformation.ImputeValuesProcessor">[documentos]</a>
+<span class="k">class</span> <span class="nc">ImputeValuesProcessor</span><span class="p">(</span><span class="n">CustomProcessor</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Classe para aplicar transformações nas colunas numéricas existentes.</span>
+<span class="sd">    Aplica as classes discretas e contínuas aos respectivos Imputers,</span>
+<span class="sd">    aplicando-os a um ColumnTransformer.</span>
+
+<span class="sd">    Utiliza a moda para colunas numéricas discretas e mediana para colunas</span>
+<span class="sd">    contínuas.</span>
+
+<span class="sd">    Colunas discretas: &quot;score_4&quot; e &quot;score_7&quot;</span>
+<span class="sd">    Colunas contínuas: &quot;score_2&quot;, &quot;score_3&quot;, &quot;score_5&quot;, &quot;score_6&quot;, &quot;score_9&quot;,\</span>
+<span class="sd">                       &quot;score_10&quot; e &quot;valor_compra&quot;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">discrete_columns</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;score_4&quot;</span><span class="p">,</span> <span class="s2">&quot;score_7&quot;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">continuous_columns</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="s2">&quot;score_2&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;score_3&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;score_5&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;score_6&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;score_9&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;score_10&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;valor_compra&quot;</span><span class="p">,</span>
+        <span class="p">]</span>
+
+        <span class="c1"># Utiliza dois imputers para os tipos numéricos diferentes</span>
+        <span class="c1"># Aplica ambos a um ColumnTransformer</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">numerical_imputer</span> <span class="o">=</span> <span class="n">ColumnTransformer</span><span class="p">(</span>
+            <span class="n">transformers</span><span class="o">=</span><span class="p">[</span>
+                <span class="p">(</span>
+                    <span class="s2">&quot;discrete&quot;</span><span class="p">,</span>
+                    <span class="n">SimpleImputer</span><span class="p">(</span><span class="n">strategy</span><span class="o">=</span><span class="s2">&quot;most_frequent&quot;</span><span class="p">),</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">discrete_columns</span><span class="p">,</span>
+                <span class="p">),</span>
+                <span class="p">(</span>
+                    <span class="s2">&quot;continuous&quot;</span><span class="p">,</span>
+                    <span class="n">SimpleImputer</span><span class="p">(</span><span class="n">strategy</span><span class="o">=</span><span class="s2">&quot;median&quot;</span><span class="p">),</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">continuous_columns</span><span class="p">,</span>
+                <span class="p">),</span>
+            <span class="p">],</span>
+            <span class="c1"># Configuração que evita o transformador de excluir os dados</span>
+            <span class="c1"># não utilizados para a resposta.</span>
+            <span class="n">remainder</span><span class="o">=</span><span class="s2">&quot;passthrough&quot;</span><span class="p">,</span>
+        <span class="p">)</span>
+
+<div class="viewcode-block" id="ImputeValuesProcessor.fit">
+<a class="viewcode-back" href="../../../fraud_detection.components.html#fraud_detection.components.data_transformation.ImputeValuesProcessor.fit">[documentos]</a>
+    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">_y</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Realiza o fit do imputer numérico com os dados de treino.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            X (pd.DataFrame): Dados de treino de entrada.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            ImputeValuesProcessor: Processador com dados ajustados.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">numerical_imputer</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span></div>
+
+
+<div class="viewcode-block" id="ImputeValuesProcessor.transform">
+<a class="viewcode-back" href="../../../fraud_detection.components.html#fraud_detection.components.data_transformation.ImputeValuesProcessor.transform">[documentos]</a>
+    <span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Aplica os dados de entrada ao imputer numérico previamente ajustados</span>
+<span class="sd">        aos dados de treino. Aplica novamente os labels as colunas para seguir</span>
+<span class="sd">         o pipeline corretamente.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            X (pd.DataFrame): Dados de entraga a serem transformados.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            pd.DataFrame: Dados com as colunas numéricas transformadas.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">X_transformed</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">numerical_imputer</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+        <span class="n">X_transformed</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+            <span class="n">X_transformed</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_get_column_names</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">X_transformed</span></div>
+
+
+    <span class="k">def</span> <span class="nf">_get_column_names</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Função para concatenar o nome das colunas originais com as colunas</span>
+<span class="sd">        transformadas, uma vez que o resultado da transformação retorna em</span>
+<span class="sd">        arrays não indexados.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            X (pd.DataFrame): Conjunto de dados com colunas originais.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            list(str): Lista de nomes das colunas concatenadas.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">transformed_columns</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">discrete_columns</span>
+            <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">continuous_columns</span>
+            <span class="o">+</span> <span class="p">[</span>
+                <span class="n">col</span>
+                <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">X</span><span class="o">.</span><span class="n">columns</span>
+                <span class="k">if</span> <span class="n">col</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">discrete_columns</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">continuous_columns</span>
+            <span class="p">]</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">transformed_columns</span></div>
+
+
+
+<div class="viewcode-block" id="TransformColumns">
+<a class="viewcode-back" href="../../../fraud_detection.components.html#fraud_detection.components.data_transformation.TransformColumns">[documentos]</a>
+<span class="k">class</span> <span class="nc">TransformColumns</span><span class="p">(</span><span class="n">CustomProcessor</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Classe de processador para aplicar transformação log</span>
+<span class="sd">    as colunas aplicáveis.</span>
+
+<span class="sd">    Colunas: &quot;score_3&quot; e &quot;valor_compra&quot;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">log_columns</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;score_3&quot;</span><span class="p">,</span> <span class="s2">&quot;valor_compra&quot;</span><span class="p">]</span>
+
+<div class="viewcode-block" id="TransformColumns.transform">
+<a class="viewcode-back" href="../../../fraud_detection.components.html#fraud_detection.components.data_transformation.TransformColumns.transform">[documentos]</a>
+    <span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Aplica transformação log as colunas ditas na inicialização.</span>
+<span class="sd">        Insere as transformações em novas colunas e retira as originais.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            X (pd.DataFrame): Dados recebidos a serem transformados.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            pd.DataFrame: Dados com as novas colunas logarítmicas.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">X_new</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">log_columns</span><span class="p">:</span>
+            <span class="n">X_new</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;log_</span><span class="si">{</span><span class="n">col</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log1p</span><span class="p">(</span><span class="n">X_new</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">))</span>
+
+        <span class="n">X_new</span> <span class="o">=</span> <span class="n">X_new</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">log_columns</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">X_new</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="NonFrequentAggregator">
+<a class="viewcode-back" href="../../../fraud_detection.components.html#fraud_detection.components.data_transformation.NonFrequentAggregator">[documentos]</a>
+<span class="k">class</span> <span class="nc">NonFrequentAggregator</span><span class="p">(</span><span class="n">CustomProcessor</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Classe de processador para agregas valores não frequentes de categorias</span>
+<span class="sd">    de produto.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">column</span> <span class="o">=</span> <span class="s2">&quot;categoria_produto&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">valid_categories</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">threshold</span> <span class="o">=</span> <span class="mi">2</span>  <span class="c1"># Limiar de no mínimo 3 arquivos para uma categoria</span>
+
+<div class="viewcode-block" id="NonFrequentAggregator.fit">
+<a class="viewcode-back" href="../../../fraud_detection.components.html#fraud_detection.components.data_transformation.NonFrequentAggregator.fit">[documentos]</a>
+    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">_y</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Método de ajuste irá criar o array de categorias válidas.</span>
+<span class="sd">        Transformações posteriores irão ser realizadas utilizando este array.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            X (pd.DataFrame): Dados de entrada</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            NonFrequentAggregator: Processador ajustado.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">frequent_categories</span> <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">column</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">valid_categories</span> <span class="o">=</span> <span class="n">frequent_categories</span><span class="p">[</span>
+            <span class="n">frequent_categories</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">threshold</span>
+        <span class="p">]</span><span class="o">.</span><span class="n">index</span>
+        <span class="k">return</span> <span class="bp">self</span></div>
+
+
+<div class="viewcode-block" id="NonFrequentAggregator.transform">
+<a class="viewcode-back" href="../../../fraud_detection.components.html#fraud_detection.components.data_transformation.NonFrequentAggregator.transform">[documentos]</a>
+    <span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Recebe os dados que irão consultar o vetor de categorias</span>
+<span class="sd">        frequentes e agrupar os que não estão com mais de 2 ocorrências.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            X (pd.DataFrame): Dados a serem ajustados.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            pd.DataFrame: Dados com a nova coluna agregada.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">X_new</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+        <span class="n">new_column_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">column</span> <span class="o">+</span> <span class="s2">&quot;_reduzida&quot;</span>
+
+        <span class="n">X_new</span><span class="p">[</span><span class="n">new_column_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">X_new</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">column</span><span class="p">]</span>
+        <span class="n">X_new</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span>
+            <span class="o">~</span><span class="n">X_new</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">column</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">valid_categories</span><span class="p">),</span>
+            <span class="n">new_column_name</span><span class="p">,</span>
+        <span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Outros&quot;</span>
+
+        <span class="n">X_new</span> <span class="o">=</span> <span class="n">X_new</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">column</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">X_new</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="TargetEncoderTransformer">
+<a class="viewcode-back" href="../../../fraud_detection.components.html#fraud_detection.components.data_transformation.TargetEncoderTransformer">[documentos]</a>
+<span class="k">class</span> <span class="nc">TargetEncoderTransformer</span><span class="p">(</span><span class="n">CustomProcessor</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Transformer para aplicar Target Encoding a uma coluna categórica</span>
+<span class="sd">    de alta cardinalidade.</span>
+
+<span class="sd">    Coluna a ser aplicada: &quot;categoria_produto_reduzida&quot;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">column</span> <span class="o">=</span> <span class="s2">&quot;categoria_produto_reduzida&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">encoder</span> <span class="o">=</span> <span class="n">TargetEncoder</span><span class="p">(</span><span class="n">shuffle</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<div class="viewcode-block" id="TargetEncoderTransformer.fit">
+<a class="viewcode-back" href="../../../fraud_detection.components.html#fraud_detection.components.data_transformation.TargetEncoderTransformer.fit">[documentos]</a>
+    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Ajusta o TargetEncoder usando os dados de treino.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            X (pd.DataFrame): Conjunto de dados de treino.</span>
+<span class="sd">            y (pd.Series): Coluna de classes de saída.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            self: O próprio objeto transformador.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">encoder</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">[[</span><span class="bp">self</span><span class="o">.</span><span class="n">column</span><span class="p">]],</span> <span class="n">y</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span></div>
+
+
+<div class="viewcode-block" id="TargetEncoderTransformer.transform">
+<a class="viewcode-back" href="../../../fraud_detection.components.html#fraud_detection.components.data_transformation.TargetEncoderTransformer.transform">[documentos]</a>
+    <span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Transforma os dados usando o TargetEncoder previamente ajustado.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            X (pd.DataFrame): Conjunto de dados a ser transformado.</span>
+
+<span class="sd">        Retorna:</span>
+<span class="sd">        - pd.DataFrame: Conjunto de dados transformados.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">X_transformed</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">X_transformed</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">column</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">encoder</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X</span><span class="p">[[</span><span class="bp">self</span><span class="o">.</span><span class="n">column</span><span class="p">]])</span>
+        <span class="k">return</span> <span class="n">X_transformed</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="convert_to_numeric">
+<a class="viewcode-back" href="../../../fraud_detection.components.html#fraud_detection.components.data_transformation.convert_to_numeric">[documentos]</a>
+<span class="k">def</span> <span class="nf">convert_to_numeric</span><span class="p">(</span><span class="n">X</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Função para converter colunas de objeto para numérico.</span>
+<span class="sd">    Será utilizado após as transformações, garantindo uma correta tipagem</span>
+<span class="sd">    dos dados de entrada do modelo.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        X (pd.DataFrame): Dados a serem convertidos em numérico.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        pd.DataFrame: Dados após a conversão numérica.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">X_new</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">X_new</span><span class="o">.</span><span class="n">select_dtypes</span><span class="p">(</span><span class="n">include</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;object&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">X_new</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_numeric</span><span class="p">(</span><span class="n">X_new</span><span class="p">[</span><span class="n">col</span><span class="p">],</span> <span class="n">errors</span><span class="o">=</span><span class="s2">&quot;coerce&quot;</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">ValueError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">X_new</span></div>
+
+
+
+<div class="viewcode-block" id="DataTransformation">
+<a class="viewcode-back" href="../../../fraud_detection.components.html#fraud_detection.components.data_transformation.DataTransformation">[documentos]</a>
+<span class="k">class</span> <span class="nc">DataTransformation</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Classe que irá agregar e chamar todas as funções de processamento,</span>
+<span class="sd">    recebendo as configurações e caminhos de arquivos de entrada e saída.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        DataTransformationConfig (dataclass): Classe de valores de \</span>
+<span class="sd">                                              configuração.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">DataTransformationConfig</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="n">config</span>
+
+    <span class="k">def</span> <span class="nf">_save_splits</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">splits</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Método privado para dividir os pedaços de dados após divisão.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            splits (dict): Dicionário contendo nome e dados divididos.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">split_transform</span> <span class="ow">in</span> <span class="n">splits</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">split_transform</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span>
+                <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">transformed_data_path</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">.csv&quot;</span><span class="p">),</span>
+                <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="p">)</span>
+
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+                <span class="s2">&quot;Dados divididos salvos em: </span><span class="si">%s</span><span class="s2">.csv, de tamanho: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
+                <span class="n">name</span><span class="p">,</span>
+                <span class="n">split_transform</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span>
+            <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_remove_outliers</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Função para remoção de outliers dos dados de entrada.</span>
+
+<span class="sd">        A partir do EDA realizado temos os limiares:</span>
+<span class="sd">          Valor máximo de 10 para &quot;score_5&quot;</span>
+<span class="sd">          Valor máximo de 483 para &quot;score_6&quot;</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">data_sem_outliers</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;score_5&quot;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">]</span>
+        <span class="n">data_sem_outliers</span> <span class="o">=</span> <span class="n">data_sem_outliers</span><span class="p">[</span>
+            <span class="n">data_sem_outliers</span><span class="p">[</span><span class="s2">&quot;score_6&quot;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">483</span>
+        <span class="p">]</span>
+
+        <span class="k">return</span> <span class="n">data_sem_outliers</span>
+
+    <span class="k">def</span> <span class="nf">_split_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">target_column</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Função para realizar a divisão dos dados em treino e teste.</span>
+
+<span class="sd">        Proporção de 20% para dados de teste.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            target_column (str): Coluna alvo contendo classes.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            tuple: Uma tupla contendo quatro conjuntos de dados:</span>
+<span class="sd">            - X_train (pd.DataFrame): Conjunto de treino.</span>
+<span class="sd">            - X_test (pd.DataFrame): Conjunto de teste.</span>
+<span class="sd">            - y_train (pd.DataFrame): Rótulos do conjunto de treino.</span>
+<span class="sd">            - y_test (pd.DataFrame): Rótulos do conjunto de teste</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">X</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">target_column</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">target_column</span><span class="p">]</span>
+
+        <span class="c1"># Dividindo os dados na proporção (0.8, 0.2).</span>
+        <span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span>
+            <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span>
+        <span class="p">)</span>
+
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Dados divididos em treino e teste&quot;</span><span class="p">)</span>
+
+        <span class="n">splits</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;X_train&quot;</span><span class="p">:</span> <span class="n">X_train</span><span class="p">,</span>
+            <span class="s2">&quot;X_test&quot;</span><span class="p">:</span> <span class="n">X_test</span><span class="p">,</span>
+            <span class="s2">&quot;y_train&quot;</span><span class="p">:</span> <span class="n">y_train</span><span class="p">,</span>
+            <span class="s2">&quot;y_test&quot;</span><span class="p">:</span> <span class="n">y_test</span><span class="p">,</span>
+        <span class="p">}</span>
+
+        <span class="c1"># Loop para salvar os arquivos</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_save_splits</span><span class="p">(</span><span class="n">splits</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span>
+
+<div class="viewcode-block" id="DataTransformation.preprocessing_pipeline">
+<a class="viewcode-back" href="../../../fraud_detection.components.html#fraud_detection.components.data_transformation.DataTransformation.preprocessing_pipeline">[documentos]</a>
+    <span class="k">def</span> <span class="nf">preprocessing_pipeline</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Método para realizar chamada do processamento dos dados.</span>
+
+<span class="sd">        Irá criar o pipeline de processamento utilizando as classes de</span>
+<span class="sd">        processadores presentes neste módulo.</span>
+
+<span class="sd">        Remove outliers, divide os dados, processa e salva os resultados.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">raw_data_path</span><span class="p">)</span>
+
+        <span class="c1"># Remove outliers antes da divisão de treino e teste</span>
+        <span class="n">data_without_outliers</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_remove_outliers</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+
+        <span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_split_data</span><span class="p">(</span>
+            <span class="n">data_without_outliers</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">target_column</span>
+        <span class="p">)</span>
+
+        <span class="n">pipeline</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">(</span>
+            <span class="p">[</span>
+                <span class="p">(</span><span class="s2">&quot;dropper&quot;</span><span class="p">,</span> <span class="n">DropColumns</span><span class="p">()),</span>
+                <span class="p">(</span><span class="s2">&quot;imputer&quot;</span><span class="p">,</span> <span class="n">ImputeValuesProcessor</span><span class="p">()),</span>
+                <span class="p">(</span><span class="s2">&quot;docs&quot;</span><span class="p">,</span> <span class="n">DocumentsProcessor</span><span class="p">()),</span>
+                <span class="p">(</span><span class="s2">&quot;country&quot;</span><span class="p">,</span> <span class="n">CountryProcessor</span><span class="p">()),</span>
+                <span class="p">(</span><span class="s2">&quot;date&quot;</span><span class="p">,</span> <span class="n">DateProcessor</span><span class="p">()),</span>
+                <span class="p">(</span><span class="s2">&quot;encoder&quot;</span><span class="p">,</span> <span class="n">OneHotEncoderProcessor</span><span class="p">()),</span>
+                <span class="p">(</span><span class="s2">&quot;transform&quot;</span><span class="p">,</span> <span class="n">TransformColumns</span><span class="p">()),</span>
+                <span class="p">(</span><span class="s2">&quot;column_aggregator&quot;</span><span class="p">,</span> <span class="n">NonFrequentAggregator</span><span class="p">()),</span>
+                <span class="p">(</span><span class="s2">&quot;target_encoder&quot;</span><span class="p">,</span> <span class="n">TargetEncoderTransformer</span><span class="p">()),</span>
+            <span class="p">]</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Aplica pipeline de processamento para as colunas</span>
+        <span class="n">X_train_transformed</span> <span class="o">=</span> <span class="n">pipeline</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+        <span class="n">X_test_transformed</span> <span class="o">=</span> <span class="n">pipeline</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+
+        <span class="c1"># Garante que as colunas transformadas sejam numéricas para modelo</span>
+        <span class="n">X_train_transformed</span> <span class="o">=</span> <span class="n">convert_to_numeric</span><span class="p">(</span><span class="n">X_train_transformed</span><span class="p">)</span>
+        <span class="n">X_test_transformed</span> <span class="o">=</span> <span class="n">convert_to_numeric</span><span class="p">(</span><span class="n">X_test_transformed</span><span class="p">)</span>
+
+        <span class="n">splitted_transforms</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;X_train_transformed&quot;</span><span class="p">:</span> <span class="n">X_train_transformed</span><span class="p">,</span>
+            <span class="s2">&quot;X_test_transformed&quot;</span><span class="p">:</span> <span class="n">X_test_transformed</span><span class="p">,</span>
+        <span class="p">}</span>
+
+        <span class="c1"># Salva os dados transformados para carregamento no modelo</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_save_splits</span><span class="p">(</span><span class="n">splitted_transforms</span><span class="p">)</span>
+
+        <span class="c1"># Salva pipeline de processamento para que este seja aplicável</span>
+        <span class="c1"># aos dados de predição utilizando transform.</span>
+        <span class="n">joblib</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span>
+            <span class="n">pipeline</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">transformed_data_path</span><span class="si">}</span><span class="s2">/pipeline.joblib&quot;</span>
+        <span class="p">)</span></div>
+</div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Direitos autorais 2025, Rennê Oliveira.</p>
+  </div>
+
+  Compilado com <a href="https://www.sphinx-doc.org/">Sphinx</a> usando um
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">tema</a>
+    fornecido por <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

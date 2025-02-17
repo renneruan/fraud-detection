@@ -1,0 +1,234 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="pt-BR" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>fraud_detection.components.model_evaluation &mdash; Documentação Fraud Detection 1.0.0</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=c0c8e3fa"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../../_static/translations.js?v=71a39b36"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Índice" href="../../../genindex.html" />
+    <link rel="search" title="Buscar" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            Fraud Detection
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Pesquisar documentos" aria-label="Pesquisar documentos" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Menu de navegação">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../fraud_detection.html">Estrutura Geral</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../fraud_detection.components.html">Componentes (components)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../fraud_detection.config.html">Gerenciador de Configurações (config)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../fraud_detection.constants.html">Constantes (constants)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../fraud_detection.entity.html">Templates de Configuração (entity)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../fraud_detection.pipeline.html">Pipelines (pipeline)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../fraud_detection.utils.html">Funções Auxiliares (utils)</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Menu de navegação móvel" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Fraud Detection</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Navegação da página">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Código do módulo</a></li>
+      <li class="breadcrumb-item active">fraud_detection.components.model_evaluation</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Código-fonte para fraud_detection.components.model_evaluation</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Este módulo realiza a avaliação do modelo de Machine Learning treinado.</span>
+
+<span class="sd">Irá coletar as métricas e salvá-las utilizando MLFlow.</span>
+
+<span class="sd">Classes:</span>
+<span class="sd">    ModelEvaluation: Classe para obtenção e registro de métricas.</span>
+
+<span class="sd">Dependências:</span>
+<span class="sd">    - pandas</span>
+<span class="sd">    - sklearn</span>
+<span class="sd">    - urlib</span>
+<span class="sd">    - mlflow</span>
+<span class="sd">    - joblib</span>
+<span class="sd">    - pathlib</span>
+<span class="sd">    - fraud_detection.utils.commons.save_json</span>
+<span class="sd">    - fraud_detection.entity.config_entity.ModelEvaluationConfig</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">urllib.parse</span> <span class="kn">import</span> <span class="n">urlparse</span>
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">import</span> <span class="nn">joblib</span>
+
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">roc_auc_score</span><span class="p">,</span>
+    <span class="n">precision_score</span><span class="p">,</span>
+    <span class="n">recall_score</span><span class="p">,</span>
+    <span class="n">f1_score</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">import</span> <span class="nn">mlflow</span>
+<span class="kn">import</span> <span class="nn">mlflow.sklearn</span>
+<span class="kn">from</span> <span class="nn">fraud_detection.entity.config_entity</span> <span class="kn">import</span> <span class="n">ModelEvaluationConfig</span>
+<span class="kn">from</span> <span class="nn">fraud_detection.utils.commons</span> <span class="kn">import</span> <span class="n">save_json</span>
+
+
+<div class="viewcode-block" id="ModelEvaluation">
+<a class="viewcode-back" href="../../../fraud_detection.components.html#fraud_detection.components.model_evaluation.ModelEvaluation">[documentos]</a>
+<span class="k">class</span> <span class="nc">ModelEvaluation</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Classe responsável por coletar métricas e salvá-las em ambiente</span>
+<span class="sd">    do MLFlow.</span>
+
+<span class="sd">    Irá avaliar os valores de AUC, Precision, Recall e F1 Score para</span>
+<span class="sd">    o modelo treinado.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        ModelEvaluationConfig (dataclass): Classe com valores de configuração.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">ModelEvaluationConfig</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="n">config</span>
+
+<div class="viewcode-block" id="ModelEvaluation.evaluate_metrics">
+<a class="viewcode-back" href="../../../fraud_detection.components.html#fraud_detection.components.model_evaluation.ModelEvaluation.evaluate_metrics">[documentos]</a>
+    <span class="k">def</span> <span class="nf">evaluate_metrics</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">actual</span><span class="p">,</span> <span class="n">pred</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Função para retornar métricas do modelo a partir dos dados preditos</span>
+<span class="sd">        comparando com os valores reais.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            actual (Series): Série contendo valores reais das classes de saída.</span>
+<span class="sd">            pred (Series): Série contendo os valores preditos das classes.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            tuple:</span>
+<span class="sd">                - auc (float): Métrica de Área sob a cuva</span>
+<span class="sd">                - precision (float): Métrica de precisão</span>
+<span class="sd">                - recall (float): Métrica de revocação</span>
+<span class="sd">                - f1 (float): Métrica de F1 Score</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">auc</span> <span class="o">=</span> <span class="n">roc_auc_score</span><span class="p">(</span><span class="n">actual</span><span class="p">,</span> <span class="n">pred</span><span class="p">)</span>
+        <span class="n">precision</span> <span class="o">=</span> <span class="n">precision_score</span><span class="p">(</span><span class="n">actual</span><span class="p">,</span> <span class="n">pred</span><span class="p">)</span>
+        <span class="n">recall</span> <span class="o">=</span> <span class="n">recall_score</span><span class="p">(</span><span class="n">actual</span><span class="p">,</span> <span class="n">pred</span><span class="p">)</span>
+        <span class="n">f1</span> <span class="o">=</span> <span class="n">f1_score</span><span class="p">(</span><span class="n">actual</span><span class="p">,</span> <span class="n">pred</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">auc</span><span class="p">,</span> <span class="n">precision</span><span class="p">,</span> <span class="n">recall</span><span class="p">,</span> <span class="n">f1</span></div>
+
+
+<div class="viewcode-block" id="ModelEvaluation.start_mlflow">
+<a class="viewcode-back" href="../../../fraud_detection.components.html#fraud_detection.components.model_evaluation.ModelEvaluation.start_mlflow">[documentos]</a>
+    <span class="k">def</span> <span class="nf">start_mlflow</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Método para inicializar MLFlow e enviar métricas do modelo treinado.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c1"># Lê os dados de teste</span>
+        <span class="n">X_test</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">test_x_data_path</span><span class="p">)</span>
+        <span class="n">y_test</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">test_y_data_path</span><span class="p">)</span>
+
+        <span class="c1"># Carrega o arquivo do modelo já treinado</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">joblib</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">model_path</span><span class="p">)</span>
+
+        <span class="c1"># Configurações respectivas ao login do MLFlow</span>
+        <span class="c1"># Para este projeto foi utilizado o DagsHub</span>
+        <span class="n">mlflow</span><span class="o">.</span><span class="n">set_registry_uri</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">mlflow_uri</span><span class="p">)</span>
+        <span class="n">tracking_url_type_store</span> <span class="o">=</span> <span class="n">urlparse</span><span class="p">(</span><span class="n">mlflow</span><span class="o">.</span><span class="n">get_tracking_uri</span><span class="p">())</span><span class="o">.</span><span class="n">scheme</span>
+
+        <span class="k">with</span> <span class="n">mlflow</span><span class="o">.</span><span class="n">start_run</span><span class="p">():</span>
+            <span class="c1"># Cria valores de predição</span>
+            <span class="n">predicted_values</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+
+            <span class="p">(</span><span class="n">auc</span><span class="p">,</span> <span class="n">precision</span><span class="p">,</span> <span class="n">recall</span><span class="p">,</span> <span class="n">f1</span><span class="p">)</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">evaluate_metrics</span><span class="p">(</span>
+                <span class="n">y_test</span><span class="p">,</span> <span class="n">predicted_values</span>
+            <span class="p">)</span>
+
+            <span class="n">scores</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s2">&quot;auc&quot;</span><span class="p">:</span> <span class="n">auc</span><span class="p">,</span>
+                <span class="s2">&quot;precision&quot;</span><span class="p">:</span> <span class="n">precision</span><span class="p">,</span>
+                <span class="s2">&quot;recall&quot;</span><span class="p">:</span> <span class="n">recall</span><span class="p">,</span>
+                <span class="s2">&quot;f1&quot;</span><span class="p">:</span> <span class="n">f1</span><span class="p">,</span>
+            <span class="p">}</span>
+
+            <span class="c1"># Salva as métricas em arquivo texto e envia para MLFlow</span>
+            <span class="n">save_json</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="n">Path</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">metric_file_name</span><span class="p">),</span> <span class="n">data</span><span class="o">=</span><span class="n">scores</span><span class="p">)</span>
+            <span class="n">mlflow</span><span class="o">.</span><span class="n">log_params</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">all_params</span><span class="p">)</span>
+            <span class="n">mlflow</span><span class="o">.</span><span class="n">log_metrics</span><span class="p">(</span><span class="n">scores</span><span class="p">)</span>
+
+            <span class="c1"># Verifica se há o servidor alcançavel do MLFlow</span>
+            <span class="k">if</span> <span class="n">tracking_url_type_store</span> <span class="o">!=</span> <span class="s2">&quot;file&quot;</span><span class="p">:</span>
+                <span class="n">mlflow</span><span class="o">.</span><span class="n">sklearn</span><span class="o">.</span><span class="n">log_model</span><span class="p">(</span>
+                    <span class="n">model</span><span class="p">,</span> <span class="s2">&quot;model&quot;</span><span class="p">,</span> <span class="n">registered_model_name</span><span class="o">=</span><span class="s2">&quot;LGBMClassifierModel&quot;</span>
+                <span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">mlflow</span><span class="o">.</span><span class="n">sklearn</span><span class="o">.</span><span class="n">log_model</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="s2">&quot;model&quot;</span><span class="p">)</span></div>
+</div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Direitos autorais 2025, Rennê Oliveira.</p>
+  </div>
+
+  Compilado com <a href="https://www.sphinx-doc.org/">Sphinx</a> usando um
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">tema</a>
+    fornecido por <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

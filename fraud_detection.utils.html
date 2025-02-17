@@ -1,0 +1,322 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="pt-BR" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Funções Auxiliares (utils) &mdash; Documentação Fraud Detection 1.0.0</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=c0c8e3fa"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="_static/translations.js?v=71a39b36"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Índice" href="genindex.html" />
+    <link rel="search" title="Buscar" href="search.html" />
+    <link rel="prev" title="Pipelines (pipeline)" href="fraud_detection.pipeline.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Fraud Detection
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Pesquisar documentos" aria-label="Pesquisar documentos" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Menu de navegação">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="fraud_detection.html">Estrutura Geral</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fraud_detection.components.html">Componentes (components)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fraud_detection.config.html">Gerenciador de Configurações (config)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fraud_detection.constants.html">Constantes (constants)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fraud_detection.entity.html">Templates de Configuração (entity)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fraud_detection.pipeline.html">Pipelines (pipeline)</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Funções Auxiliares (utils)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#module-fraud_detection.utils.base_metrics">Métricas do negócio (base_metrics)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#funcoes">Funções</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#fraud_detection.utils.base_metrics.BaseMetrics"><code class="docutils literal notranslate"><span class="pre">BaseMetrics</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#fraud_detection.utils.base_metrics.BaseMetrics.calculate_revenue"><code class="docutils literal notranslate"><span class="pre">BaseMetrics.calculate_revenue()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#fraud_detection.utils.base_metrics.BaseMetrics.find_best_threshold"><code class="docutils literal notranslate"><span class="pre">BaseMetrics.find_best_threshold()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#fraud_detection.utils.base_metrics.BaseMetrics.get_approval_rate"><code class="docutils literal notranslate"><span class="pre">BaseMetrics.get_approval_rate()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#fraud_detection.utils.base_metrics.BaseMetrics.get_decline_rate"><code class="docutils literal notranslate"><span class="pre">BaseMetrics.get_decline_rate()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#fraud_detection.utils.base_metrics.BaseMetrics.get_false_positive_rate"><code class="docutils literal notranslate"><span class="pre">BaseMetrics.get_false_positive_rate()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#fraud_detection.utils.base_metrics.BaseMetrics.get_incoming_pressure_rate"><code class="docutils literal notranslate"><span class="pre">BaseMetrics.get_incoming_pressure_rate()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#fraud_detection.utils.base_metrics.BaseMetrics.get_precision"><code class="docutils literal notranslate"><span class="pre">BaseMetrics.get_precision()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#fraud_detection.utils.base_metrics.BaseMetrics.get_recall"><code class="docutils literal notranslate"><span class="pre">BaseMetrics.get_recall()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#fraud_detection.utils.base_metrics.BaseMetrics.show_all_metrics"><code class="docutils literal notranslate"><span class="pre">BaseMetrics.show_all_metrics()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-fraud_detection.utils.commons">Funções gerais de arquivos (commons)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">Funções</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Menu de navegação móvel" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Fraud Detection</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Navegação da página">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="fraud_detection.html">Estrutura Geral</a></li>
+      <li class="breadcrumb-item active">Funções Auxiliares (utils)</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/fraud_detection.utils.rst.txt" rel="nofollow"> Ver código-fonte da página</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="funcoes-auxiliares-utils">
+<h1>Funções Auxiliares (utils)<a class="headerlink" href="#funcoes-auxiliares-utils" title="Link para este cabeçalho"></a></h1>
+<section id="module-fraud_detection.utils.base_metrics">
+<span id="metricas-do-negocio-base-metrics"></span><h2>Métricas do negócio (base_metrics)<a class="headerlink" href="#module-fraud_detection.utils.base_metrics" title="Link para este cabeçalho"></a></h2>
+<p>Módulo auxiliar para calcular as métricas do negócio.</p>
+<section id="funcoes">
+<h3>Funções<a class="headerlink" href="#funcoes" title="Link para este cabeçalho"></a></h3>
+<ul class="simple">
+<li><p>calculate_revenue: Calcula o faturamento da amostra a partir de um limiar.</p></li>
+<li><p>find_best_threshold: Encontra o melhor limiar a partir da amostra</p></li>
+<li><p>get_incoming_pressure_rate: Calcula a pressão de entrada de fraudes.</p></li>
+<li><p>get_approval_rate: Calcula a taxa de aprovação.</p></li>
+<li><p>get_decline_rate: Calcula a taxa de declínio de transações.</p></li>
+<li><p>get_precision: Calcula a precisão do modelo.</p></li>
+<li><p>get_recall: Calcula a revocação do modelo.</p></li>
+<li><p>get_false_positive_rate: Calcula a taxa de falsos positivos do modelo base.</p></li>
+<li><p>show_all_metrics: Exibe todas as métricas de avaliação do modelo base.</p></li>
+</ul>
+</section>
+<dl class="py class">
+<dt class="sig sig-object py" id="fraud_detection.utils.base_metrics.BaseMetrics">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">fraud_detection.utils.base_metrics.</span></span><span class="sig-name descname"><span class="pre">BaseMetrics</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">score_column</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fraud_column</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value_column</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fraud_detection/utils/base_metrics.html#BaseMetrics"><span class="viewcode-link"><span class="pre">[código-fonte]</span></span></a><a class="headerlink" href="#fraud_detection.utils.base_metrics.BaseMetrics" title="Link para esta definição"></a></dt>
+<dd><p>Base: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Classe utilizada para calcular métricas de avaliação para modelo base
+de detecção de fraude.</p>
+<p>Possui funcionalidades para achar o melhor limiar de corte de avaliação,
+além de trazer métricas dos KPIs de interesse para a avaliação do modelo.</p>
+<p>Iremos utilizar tais métricas para comparar com o novo modelo criado.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parâmetros<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> – DataFrame com as informações de compras realizadas</p></li>
+<li><p><strong>score_column</strong> – Coluna com score de detecção de fraude do modelo base</p></li>
+<li><p><strong>fraud_column</strong> – Nome da coluna com a classificação verdadeira de fraude</p></li>
+<li><p><strong>value_column</strong> – Nome da coluna com o valor da transação</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="fraud_detection.utils.base_metrics.BaseMetrics.calculate_revenue">
+<span class="sig-name descname"><span class="pre">calculate_revenue</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">threshold</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/fraud_detection/utils/base_metrics.html#BaseMetrics.calculate_revenue"><span class="viewcode-link"><span class="pre">[código-fonte]</span></span></a><a class="headerlink" href="#fraud_detection.utils.base_metrics.BaseMetrics.calculate_revenue" title="Link para esta definição"></a></dt>
+<dd><p>Função que calcula faturamento da amostra a partir de um limiar.</p>
+<dl class="simple">
+<dt>O cálculo de faturamento se baseia nas premissas:</dt><dd><ul class="simple">
+<li><p>10% do valor de compras aceitas é recebido.</p></li>
+<li><p>100% do valor de compras fraudulentar aceitas é perdido.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parâmetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>threshold</strong> (<em>int</em>) – Limiar de score para aceitação.</p>
+</dd>
+<dt class="field-even">Retorna<span class="colon">:</span></dt>
+<dd class="field-even"><p>Faturamento total para o limiar fornecido.</p>
+</dd>
+<dt class="field-odd">Tipo de retorno<span class="colon">:</span></dt>
+<dd class="field-odd"><p>total_revenue (float)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fraud_detection.utils.base_metrics.BaseMetrics.find_best_threshold">
+<span class="sig-name descname"><span class="pre">find_best_threshold</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fraud_detection/utils/base_metrics.html#BaseMetrics.find_best_threshold"><span class="viewcode-link"><span class="pre">[código-fonte]</span></span></a><a class="headerlink" href="#fraud_detection.utils.base_metrics.BaseMetrics.find_best_threshold" title="Link para esta definição"></a></dt>
+<dd><p>Função que encontra o melhor limiar de corte para o modelo base.</p>
+<p>O melhor limiar maximiza a receita gerada pelo modelo.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fraud_detection.utils.base_metrics.BaseMetrics.get_approval_rate">
+<span class="sig-name descname"><span class="pre">get_approval_rate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fraud_detection/utils/base_metrics.html#BaseMetrics.get_approval_rate"><span class="viewcode-link"><span class="pre">[código-fonte]</span></span></a><a class="headerlink" href="#fraud_detection.utils.base_metrics.BaseMetrics.get_approval_rate" title="Link para esta definição"></a></dt>
+<dd><p>Função que calcula a taxa de aprovação.</p>
+<p>Calculada como a razão entre o número de transações aprovadas e        o número total de transações.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Retorna<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Taxa de aprovação.</p>
+</dd>
+<dt class="field-even">Tipo de retorno<span class="colon">:</span></dt>
+<dd class="field-even"><p>approval_rate (float)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fraud_detection.utils.base_metrics.BaseMetrics.get_decline_rate">
+<span class="sig-name descname"><span class="pre">get_decline_rate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fraud_detection/utils/base_metrics.html#BaseMetrics.get_decline_rate"><span class="viewcode-link"><span class="pre">[código-fonte]</span></span></a><a class="headerlink" href="#fraud_detection.utils.base_metrics.BaseMetrics.get_decline_rate" title="Link para esta definição"></a></dt>
+<dd><p>Função que calcula a taxa de declínio de transações.</p>
+<p>Calculada como a razão entre o número de transações declinadas        e o número total de transações.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Retorna<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Taxa de declínio.</p>
+</dd>
+<dt class="field-even">Tipo de retorno<span class="colon">:</span></dt>
+<dd class="field-even"><p>decline_rate (float)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fraud_detection.utils.base_metrics.BaseMetrics.get_false_positive_rate">
+<span class="sig-name descname"><span class="pre">get_false_positive_rate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fraud_detection/utils/base_metrics.html#BaseMetrics.get_false_positive_rate"><span class="viewcode-link"><span class="pre">[código-fonte]</span></span></a><a class="headerlink" href="#fraud_detection.utils.base_metrics.BaseMetrics.get_false_positive_rate" title="Link para esta definição"></a></dt>
+<dd><p>Função que calcula a taxa de falsos positivos do modelo base.</p>
+<p>FP: transações legítimas identificadas como fraudes
+VN: transações legítimas identificadas corretamente</p>
+<p>FPR = FP / (FP + VN)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Retorna<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Taxa de falsos positivos.</p>
+</dd>
+<dt class="field-even">Tipo de retorno<span class="colon">:</span></dt>
+<dd class="field-even"><p>false_positive_rate (float)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fraud_detection.utils.base_metrics.BaseMetrics.get_incoming_pressure_rate">
+<span class="sig-name descname"><span class="pre">get_incoming_pressure_rate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fraud_detection/utils/base_metrics.html#BaseMetrics.get_incoming_pressure_rate"><span class="viewcode-link"><span class="pre">[código-fonte]</span></span></a><a class="headerlink" href="#fraud_detection.utils.base_metrics.BaseMetrics.get_incoming_pressure_rate" title="Link para esta definição"></a></dt>
+<dd><p>Função que calcula a pressão de entrada de transações fraudulentas.</p>
+<p>Calculada como a razão entre o número de transações fraudulentas com        o número total de transações.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Retorna<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Taxa de pressão de entrada de                                       transações.</p>
+</dd>
+<dt class="field-even">Tipo de retorno<span class="colon">:</span></dt>
+<dd class="field-even"><p>incoming_pressure (float)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fraud_detection.utils.base_metrics.BaseMetrics.get_precision">
+<span class="sig-name descname"><span class="pre">get_precision</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fraud_detection/utils/base_metrics.html#BaseMetrics.get_precision"><span class="viewcode-link"><span class="pre">[código-fonte]</span></span></a><a class="headerlink" href="#fraud_detection.utils.base_metrics.BaseMetrics.get_precision" title="Link para esta definição"></a></dt>
+<dd><p>Função que calcula a precisão do modelo.</p>
+<p>VP: fraudes identificadas corretamente
+FP: transações legítimas identificadas como fraudes</p>
+<p>Precisão = VP / (VP + FP)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Retorna<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Taxa de precisão.</p>
+</dd>
+<dt class="field-even">Tipo de retorno<span class="colon">:</span></dt>
+<dd class="field-even"><p>precision (float)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fraud_detection.utils.base_metrics.BaseMetrics.get_recall">
+<span class="sig-name descname"><span class="pre">get_recall</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fraud_detection/utils/base_metrics.html#BaseMetrics.get_recall"><span class="viewcode-link"><span class="pre">[código-fonte]</span></span></a><a class="headerlink" href="#fraud_detection.utils.base_metrics.BaseMetrics.get_recall" title="Link para esta definição"></a></dt>
+<dd><p>Função que calcula a revocação do modelo.</p>
+<p>VP: fraudes identificadas corretamente
+FN: transações fraudulentas identificadas como legítimas</p>
+<p>Recall = VP / (VP + FN)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Retorna<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Taxa de revocação.</p>
+</dd>
+<dt class="field-even">Tipo de retorno<span class="colon">:</span></dt>
+<dd class="field-even"><p>recall (float)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fraud_detection.utils.base_metrics.BaseMetrics.show_all_metrics">
+<span class="sig-name descname"><span class="pre">show_all_metrics</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/fraud_detection/utils/base_metrics.html#BaseMetrics.show_all_metrics"><span class="viewcode-link"><span class="pre">[código-fonte]</span></span></a><a class="headerlink" href="#fraud_detection.utils.base_metrics.BaseMetrics.show_all_metrics" title="Link para esta definição"></a></dt>
+<dd><p>Função que exibe todas as métricas de avaliação do modelo base.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-fraud_detection.utils.commons">
+<span id="funcoes-gerais-de-arquivos-commons"></span><h2>Funções gerais de arquivos (commons)<a class="headerlink" href="#module-fraud_detection.utils.commons" title="Link para este cabeçalho"></a></h2>
+<p>Módulo de funções a serem utilizadas de forma comum entre os módulos.</p>
+<p>Possui funções de leituras e criação de arquivos e diretórios.</p>
+<section id="id1">
+<h3>Funções<a class="headerlink" href="#id1" title="Link para este cabeçalho"></a></h3>
+<ul class="simple">
+<li><p>read_yaml: Lê um arquivo yaml e retorna um objeto ConfigBox.</p></li>
+<li><p>create_directories: Cria diretórios de acordo com o caminhos passado.</p></li>
+<li><p>save_json: Salva um arquivo json no caminho especificado.</p></li>
+</ul>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Rodapé">
+        <a href="fraud_detection.pipeline.html" class="btn btn-neutral float-left" title="Pipelines (pipeline)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Anterior</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Direitos autorais 2025, Rennê Oliveira.</p>
+  </div>
+
+  Compilado com <a href="https://www.sphinx-doc.org/">Sphinx</a> usando um
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">tema</a>
+    fornecido por <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
