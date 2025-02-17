@@ -1,7 +1,7 @@
 ![transacoes_fraudulentas](static/img/present_card.png)
 
 ## Overview
-Este projeto tem como objetivo a análise de transações fraudulentas em compras de cartão e como elas podem se identificadas da melhor forma utilizando Dados e Machine Learning.
+Este projeto tem como objetivo a análise de transações fraudulentas em compras de cartão e como podemos identificá-las da melhor forma utilizando Dados e Machine Learning.
 
 O modelo treinado será comparado com o modelo base fornecido na amostra de dados, queremos verificar em como as métricas de negócio se alteram e se conseguimos mapear o perfil das transações fraudulentas gerando mais lucro para o nosso negócio.
 
